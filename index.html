@@ -708,7 +708,8 @@ function _parseHealth(text){
       else cur+=ch;
     }
     cols.push(cur);
-    const date=_shDate(cols[0])||(cols[0]&&cols[0].trim().match(/^\d{4}-\d{2}-\d{2}$/)?cols[0].trim():null);
+    const _mdy=cols[0]&&cols[0].trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    const date=_shDate(cols[0])||(_mdy?_mdy[3]+'-'+_mdy[1].padStart(2,'0')+'-'+_mdy[2].padStart(2,'0'):null)||(cols[0]&&cols[0].trim().match(/^\d{4}-\d{2}-\d{2}$/)?cols[0].trim():null);
     if(!date)continue;
     records.push({date,
       active_cal:_hun(cols[1]),resting_cal:_hun(cols[2]),
