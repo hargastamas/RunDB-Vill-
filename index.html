@@ -1270,6 +1270,8 @@
       .plan-mini-day .pmd-type { font-weight: 600; }
       .plan-mini-day .pmd-detail { color: var(--text2); }
       .plan-mini-day.is-done { opacity: 0.5; }
+      .plan-mini-day.is-clickable { cursor: pointer; }
+      .plan-mini-day.is-clickable:hover { outline: 1px solid var(--lime); }
       .plan-mini-day.is-gym { border-left: 2px solid #a78bfa; }
       .plan-mini-day.is-run { border-left: 2px solid var(--lime); }
       .plan-mini-day.is-rest { border-left: 2px solid var(--surface2); }
@@ -4032,24 +4034,25 @@
         return d.toISOString().slice(0, 10);
       }
 
-      function _gymDone(weekIdx) {
-        const wkStart = _planWeekStart(weekIdx);
-        const wkEnd = _planDayDate(weekIdx, 6);
-        return GYM_DATES.some((d) => d >= wkStart && d <= wkEnd);
+      function _getPlanChecks() {
+        try { return JSON.parse(localStorage.getItem("planChecked") || "{}"); }
+        catch { return {}; }
       }
 
       function _sessionDone(weekIdx, dayIdx, type) {
-        if (type === "gym") return _gymDone(weekIdx);
         if (type === "rest") return false;
-        if (type === "race") return false;
-        const wkStart = _planWeekStart(weekIdx);
-        const wkEnd = _planDayDate(weekIdx, 6);
-        const week = PLAN_DATA[weekIdx];
-        const plannedRunsUpToDay = week.days
-          .slice(0, dayIdx + 1)
-          .filter((d) => d.type !== "rest" && d.type !== "gym" && d.type !== "race").length;
-        const actualRuns = RUNS.filter((r) => r.date >= wkStart && r.date <= wkEnd && r.dist > 0).length;
-        return actualRuns >= plannedRunsUpToDay;
+        return !!_getPlanChecks()[weekIdx + "-" + dayIdx];
+      }
+
+      function togglePlanSession(wi, di, type, ev) {
+        if (ev) ev.stopPropagation();
+        if (type === "rest") return;
+        const checks = _getPlanChecks();
+        const key = wi + "-" + di;
+        if (checks[key]) delete checks[key];
+        else checks[key] = true;
+        localStorage.setItem("planChecked", JSON.stringify(checks));
+        _renderPlanFull(_planCurrentWeekIdx(), new Date().toISOString().slice(0, 10));
       }
 
       function _planCurrentWeekIdx() {
@@ -4138,7 +4141,8 @@
               const dateStr = _planDayDate(wi, di);
               const done = _sessionDone(wi, di, d.type);
               const typeClass = d.type === "gym" ? "is-gym" : d.type === "rest" ? "is-rest" : "is-run";
-              return `<div class="plan-mini-day ${typeClass} ${done ? "is-done" : ""}">
+              const clickable = d.type !== "rest";
+              return `<div class="plan-mini-day ${typeClass} ${done ? "is-done" : ""} ${clickable ? "is-clickable" : ""}" ${clickable ? `onclick="togglePlanSession(${wi},${di},'${d.type}',event)" title="${done ? "Jelölés törlése" : "Teljesítve jelölés"}"` : ""}>
               <div class="pmd-dow">${_PLAN_DAYS_HU[di]} ${_fmtPlanDate(dateStr)}</div>
               <div class="pmd-type" style="color:${_planTypeColor(d.type)}">${done ? "✓ " : ""}${d.lbl}</div>
               ${d.det && d.type !== "rest" ? `<div class="pmd-detail">${d.det}</div>` : ""}
