@@ -2071,6 +2071,7 @@
         if (runsResult.status !== "fulfilled")
           console.warn("RunDB: sheet fetch sikertelen:", runsResult.reason?.message);
         _render(runs);
+        _loadPlanChecks();
       }
       // ─────────────────────────────────────────────────────────────────────────────
       const MONTHS_HU = ["jan", "feb", "már", "ápr", "máj", "jún", "júl", "aug", "szep", "okt", "nov", "dec"];
@@ -4038,8 +4039,24 @@
       }
 
       function _getPlanChecks() {
+        if (_planChecksCache !== null) return _planChecksCache;
         try { return JSON.parse(localStorage.getItem("planChecked") || "{}"); }
         catch { return {}; }
+      }
+
+      async function _loadPlanChecks() {
+        try { _planChecksCache = JSON.parse(localStorage.getItem("planChecked") || "{}"); }
+        catch { _planChecksCache = {}; }
+        if (!PLAN_CHECKS_URL) return;
+        try {
+          const r = await fetch(PLAN_CHECKS_URL + "?action=get");
+          if (r.ok) {
+            const text = await r.text();
+            _planChecksCache = JSON.parse(text);
+            localStorage.setItem("planChecked", text);
+            _renderPlanFull(_planCurrentWeekIdx(), new Date().toISOString().slice(0, 10));
+          }
+        } catch {}
       }
 
       function _sessionDone(weekIdx, dayIdx, type) {
@@ -4054,8 +4071,13 @@
         const key = wi + "-" + di;
         if (checks[key]) delete checks[key];
         else checks[key] = true;
-        localStorage.setItem("planChecked", JSON.stringify(checks));
+        _planChecksCache = checks;
+        const json = JSON.stringify(checks);
+        localStorage.setItem("planChecked", json);
         _renderPlanFull(_planCurrentWeekIdx(), new Date().toISOString().slice(0, 10));
+        if (PLAN_CHECKS_URL) {
+          fetch(PLAN_CHECKS_URL + "?action=set&data=" + encodeURIComponent(json)).catch(() => {});
+        }
       }
 
       function _planCurrentWeekIdx() {
@@ -4103,6 +4125,10 @@
 
       function _renderPlanFull(cwIdx, today) {
         const el = document.getElementById("plan-full");
+        const openWkIdxs = new Set();
+        el.querySelectorAll(".plan-week-acc").forEach((acc) => {
+          if (acc.querySelector(".plan-week-hdr.is-open")) openWkIdxs.add(acc.dataset.wi);
+        });
         el.innerHTML = PLAN_DATA.map((week, wi) => {
           const wkStart = _planWeekStart(wi);
           const wkEnd = _planDayDate(wi, 6);
@@ -4110,10 +4136,11 @@
           const isPast = wi < cwIdx;
           const completedSessions = week.days.filter((d, di) => _sessionDone(wi, di, d.type)).length;
           const totalSessions = week.days.filter((d) => d.type !== "rest").length;
-          const hdrClass = ["plan-week-hdr", isCurrent ? "is-current" : "", isCurrent ? "is-open" : ""]
+          const isOpen = isCurrent || openWkIdxs.has(String(wi));
+          const hdrClass = ["plan-week-hdr", isCurrent ? "is-current" : "", isOpen ? "is-open" : ""]
             .filter(Boolean)
             .join(" ");
-          const bodyClass = ["plan-week-body", isCurrent ? "is-open" : ""].filter(Boolean).join(" ");
+          const bodyClass = ["plan-week-body", isOpen ? "is-open" : ""].filter(Boolean).join(" ");
           const statusStr = isPast
             ? `<span style="color:var(--text3)">${completedSessions}/${totalSessions}</span>`
             : isCurrent
@@ -4128,7 +4155,7 @@
               </div>`
             : "";
 
-          return `<div class="plan-week-acc">
+          return `<div class="plan-week-acc" data-wi="${wi}">
       <div class="${hdrClass}" onclick="this.classList.toggle('is-open');this.nextElementSibling.classList.toggle('is-open')">
         <span class="pwh-num">${wi + 1}. hét</span>
         <span class="pwh-phase" style="background:${week.phaseColor}22;border-color:${week.phaseColor};color:${week.phaseColor}">${week.phase}</span>
