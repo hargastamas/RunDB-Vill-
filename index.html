@@ -1,74 +1,186 @@
 <!doctype html>
-<html lang="hu">
+<html lang="hu" class="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Villő — RunDB</title>
+    <link rel="icon" type="image/svg+xml" href="icon.svg" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="RunDB" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=DM+Mono:wght@400;500&display=swap");
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("fonts/ProximaNova-Light.ttf") format("truetype");
+        font-weight: 300;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("fonts/ProximaNova-Regular.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("fonts/ProximaNova-Semibold.ttf") format("truetype");
+        font-weight: 600;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("fonts/ProximaNova-Extrabold.ttf") format("truetype");
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("fonts/ProximaNova-Extrabold.ttf") format("truetype");
+        font-weight: 800;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Proxima Nova";
+        src: url("fonts/ProximaNova-Extrabold.ttf") format("truetype");
+        font-weight: 900;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "DINPro";
+        src: url("fonts/dinpro.otf") format("opentype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "DINPro";
+        src: url("fonts/dinpro_medium.otf") format("opentype");
+        font-weight: 500;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "DINPro";
+        src: url("fonts/dinpro_bold.otf") format("opentype");
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "DINPro";
+        src: url("fonts/dinpro_black.otf") format("opentype");
+        font-weight: 900;
+        font-style: normal;
+        font-display: swap;
+      }
 
       * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
       }
+      /* Redesign 2026-07-25: Outfit everywhere, overrides the many inline
+         Proxima Nova / DINPro font-family declarations scattered through the JS templates */
+      body,
+      body * {
+        font-family: "Outfit", "Proxima Nova", sans-serif !important;
+      }
       :root {
-        --lime: #c8f135;
-        --lime-dim: rgba(200, 241, 53, 0.15);
-        --bg: #0a0a0a;
-        --surface: #111111;
-        --surface2: #1a1a1a;
-        --border: #222222;
-        --border2: #2e2e2e;
+        --lime: #00f19f;
+        --lime-dim: rgba(0, 241, 159, 0.15);
+        --on-lime: #111111;
+        --bg: #111214;
+        --surface: #1d1f22;
+        --surface2: #26282c;
+        --border: #2e3035;
+        --border2: #383b40;
         --text: #ffffff;
-        --text2: #aaaaaa;
-        --text3: #555555;
-        --red: #ff4444;
-        --orange: #ff8c00;
-        --grid-line: #1e1e1e;
-        --axis-text: #444444;
-        --tip-bg: #111111;
-        --tip-border: #2a2a2a;
+        --text2: #c5c8ce;
+        --text3: #8a909e;
+        --red: #ff0026;
+        --orange: #ffde00;
+        --strain: #0093e7;
+        --grid-line: #1a1c1f;
+        --axis-text: #6b7380;
+        --tip-bg: #1d1f22;
+        --tip-border: #26282c;
         --tip-text: #ffffff;
+        --card-border: transparent;
+        --card-shadow: none;
       }
       :root.light {
-        --bg: #f4f4f4;
+        /* Redesign 2026-07-25: palette extracted from a reference screenshot.
+           Decorative fills use the exact extracted hues; anything used as text is a
+           darker tint of the same hue so it still clears WCAG AA on white — the
+           screenshot's own light tones (e.g. the raw #FFBB6E orange or #8E98A4 gray)
+           fail contrast as text. */
+        --lime: #3d6fe0;
+        --lime-dim: rgba(61, 111, 224, 0.15);
+        --on-lime: #ffffff;
+        --bg: #eaebef;
         --surface: #ffffff;
-        --surface2: #efefef;
-        --border: #e2e2e2;
-        --border2: #d4d4d4;
-        --text: #0a0a0a;
-        --text2: #444444;
-        --text3: #999999;
+        --surface2: #f2f4fa;
+        --border: #e4e7ef;
+        --border2: #d6dae5;
+        --text: #0d0f2b;
+        --text2: #4b5567;
+        --text3: #6b7684;
         --red: #d92b2b;
-        --orange: #c47000;
-        --grid-line: #eeeeee;
-        --axis-text: #aaaaaa;
+        --orange: #b85c08;
+        --grid-line: #e8eaed;
+        --axis-text: #9ca3af;
         --tip-bg: #ffffff;
-        --tip-border: #d0d0d0;
-        --tip-text: #0a0a0a;
+        --tip-border: #d0d4db;
+        --tip-text: #0d0f2b;
+        --card-border: #e4e7ef;
+        --card-shadow: 0 1px 8px rgba(0, 0, 0, 0.07);
+        background: #eaebef;
       }
 
-      html,
+      html {
+        background: linear-gradient(160deg, #181a1e 0%, #111214 100%);
+        min-height: 100%;
+      }
       body {
-        background: var(--bg);
+        background: transparent;
         color: var(--text);
-        font-family: "Inter", sans-serif;
+        font-family: "Proxima Nova", sans-serif;
+        font-weight: 500;
         min-height: 100vh;
         -webkit-font-smoothing: antialiased;
         transition:
           background 0.25s,
           color 0.25s;
       }
+      button,
+      input,
+      select,
+      textarea {
+        font-family: "Proxima Nova", sans-serif;
+      }
 
       /* NAV */
       nav {
-        background: var(--bg);
+        background: var(--surface);
         border-bottom: 1px solid var(--border);
         transition:
           background 0.25s,
           border-color 0.25s;
-        height: 52px;
+        height: 54px;
         display: flex;
         align-items: center;
         padding: 0 28px;
@@ -76,10 +188,11 @@
         position: sticky;
         top: 0;
         z-index: 100;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
       }
       .nav-brand {
         font-size: 15px;
-        font-weight: 900;
+        font-weight: 800;
         color: var(--text);
         letter-spacing: -0.5px;
         margin-right: 24px;
@@ -89,27 +202,27 @@
         color: var(--lime);
       }
       .tab-btn {
-        font-size: 11px;
-        font-weight: 500;
-        letter-spacing: 0.5px;
+        font-size: 15px;
+        font-weight: 400;
+        letter-spacing: 0;
         color: var(--text3);
         background: none;
         border: none;
         cursor: pointer;
-        padding: 6px 12px;
-        border-radius: 6px;
+        padding: 6px 14px;
+        border-radius: 8px;
         transition: all 0.15s;
         white-space: nowrap;
-        text-transform: uppercase;
+        font-family: "Proxima Nova", sans-serif;
       }
       .tab-btn:hover {
         color: var(--text);
         background: var(--surface2);
       }
       .tab-btn.active {
-        color: var(--bg);
+        color: var(--on-lime);
         background: var(--lime);
-        font-weight: 700;
+        font-weight: 600;
       }
 
       /* PAGES */
@@ -125,14 +238,14 @@
 
       /* SECTION LABEL */
       .slabel {
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: var(--text3);
-        margin-bottom: 14px;
-        margin-top: 32px;
-        padding-top: 28px;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: -0.2px;
+        text-transform: none;
+        color: var(--text);
+        margin-bottom: 16px;
+        margin-top: 40px;
+        padding-top: 30px;
         border-top: 1px solid var(--border);
       }
       .slabel:first-child {
@@ -145,38 +258,79 @@
       .stat-row {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        gap: 10px;
+        gap: 12px;
         margin-bottom: 0;
+      }
+      #daily-stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      #today-plan,
+      #today-vo2 {
+        display: contents;
+      }
+      #today-plan > .stat-box {
+        grid-column: span 1;
+      }
+
+      #thisweek-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        grid-column: 1 / -1;
+      }
+      #thisweek-plan,
+      #thisweek-weight {
+        grid-column: 1 / -1;
+      }
+      .daily-week-label {
+        grid-column: 1/-1;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: -0.2px;
+        color: var(--text);
+        margin-bottom: 0;
+        margin-top: 8px;
+        padding-top: 16px;
+        border-top: 1px solid var(--border);
+        border-radius: 0;
+        background: none;
+        box-shadow: none;
+        padding-left: 0;
+        padding-right: 0;
       }
       .stat-box {
         background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        padding: 16px;
+        border: 1px solid var(--card-border);
+        border-radius: 16px;
+        padding: 18px 20px;
         transition:
           background 0.25s,
           border-color 0.25s;
+        box-shadow: var(--card-shadow);
       }
       .stat-lbl {
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 2px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
         color: var(--text3);
         margin-bottom: 8px;
       }
       .stat-num {
-        font-size: 32px;
-        font-weight: 900;
+        font-family: DINPro, "Proxima Nova", sans-serif;
+        font-size: 36px;
+        font-weight: 600;
         color: var(--text);
         line-height: 1;
-        letter-spacing: -1px;
+        letter-spacing: -0.5px;
       }
       .stat-num.lime {
         color: var(--lime);
       }
       .stat-unit {
-        font-size: 10px;
+        font-size: 12px;
         color: var(--text3);
         margin-top: 4px;
       }
@@ -185,12 +339,12 @@
       .pr-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
+        gap: 12px;
       }
       .pr-card {
         background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 12px;
+        border: 1px solid var(--card-border);
+        border-radius: 16px;
         padding: 20px 22px;
         cursor: pointer;
         transition:
@@ -199,6 +353,7 @@
           box-shadow 0.2s;
         position: relative;
         overflow: hidden;
+        box-shadow: var(--card-shadow);
       }
       .pr-card::before {
         content: "";
@@ -218,32 +373,60 @@
       .pr-card:hover::before {
         opacity: 1;
       }
+      .stat-box-link {
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition:
+          border-color 0.2s,
+          background 0.2s,
+          box-shadow 0.2s;
+      }
+      .stat-box-link::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: var(--lime);
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
+      .stat-box-link:hover {
+        border-color: var(--lime);
+        background: var(--surface2);
+      }
+      .stat-box-link:hover::before {
+        opacity: 1;
+      }
       .pr-lbl {
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 2px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1px;
         text-transform: uppercase;
         color: var(--text3);
         margin-bottom: 12px;
       }
       .pr-num {
+        font-family: DINPro, "Proxima Nova", sans-serif;
         font-size: 44px;
-        font-weight: 900;
+        font-weight: 800;
         color: var(--text);
         line-height: 1;
-        letter-spacing: -2px;
+        letter-spacing: -1px;
       }
       .pr-num .unit {
         font-size: 18px;
-        font-weight: 400;
+        font-weight: 300;
         color: var(--text3);
         letter-spacing: 0;
         margin-left: 4px;
       }
       .pr-meta {
-        font-size: 10px;
+        font-size: 12px;
         color: var(--text3);
-        font-family: "DM Mono", monospace;
+        font-family: DINPro, "Proxima Nova", sans-serif;
         margin-top: 10px;
         line-height: 1.7;
         border-top: 1px solid var(--border);
@@ -251,7 +434,7 @@
       }
       .pr-link {
         font-size: 9px;
-        font-weight: 700;
+        font-weight: 600;
         letter-spacing: 1px;
         text-transform: uppercase;
         color: var(--lime);
@@ -274,7 +457,7 @@
       }
       .search-input {
         font-size: 13px;
-        font-family: "DM Mono", monospace;
+        font-family: DINPro, "Proxima Nova", sans-serif;
         background: var(--surface);
         border: 1px solid var(--border);
         border-radius: 8px;
@@ -293,7 +476,7 @@
       }
       .filter-select {
         font-size: 11px;
-        font-family: "DM Mono", monospace;
+        font-family: DINPro, "Proxima Nova", sans-serif;
         background: var(--surface);
         border: 1px solid var(--border);
         border-radius: 8px;
@@ -307,7 +490,7 @@
       }
       .filter-btn {
         font-size: 10px;
-        font-weight: 700;
+        font-weight: 600;
         letter-spacing: 1px;
         text-transform: uppercase;
         background: var(--surface);
@@ -325,25 +508,26 @@
       .result-count {
         font-size: 10px;
         color: var(--text3);
-        font-family: "DM Mono", monospace;
+        font-family: DINPro, "Proxima Nova", sans-serif;
         margin-left: auto;
       }
 
       /* RUNS TABLE */
       .table-wrap {
         background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 12px;
+        border: 1px solid var(--card-border);
+        border-radius: 16px;
         overflow: hidden;
+        box-shadow: var(--card-shadow);
       }
       .data-table {
         width: 100%;
         border-collapse: collapse;
       }
       .data-table thead th {
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 2px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1px;
         text-transform: uppercase;
         color: var(--text3);
         padding: 12px 12px;
@@ -377,14 +561,14 @@
         border-bottom: none;
       }
       .data-table tbody td {
-        padding: 11px 12px;
-        font-family: "DM Mono", monospace;
-        font-size: 11px;
+        padding: 12px 14px;
+        font-family: DINPro, "Proxima Nova", sans-serif;
+        font-size: 13px;
         color: var(--text2);
       }
       .data-table tbody td.primary {
         color: var(--text);
-        font-weight: 500;
+        font-weight: 400;
       }
       .data-table tbody td.lime {
         color: var(--lime);
@@ -424,10 +608,10 @@
       /* BEST BADGE */
       .best-badge {
         display: inline-block;
-        background: rgba(200, 241, 53, 0.12);
+        background: rgba(0, 241, 159, 0.12);
         color: var(--lime);
-        font-size: 8px;
-        font-weight: 700;
+        font-size: 10px;
+        font-weight: 600;
         letter-spacing: 1px;
         padding: 2px 6px;
         border-radius: 4px;
@@ -441,18 +625,18 @@
         align-items: center;
         gap: 10px;
         margin-top: 14px;
-        font-size: 11px;
+        font-size: 13px;
         color: var(--text3);
-        font-family: "DM Mono", monospace;
+        font-family: DINPro, "Proxima Nova", sans-serif;
       }
       .page-btn {
         background: var(--surface);
         border: 1px solid var(--border);
         border-radius: 6px;
-        padding: 5px 12px;
+        padding: 6px 14px;
         cursor: pointer;
-        font-family: "DM Mono", monospace;
-        font-size: 11px;
+        font-family: DINPro, "Proxima Nova", sans-serif;
+        font-size: 13px;
         color: var(--text2);
         transition: all 0.15s;
       }
@@ -483,12 +667,13 @@
       .modal {
         background: var(--surface);
         border: 1px solid var(--border);
-        border-radius: 16px;
+        border-radius: 20px;
         padding: 32px;
         max-width: 540px;
         width: 90%;
         position: relative;
         margin-bottom: 40px;
+        box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
       }
       .modal-close {
         position: absolute;
@@ -513,28 +698,29 @@
         color: var(--lime);
       }
       .modal-dist {
+        font-family: DINPro, "Proxima Nova", sans-serif;
         font-size: 64px;
-        font-weight: 900;
+        font-weight: 800;
         color: var(--text);
         line-height: 1;
-        letter-spacing: -3px;
+        letter-spacing: -2px;
         margin-bottom: 4px;
       }
       .modal-dist span {
         font-size: 24px;
-        font-weight: 400;
+        font-weight: 300;
         color: var(--text3);
       }
       .modal-pace {
         font-size: 18px;
-        font-weight: 700;
+        font-weight: 600;
         color: var(--lime);
         margin-bottom: 20px;
       }
       .modal-date {
         font-size: 11px;
         color: var(--text3);
-        font-family: "DM Mono", monospace;
+        font-family: DINPro, "Proxima Nova", sans-serif;
         margin-bottom: 20px;
       }
       .modal-stats {
@@ -551,23 +737,23 @@
         padding: 14px 16px;
       }
       .modal-stat-lbl {
-        font-size: 8px;
-        font-weight: 700;
-        letter-spacing: 2px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 1px;
         text-transform: uppercase;
         color: var(--text3);
         margin-bottom: 5px;
       }
       .modal-stat-val {
-        font-size: 18px;
-        font-weight: 700;
+        font-size: 20px;
+        font-weight: 600;
         color: var(--text);
-        font-family: "DM Mono", monospace;
+        font-family: DINPro, "Proxima Nova", sans-serif;
       }
       .modal-zone-lbl {
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 2px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1px;
         text-transform: uppercase;
         color: var(--text3);
         margin-bottom: 8px;
@@ -586,15 +772,15 @@
         flex-wrap: wrap;
       }
       .modal-zone-tag {
-        font-size: 10px;
-        font-family: "DM Mono", monospace;
+        font-size: 12px;
+        font-family: DINPro, "Proxima Nova", sans-serif;
       }
       .pr-tag {
         display: inline-block;
-        background: rgba(200, 241, 53, 0.12);
+        background: rgba(0, 241, 159, 0.12);
         color: var(--lime);
         font-size: 9px;
-        font-weight: 700;
+        font-weight: 600;
         letter-spacing: 1px;
         padding: 3px 8px;
         border-radius: 5px;
@@ -610,9 +796,9 @@
         margin-bottom: 3px;
       }
       .heatmap-year {
-        font-size: 10px;
+        font-size: 12px;
         color: var(--text3);
-        font-family: "DM Mono", monospace;
+        font-family: DINPro, "Proxima Nova", sans-serif;
         width: 32px;
         text-align: right;
         flex-shrink: 0;
@@ -632,6 +818,21 @@
       .hm-cell:hover {
         opacity: 0.7;
       }
+      #hm-tooltip {
+        position: fixed;
+        background: var(--tip-bg);
+        border: 1px solid var(--tip-border);
+        color: var(--tip-text);
+        border-radius: 8px;
+        padding: 7px 12px;
+        font-size: 12px;
+        font-family: DINPro, "Proxima Nova", sans-serif;
+        pointer-events: none;
+        display: none;
+        z-index: 1000;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        white-space: nowrap;
+      }
       .month-names {
         display: grid;
         grid-template-columns: repeat(12, 1fr);
@@ -640,9 +841,9 @@
         margin-left: 38px;
       }
       .month-name {
-        font-size: 8px;
+        font-size: 10px;
         color: var(--text3);
-        font-family: "DM Mono", monospace;
+        font-family: DINPro, "Proxima Nova", sans-serif;
         text-align: center;
       }
 
@@ -672,9 +873,9 @@
         border-collapse: collapse;
       }
       .compare-table th {
-        font-size: 9px;
-        font-weight: 700;
-        letter-spacing: 2px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1px;
         text-transform: uppercase;
         color: var(--text3);
         padding: 8px 10px;
@@ -682,31 +883,31 @@
         border-bottom: 1px solid var(--border);
       }
       .compare-table td {
-        padding: 10px;
+        padding: 11px 10px;
         border-bottom: 1px solid var(--border);
-        font-family: "DM Mono", monospace;
-        font-size: 11px;
+        font-family: DINPro, "Proxima Nova", sans-serif;
+        font-size: 13px;
         color: var(--text2);
       }
       .compare-table td.metric {
         color: var(--text3);
-        font-size: 9px;
-        letter-spacing: 1px;
+        font-size: 11px;
+        letter-spacing: 0.5px;
       }
       .compare-table td.val-a {
         color: #60a5fa;
-        font-weight: 500;
+        font-weight: 400;
       }
       .compare-table td.val-b {
         color: var(--lime);
-        font-weight: 500;
+        font-weight: 400;
       }
       .winner-badge {
         display: inline-block;
         padding: 1px 6px;
         border-radius: 4px;
         font-size: 8px;
-        font-weight: 700;
+        font-weight: 600;
         letter-spacing: 1px;
       }
       .winner-a {
@@ -714,7 +915,7 @@
         color: #60a5fa;
       }
       .winner-b {
-        background: rgba(200, 241, 53, 0.12);
+        background: rgba(0, 241, 159, 0.12);
         color: var(--lime);
       }
 
@@ -725,20 +926,21 @@
       }
       .chart-card {
         background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 12px;
+        border: 1px solid var(--card-border);
+        border-radius: 16px;
         padding: 20px;
+        box-shadow: var(--card-shadow);
       }
       .chart-title {
-        font-size: 13px;
-        font-weight: 700;
+        font-size: 14px;
+        font-weight: 600;
         color: var(--text);
         margin-bottom: 4px;
       }
       .chart-sub {
-        font-size: 10px;
+        font-size: 12px;
         color: var(--text3);
-        font-family: "DM Mono", monospace;
+        font-family: DINPro, "Proxima Nova", sans-serif;
         margin-bottom: 16px;
       }
 
@@ -748,41 +950,39 @@
         gap: 14px;
       }
 
-      :root.light .pr-card:hover {
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      :root.light .pr-card:hover,
+      :root.light .stat-box-link:hover {
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
       }
       :root.light .modal {
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
       }
-      :root.light .table-wrap {
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-      }
-      :root.light .chart-card {
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+      :root.light nav {
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
       }
       :root.light .winner-b {
-        background: rgba(180, 210, 10, 0.18);
-        color: #5a7a00;
+        background: var(--lime-dim);
+        color: var(--lime);
       }
       :root.light .best-badge {
-        background: rgba(180, 210, 10, 0.2);
-        color: #5a7a00;
+        background: var(--lime-dim);
+        color: var(--lime);
       }
       :root.light .pr-tag {
-        background: rgba(180, 210, 10, 0.2);
-        color: #5a7a00;
+        background: var(--lime-dim);
+        color: var(--lime);
       }
       :root.light .pr-link {
-        color: #5a7a00;
+        color: var(--lime);
       }
       :root.light .stat-num.lime {
-        color: #6a8a00;
+        color: var(--lime);
       }
       :root.light .data-table tbody td.lime {
-        color: #6a8a00;
+        color: var(--lime);
       }
       :root.light .data-table tbody tr.is-z1 td.primary {
-        color: #6a8a00;
+        color: var(--lime);
       }
       :root.light canvas {
         background: transparent;
@@ -808,7 +1008,7 @@
       }
       .cal-day-hdr {
         font-size: 9px;
-        font-weight: 700;
+        font-weight: 600;
         letter-spacing: 1.5px;
         text-transform: uppercase;
         color: var(--text3);
@@ -832,19 +1032,19 @@
         padding-right: 8px;
       }
       .cal-week-range {
-        font-size: 9px;
-        font-weight: 600;
+        font-size: 11px;
+        font-weight: 500;
         color: var(--text2);
-        font-family: "DM Mono", monospace;
+        font-family: DINPro, "Proxima Nova", sans-serif;
         line-height: 1.3;
       }
       .cal-week-km {
-        font-size: 12px;
-        font-weight: 700;
+        font-size: 14px;
+        font-weight: 600;
         color: var(--lime);
       }
       .cal-week-km.light-lime {
-        color: #6a8a00;
+        color: #3d6fe0;
       }
       .cal-cell {
         display: flex;
@@ -863,8 +1063,8 @@
           transform 0.15s,
           box-shadow 0.15s;
         flex-shrink: 0;
-        font-family: "DM Mono", monospace;
-        font-weight: 700;
+        font-family: DINPro, "Proxima Nova", sans-serif;
+        font-weight: 600;
       }
       .cal-bubble:hover {
         transform: scale(1.12);
@@ -887,7 +1087,39 @@
         background: var(--border);
         margin: 20px auto 0;
       }
+      .cal-plan-pill {
+        font-size: 7px;
+        font-weight: 600;
+        padding: 1px 5px;
+        border-radius: 3px;
+        text-align: center;
+        margin-top: 2px;
+        text-transform: uppercase;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
 
+      /* stats sub-nav */
+      .stats-sub-btn {
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        font-family: "Proxima Nova", sans-serif;
+        border-radius: 20px;
+        padding: 6px 16px;
+        cursor: pointer;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--text3);
+        transition: all 0.15s;
+      }
+      .stats-sub-btn.active {
+        background: var(--lime);
+        color: var(--on-lime);
+        border-color: var(--lime);
+      }
       /* info button */
       .info-btn {
         position: relative;
@@ -900,7 +1132,7 @@
         border: 1.5px solid var(--text3);
         color: var(--text3);
         font-size: 8px;
-        font-weight: 700;
+        font-weight: 600;
         font-style: normal;
         cursor: pointer;
         background: none;
@@ -911,7 +1143,7 @@
           border-color 0.15s,
           color 0.15s;
         outline: none;
-        font-family: "Inter", sans-serif;
+        font-family: "Proxima Nova", sans-serif;
         letter-spacing: 0;
         text-transform: none;
         line-height: 1;
@@ -931,15 +1163,15 @@
         color: var(--tip-text);
         border-radius: 10px;
         padding: 11px 14px;
-        font-size: 11px;
+        font-size: 13px;
         line-height: 1.65;
         width: 290px;
         z-index: 500;
         display: none;
-        font-weight: 400;
+        font-weight: 300;
         letter-spacing: 0;
         text-transform: none;
-        font-family: "Inter", sans-serif;
+        font-family: "Proxima Nova", sans-serif;
         box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
         pointer-events: none;
       }
@@ -955,7 +1187,7 @@
       /* gap badge */
       .cal-gap-badge {
         font-size: 7px;
-        font-weight: 700;
+        font-weight: 600;
         letter-spacing: 0.5px;
         text-transform: uppercase;
         color: var(--orange);
@@ -975,10 +1207,10 @@
         margin-bottom: 12px;
       }
       .int-pill {
-        font-size: 10px;
-        font-weight: 700;
+        font-size: 12px;
+        font-weight: 600;
         letter-spacing: 0.5px;
-        font-family: "Inter", sans-serif;
+        font-family: "Proxima Nova", sans-serif;
         border-radius: 20px;
         padding: 4px 12px;
         cursor: pointer;
@@ -990,6 +1222,11 @@
 
       /* ── MOBILE ── */
       @media (max-width: 640px) {
+        /* Fix horizontal scrollbar */
+        body {
+          overflow-x: hidden;
+        }
+
         /* Page padding */
         .page {
           padding: 14px;
@@ -1013,22 +1250,61 @@
           flex-shrink: 0;
         }
         .tab-btn {
-          font-size: 10px;
+          font-size: 13px;
           padding: 5px 8px;
           flex-shrink: 0;
         }
 
-        /* Stats: 2 oszlop */
+        /* Stats: 2 oszlop; ID-selectors need explicit override */
         .stat-row {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        #daily-stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .daily-week-label,
+        #thisweek-stats,
+        #thisweek-plan,
+        #thisweek-weight {
+          grid-column: 1 / -1;
+        }
+        #thisweek-stats {
           grid-template-columns: repeat(2, 1fr);
         }
         .stat-num {
           font-size: 26px;
         }
 
-        /* PR grid: 2 oszlop */
+        /* Weekly plan mini-calendar: a 2-column grid forces short cells to match
+           the height of the longest one (e.g. the interval day's detail text) —
+           one row per day instead, so each card is only as tall as it needs to be.
+           !important: the base .plan-week-grid/.plan-mini-days rules are declared
+           later in this file (same specificity), which would otherwise win. */
+        .plan-week-grid,
+        .plan-mini-days {
+          grid-template-columns: 1fr !important;
+        }
+        .plan-week-grid .plan-mini-day,
+        .plan-mini-days .plan-mini-day {
+          display: flex;
+          align-items: baseline;
+          gap: 8px;
+          flex-wrap: wrap;
+        }
+        .plan-week-grid .pmd-dow {
+          flex: 0 0 auto;
+          margin-bottom: 0;
+        }
+        .plan-week-grid .pmd-type {
+          flex: 0 0 auto;
+        }
+        .plan-week-grid .pmd-detail {
+          flex: 1 1 100%;
+        }
+
+        /* PR grid: 1 oszlop (2 too tight for large numbers) */
         .pr-grid {
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: 1fr;
         }
         .pr-num {
           font-size: 36px;
@@ -1135,7 +1411,13 @@
         #theme-label {
           display: none;
         }
+        /* Race banner: predicted time left-aligned on mobile */
+        .race-time-block {
+          text-align: left !important;
+          width: 100%;
+        }
       }
+
       /* ── PLAN TAB ── */
       .plan-progress-bar {
         width: 100%;
@@ -1166,7 +1448,7 @@
         padding: 4px 10px;
         border-radius: 20px;
         font-size: 11px;
-        font-weight: 600;
+        font-weight: 500;
         border: 1px solid transparent;
       }
       .plan-goal-grid {
@@ -1190,7 +1472,8 @@
       }
       .plan-goal-box .pg-val {
         font-size: 20px;
-        font-weight: 700;
+        font-weight: 600;
+        font-family: DINPro, "Proxima Nova", sans-serif;
         letter-spacing: -1px;
       }
       .plan-goal-box .pg-sub {
@@ -1213,15 +1496,142 @@
         transition: border-color 0.15s;
         box-shadow: var(--card-shadow);
       }
-      .plan-day.is-today { border-color: var(--lime); }
-      .plan-day.is-done { opacity: 0.6; }
-      .plan-day.is-rest { opacity: 0.35; padding: 8px 12px; }
-      .plan-day.is-clickable { cursor: pointer; }
-      .plan-day.is-clickable:hover { border-color: var(--lime); }
-      .plan-day .pd-dow { font-size: 12px; color: var(--text3); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.3px; }
-      .plan-day .pd-type { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
-      .plan-day .pd-detail { font-size: 13px; color: var(--text2); line-height: 1.4; }
-      .plan-day .pd-check { font-size: 18px; float: right; margin-top: -2px; }
+      .plan-day.is-today {
+        border-color: var(--lime);
+      }
+      .plan-day.is-done {
+        opacity: 0.6;
+      }
+      .plan-day.is-rest {
+        opacity: 0.35;
+        padding: 8px 12px;
+      }
+      .plan-day.is-clickable {
+        cursor: pointer;
+      }
+      .plan-day.is-clickable:hover {
+        border-color: var(--lime);
+      }
+      .plan-day .pd-dow {
+        font-size: 12px;
+        color: var(--text3);
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      .plan-day .pd-type {
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+      .plan-day .pd-detail {
+        font-size: 13px;
+        color: var(--text2);
+        line-height: 1.4;
+      }
+      .plan-day .pd-check {
+        font-size: 18px;
+        float: right;
+        margin-top: -2px;
+      }
+      .plan-insight-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 10px;
+        margin-bottom: 8px;
+      }
+      .plan-insight {
+        background: var(--surface);
+        border: 1px solid var(--card-border);
+        border-radius: 14px;
+        padding: 14px 12px;
+        box-shadow: var(--card-shadow);
+      }
+      .plan-insight .pi-lbl {
+        font-size: 12px;
+        color: var(--text2);
+        margin-bottom: 6px;
+      }
+      .plan-insight .pi-val {
+        font-size: 22px;
+        font-weight: 600;
+        font-family: DINPro, "Proxima Nova", sans-serif;
+        letter-spacing: -1px;
+      }
+      .plan-insight .pi-sub {
+        font-size: 12px;
+        color: var(--text3);
+        margin-top: 4px;
+      }
+      .plan-insight .pi-bar {
+        height: 6px;
+        background: var(--surface2);
+        border-radius: 3px;
+        margin-top: 8px;
+        overflow: hidden;
+      }
+      .plan-insight .pi-bar-fill {
+        height: 100%;
+        border-radius: 3px;
+        background: var(--lime);
+      }
+      .thisweek-ai-card {
+        background: var(--surface);
+        border: 1px solid var(--card-border);
+        border-left: 3px solid var(--lime);
+        border-radius: 10px;
+        padding: 12px 14px;
+        box-shadow: var(--card-shadow);
+      }
+      .thisweek-ai-card .ai-body {
+        display: none;
+        margin-top: 8px;
+      }
+      .thisweek-ai-card.ai-open .ai-body {
+        display: block;
+      }
+      .thisweek-ai-card .ai-chevron {
+        font-size: 11px;
+        transition: transform 0.2s;
+      }
+      .thisweek-ai-card.ai-open .ai-chevron {
+        transform: rotate(90deg);
+      }
+      .thisweek-ai-card .ai-label {
+        font-size: 11px;
+        color: var(--lime);
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .thisweek-ai-card .ai-text {
+        font-size: 13px;
+        color: var(--text2);
+        line-height: 1.65;
+      }
+      .thisweek-ai-card .ai-meta {
+        margin-top: 8px;
+        font-size: 11px;
+        color: var(--text3);
+      }
+      .plan-ai-summary {
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border);
+      }
+      .plan-ai-summary .pas-lbl {
+        font-size: 11px;
+        color: var(--text3);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 6px;
+      }
+      .plan-ai-summary .pas-text {
+        font-size: 12px;
+        color: var(--text2);
+        line-height: 1.65;
+      }
       .plan-week-acc {
         border: 1px solid var(--card-border);
         border-radius: 14px;
@@ -1238,26 +1648,62 @@
         user-select: none;
         background: var(--surface);
       }
-      .plan-week-hdr:hover { background: var(--surface2); }
-      .plan-week-hdr .pwh-num { font-size: 13px; color: var(--text3); min-width: 52px; }
-      .plan-week-hdr .pwh-phase { font-size: 12px; padding: 2px 8px; border-radius: 10px; border: 1px solid transparent; }
-      .plan-week-hdr .pwh-dates { font-size: 13px; color: var(--text2); flex: 1; }
-      .plan-week-hdr .pwh-km { font-size: 13px; font-weight: 600; margin-left: auto; margin-right: 8px; }
-      .plan-week-hdr .pwh-arr { font-size: 12px; color: var(--text3); transition: transform 0.2s; }
-      .plan-week-hdr.is-open .pwh-arr { transform: rotate(90deg); }
-      .plan-week-hdr.is-current { border-left: 3px solid var(--lime); }
+      .plan-week-hdr:hover {
+        background: var(--surface2);
+      }
+      .plan-week-hdr .pwh-num {
+        font-size: 13px;
+        color: var(--text3);
+        min-width: 52px;
+      }
+      .plan-week-hdr .pwh-phase {
+        font-size: 12px;
+        padding: 2px 8px;
+        border-radius: 10px;
+        border: 1px solid transparent;
+      }
+      .plan-week-hdr .pwh-dates {
+        font-size: 13px;
+        color: var(--text2);
+        flex: 1;
+      }
+      .plan-week-hdr .pwh-km {
+        font-size: 13px;
+        font-weight: 500;
+        font-family: DINPro, "Proxima Nova", sans-serif;
+        margin-left: auto;
+        margin-right: 8px;
+      }
+      .plan-week-hdr .pwh-arr {
+        font-size: 12px;
+        color: var(--text3);
+        transition: transform 0.2s;
+      }
+      .plan-week-hdr.is-open .pwh-arr {
+        transform: rotate(90deg);
+      }
+      .plan-week-hdr.is-current {
+        border-left: 3px solid var(--lime);
+      }
       .plan-week-body {
         display: none;
         padding: 10px 14px 14px;
         background: var(--surface);
         border-top: 1px solid var(--border);
       }
-      .plan-week-body.is-open { display: block; }
+      .plan-week-body.is-open {
+        display: block;
+      }
       .plan-mini-days {
         display: grid;
-        grid-template-columns: repeat(7, 1fr);
+        grid-template-columns: repeat(5, minmax(0, 1fr));
         gap: 6px;
         margin-top: 6px;
+      }
+      .plan-week-grid {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 6px;
       }
       .plan-mini-day {
         background: var(--surface2);
@@ -1266,28 +1712,71 @@
         font-size: 12px;
         line-height: 1.4;
       }
-      .plan-mini-day .pmd-dow { color: var(--text3); margin-bottom: 2px; font-size: 11px; text-transform: uppercase; }
-      .plan-mini-day .pmd-type { font-weight: 600; }
-      .plan-mini-day .pmd-detail { color: var(--text2); }
-      .plan-mini-day.is-done { opacity: 0.5; }
-      .plan-mini-day.is-clickable { cursor: pointer; }
-      .plan-mini-day.is-clickable:hover { outline: 1px solid var(--lime); }
-      .plan-mini-day.is-gym { border-left: 2px solid #a78bfa; }
-      .plan-mini-day.is-run { border-left: 2px solid var(--lime); }
-      .plan-mini-day.is-rest { border-left: 2px solid var(--surface2); }
+      .plan-mini-day .pmd-dow {
+        color: var(--text3);
+        margin-bottom: 2px;
+        font-size: 11px;
+        text-transform: uppercase;
+      }
+      .plan-mini-day .pmd-type {
+        font-weight: 500;
+        font-size: 14px;
+      }
+      .plan-mini-day .pmd-detail {
+        color: var(--text2);
+        font-size: 12px;
+      }
+      .plan-mini-day.is-done {
+        opacity: 0.5;
+      }
+      .plan-mini-day.is-gym {
+        border-left: 2px solid #a78bfa;
+      }
+      .plan-mini-day.is-run {
+        border-left: 2px solid var(--lime);
+      }
+      .plan-mini-day.is-rest {
+        border-left: 2px solid var(--surface2);
+      }
+      /* Redesign 2026-07-25 (light mode only): pastel activity-colored card instead
+         of the left border, reference-inspired. --type-color is set inline per card
+         from _planTypeColorLight(). Dark mode keeps the border-left treatment above. */
+      :root.light .plan-mini-day {
+        background: color-mix(in srgb, var(--type-color, var(--border)) 14%, white);
+        border-left: none;
+        border-radius: 10px;
+      }
+      :root.light .plan-mini-day.is-today {
+        box-shadow: 0 0 0 1.5px var(--lime) inset;
+      }
+      :root.light .plan-mini-day .pmd-dow {
+        display: inline-block;
+        background: #fff;
+        color: color-mix(in srgb, var(--type-color, var(--border)) 70%, black);
+        border-radius: 20px;
+        padding: 2px 8px;
+        text-transform: none;
+        font-size: 10px;
+        font-weight: 600;
+      }
+      :root.light .plan-mini-day .pmd-type {
+        color: var(--text) !important;
+        font-weight: 600;
+        margin-top: 5px;
+      }
     </style>
   </head>
   <body>
+    <div id="hm-tooltip"></div>
+
     <nav>
       <div class="nav-brand">Run<span>DB</span> — Villő</div>
       <button class="tab-btn active" onclick="showTab('overview', this)">Áttekintés</button>
       <button class="tab-btn" onclick="showTab('plan', this)">Terv</button>
       <button class="tab-btn" onclick="showTab('runs', this)">Futások</button>
       <button class="tab-btn" onclick="showTab('calendar', this)">Naptár</button>
-      <button class="tab-btn" onclick="showTab('monthly', this)">Havi</button>
-      <button class="tab-btn" onclick="showTab('yearly', this)">Éves</button>
-      <button class="tab-btn" onclick="showTab('compare', this)">Összehasonlítás</button>
       <button class="tab-btn" onclick="showTab('trends', this)">Trendek</button>
+      <button class="tab-btn" onclick="showTab('stats', this)">Statisztikák</button>
       <button class="tab-btn" onclick="showTab('health', this)">Egészség</button>
       <div style="margin-left: auto; flex-shrink: 0">
         <button
@@ -1302,15 +1791,15 @@
             display: flex;
             align-items: center;
             gap: 7px;
-            font-family: &quot;Inter&quot;, sans-serif;
+            font-family: &quot;Proxima Nova&quot;, sans-serif;
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--text2);
             transition: all 0.2s;
           "
         >
-          <span id="theme-icon" style="font-size: 13px">☀️</span>
-          <span id="theme-label">Light</span>
+          <span id="theme-icon" style="font-size: 13px">🌙</span>
+          <span id="theme-label">Dark</span>
         </button>
       </div>
     </nav>
@@ -1324,29 +1813,26 @@
 
     <!-- ═══ OVERVIEW ═══ -->
     <div class="page active" id="page-overview">
-      <div class="slabel">Összesítő</div>
-      <div class="stat-row" id="overview-stats"></div>
-      <div class="slabel">Personal Records — kattints a futáshoz</div>
-      <div class="pr-grid" id="pr-grid"></div>
-      <div class="slabel">Sorozatok &amp; konzisztencia</div>
-      <div class="stat-row" id="streak-stats"></div>
-      <div class="slabel">Heti km — futási volumen (utolsó 52 hét)</div>
+      <!-- VERSENY BANNER -->
+      <div id="race-banner" style="margin-bottom: 20px"></div>
+      <!-- MA + EZEN A HÉTEN -->
+      <div class="slabel" style="border-top: none; padding-top: 0; margin-top: 0">Ma</div>
+      <div id="daily-stats">
+        <div id="today-plan"></div>
+        <div id="today-vo2"></div>
+        <div id="thisweek-weight"></div>
+        <div id="thisweek-plan"></div>
+      </div>
+      <!-- HETI KM with plan overlay -->
+      <div class="slabel">
+        Heti km — futási volumen (utolsó 3 hónap)<button class="info-btn" tabindex="0">
+          i<span class="info-tip"
+            >Heti összes futott km. A szaggatott rózsaszín vonal a tervezett heti km a futási tervből (Wizzair
+            Félmaraton 2026.09.06.).</span
+          >
+        </button>
+      </div>
       <div class="chart-card"><canvas id="weeklyKmChart" height="160"></canvas></div>
-      <div class="slabel">Havi km — teljes history</div>
-      <div class="chart-card">
-        <div id="overview-km-nav" style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px"></div>
-        <canvas id="overviewKmChart" height="180"></canvas>
-      </div>
-      <div class="slabel">Havi km heatmap</div>
-      <div class="chart-card">
-        <div class="month-names" id="month-names"></div>
-        <div id="heatmap"></div>
-      </div>
-      <div class="slabel">Aerob hatékonysági index (AEI)</div>
-      <div class="chart-card">
-        <div class="chart-sub">sebesség ÷ HR × 100 — magasabb = hatékonyabb aerob rendszer</div>
-        <canvas id="aeiChart" height="150"></canvas>
-      </div>
     </div>
 
     <!-- ═══ RUNS ═══ -->
@@ -1412,7 +1898,7 @@
         </select>
         <span
           id="cal-run-count"
-          style="font-size: 10px; color: var(--text3); font-family: &quot;DM Mono&quot;, monospace; margin-left: auto"
+          style="font-size: 10px; color: var(--text3); font-family: DINPro, sans-serif; margin-left: auto"
         ></span>
       </div>
       <div class="cal-wrap">
@@ -1430,133 +1916,153 @@
       </div>
     </div>
 
-    <!-- ═══ MONTHLY ═══ -->
-    <div class="page" id="page-monthly">
-      <div class="slabel" style="border-top: none; padding-top: 0; margin-top: 0">Havi összesítők</div>
-      <div class="filter-bar">
-        <select class="filter-select" id="monthly-year-filter" onchange="renderMonthlyTable()">
-          <option value="">Minden év</option>
-        </select>
-        <select class="filter-select" id="monthly-sort" onchange="renderMonthlyTable()">
-          <option value="ym-desc">Legújabb először</option>
-          <option value="ym-asc">Legrégebbi először</option>
-          <option value="km-desc">Legtöbb km</option>
-          <option value="best_pace-asc">Legjobb tempó</option>
-          <option value="avg_z1-desc">Legtöbb Z1</option>
-        </select>
-        <span class="result-count" id="monthly-count"></span>
+    <!-- ═══ STATS ═══ -->
+    <div class="page" id="page-stats">
+      <!-- PERSONAL RECORDS -->
+      <div class="slabel" style="border-top: none; padding-top: 0; margin-top: 0">Personal Records — kattints a futáshoz</div>
+      <div class="pr-grid" id="pr-grid" style="margin-bottom: 24px"></div>
+      <div
+        style="
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+          padding-bottom: 16px;
+          border-bottom: 1px solid var(--border);
+          margin-bottom: 18px;
+        "
+      >
+        <button class="stats-sub-btn active" data-sub="monthly" onclick="showStatsSub('monthly')">Havi</button>
+        <button class="stats-sub-btn" data-sub="yearly" onclick="showStatsSub('yearly')">Éves</button>
+        <button class="stats-sub-btn" data-sub="compare" onclick="showStatsSub('compare')">Összehasonlítás</button>
       </div>
-      <div class="table-wrap">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Hónap</th>
-              <th>Futások</th>
-              <th>Összes km</th>
-              <th>Átl. tempó</th>
-              <th>Legjobb tempó</th>
-              <th>Leghosszabb</th>
-              <th>Átl. HR</th>
-              <th>TRIMP</th>
-              <th>Z1%</th>
-              <th>AEI</th>
-              <th>Kalória</th>
-            </tr>
-          </thead>
-          <tbody id="monthly-tbody"></tbody>
-        </table>
+      <!-- HAVI -->
+      <div id="stats-monthly">
+        <div class="filter-bar" style="margin-top: 0">
+          <select class="filter-select" id="monthly-year-filter" onchange="renderMonthlyTable()">
+            <option value="">Minden év</option>
+          </select>
+          <select class="filter-select" id="monthly-sort" onchange="renderMonthlyTable()">
+            <option value="ym-desc">Legújabb először</option>
+            <option value="ym-asc">Legrégebbi először</option>
+            <option value="km-desc">Legtöbb km</option>
+            <option value="best_pace-asc">Legjobb tempó</option>
+            <option value="avg_z1-desc">Legtöbb Z1</option>
+          </select>
+          <span class="result-count" id="monthly-count"></span>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Hónap</th>
+                <th>Futások</th>
+                <th>Összes km</th>
+                <th>Átl. tempó</th>
+                <th>Legjobb tempó</th>
+                <th>Leghosszabb</th>
+                <th>Átl. HR</th>
+                <th>TRIMP</th>
+                <th>Z1%</th>
+                <th>AEI</th>
+                <th>Szint</th>
+                <th>Kalória</th>
+              </tr>
+            </thead>
+            <tbody id="monthly-tbody"></tbody>
+          </table>
+        </div>
       </div>
-      <div class="slabel">Havi TRIMP — edzésterhelés</div>
-      <div class="chart-card"><canvas id="monthlyTRIMPChart" height="160"></canvas></div>
-    </div>
-
-    <!-- ═══ YEARLY ═══ -->
-    <div class="page" id="page-yearly">
-      <div class="slabel" style="border-top: none; padding-top: 0; margin-top: 0">Éves összesítők</div>
-      <div class="table-wrap" style="margin-bottom: 14px">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Év</th>
-              <th>Futások</th>
-              <th>Összes km</th>
-              <th>Átl. tempó</th>
-              <th>Legjobb tempó</th>
-              <th>Leghosszabb</th>
-              <th>Átl. HR</th>
-              <th>TRIMP</th>
-              <th>Z1%</th>
-              <th>AEI</th>
-              <th>Kalória</th>
-            </tr>
-          </thead>
-          <tbody id="yearly-tbody"></tbody>
-        </table>
-      </div>
-      <div class="g2">
+      <!-- ÉVES -->
+      <div id="stats-yearly" style="display: none">
+        <div class="table-wrap" style="margin-bottom: 14px">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Év</th>
+                <th>Futások</th>
+                <th>Összes km</th>
+                <th>Átl. tempó</th>
+                <th>Legjobb tempó</th>
+                <th>Leghosszabb</th>
+                <th>Átl. HR</th>
+                <th>TRIMP</th>
+                <th>Z1%</th>
+                <th>AEI</th>
+                <th>Kalória</th>
+              </tr>
+            </thead>
+            <tbody id="yearly-tbody"></tbody>
+          </table>
+        </div>
+        <div class="g2">
+          <div class="chart-card">
+            <div class="chart-title">Éves km</div>
+            <canvas id="yearlyKmChart" height="180"></canvas>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">Éves AEI trend</div>
+            <canvas id="yearlyAEIChart" height="180"></canvas>
+          </div>
+        </div>
+        <div class="slabel">Havi km heatmap</div>
         <div class="chart-card">
-          <div class="chart-title">Éves km</div>
-          <canvas id="yearlyKmChart" height="180"></canvas>
+          <div class="month-names" id="month-names"></div>
+          <div id="heatmap"></div>
         </div>
+      </div>
+      <!-- ÖSSZEHASONLÍTÁS -->
+      <div id="stats-compare" style="display: none">
+        <div class="slabel" style="border-top: none; padding-top: 0; margin-top: 0">Hónapok összehasonlítása</div>
+        <div class="chart-card" style="margin-bottom: 14px">
+          <div class="compare-controls">
+            <select class="filter-select" id="month-a" onchange="renderMonthCompare()"></select>
+            <span style="color: var(--text3); font-size: 12px">vs.</span>
+            <select class="filter-select" id="month-b" onchange="renderMonthCompare()"></select>
+          </div>
+          <table class="compare-table" id="month-compare-table"></table>
+        </div>
+        <div class="slabel">Évek összehasonlítása</div>
         <div class="chart-card">
-          <div class="chart-title">Éves AEI trend</div>
-          <canvas id="yearlyAEIChart" height="180"></canvas>
+          <div class="compare-controls">
+            <select class="filter-select" id="year-a" onchange="renderYearCompare()"></select>
+            <span style="color: var(--text3); font-size: 12px">vs.</span>
+            <select class="filter-select" id="year-b" onchange="renderYearCompare()"></select>
+          </div>
+          <table class="compare-table" id="year-compare-table"></table>
         </div>
-      </div>
-    </div>
-
-    <!-- ═══ COMPARE ═══ -->
-    <div class="page" id="page-compare">
-      <div class="slabel" style="border-top: none; padding-top: 0; margin-top: 0">Hónapok összehasonlítása</div>
-      <div class="chart-card" style="margin-bottom: 14px">
-        <div class="compare-controls">
-          <select class="filter-select" id="month-a" onchange="renderMonthCompare()"></select>
-          <span style="color: var(--text3); font-size: 12px">vs.</span>
-          <select class="filter-select" id="month-b" onchange="renderMonthCompare()"></select>
-        </div>
-        <table class="compare-table" id="month-compare-table"></table>
-      </div>
-      <div class="slabel">Évek összehasonlítása</div>
-      <div class="chart-card">
-        <div class="compare-controls">
-          <select class="filter-select" id="year-a" onchange="renderYearCompare()"></select>
-          <span style="color: var(--text3); font-size: 12px">vs.</span>
-          <select class="filter-select" id="year-b" onchange="renderYearCompare()"></select>
-        </div>
-        <table class="compare-table" id="year-compare-table"></table>
       </div>
     </div>
 
     <!-- ═══ TRENDS ═══ -->
     <div class="page" id="page-trends">
       <div class="slabel" style="border-top: none; padding-top: 0; margin-top: 0">
-        HR vs. Tempó — aerob hatékonyság<button class="info-btn" tabindex="0">
+        Könnyű futások tempó-trendje<button class="info-btn" tabindex="0">
           i<span class="info-tip"
-            >Minden pont egy futást jelöl. Vízszintes tengely: átlagos pulzus, függőleges: tempó. Minél balra és lejjebb
-            van egy pont, annál hatékonyabb volt a futás — alacsonyabb pulzusnál gyorsabb tempó. A cél, hogy az évek
-            során a pontok balra és lefelé tolódjanak.</span
+            >Z1-Z2 dominanciájú futások (Z1 ≥ 50%) havi átlagtempója. Ha azonos pulzuson gyorsulsz, az aerob
+            kapacitásod fejlődik. Csökkenő érték = jobb forma.</span
           >
         </button>
       </div>
       <div class="chart-card">
-        <div class="chart-sub">
-          X = átl. HR · Y = tempó · <span style="color: var(--lime)">■</span> Z1 futás ·
-          <span style="color: var(--orange)">■</span> Szürke zóna · <span style="color: #60a5fa">■</span> 2026 ·
-          kattints a pontra a futás részleteihez
+        <div style="display:flex; justify-content:flex-end; margin-bottom:8px">
+          <div id="easypace-nav" style="display:flex; gap:5px; flex-wrap:wrap"></div>
         </div>
-        <canvas id="scatterChart" height="280"></canvas>
+        <canvas id="easyPaceChart" height="160"></canvas>
       </div>
       <div class="slabel">
-        Havi Z1% arány<button class="info-btn" tabindex="0">
+        Havi edzésmegoszlás<button class="info-btn" tabindex="0">
           i<span class="info-tip"
             >Az edzések mekkora hányada zajlott könnyű, aerob (Z1) zónában. A polarizált edzéselmélet szerint az edzések
             70–80%-ának Z1-ben kellene lennie. A Z4% a kemény edzések arányát mutatja — ideálisan 10–15% körül.</span
           >
         </button>
       </div>
-      <div class="chart-card"><canvas id="zoneTimeChart" height="160"></canvas></div>
+      <div class="chart-card">
+        <div id="zone-nav" style="display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px"></div>
+        <canvas id="zoneTimeChart" height="160"></canvas>
+      </div>
       <div class="slabel">
-        Heti TRIMP<button class="info-btn" tabindex="0">
+        Heti edzésterhelés<button class="info-btn" tabindex="0">
           i<span class="info-tip"
             >TRIMP (Training Impulse) = az adott heti edzésterhelés egyetlen számban, pulzus × idő alapján számolva.
             Magasabb érték = keményebb hét. Segít nyomon követni, mikor volt csúcsterhelés és mikor volt
@@ -1564,32 +2070,20 @@
           >
         </button>
       </div>
-      <div class="chart-card"><canvas id="weeklyTRIMPChart" height="160"></canvas></div>
-      <div class="slabel">
-        ACWR — Akut:Krónikus terhelésmutató<button class="info-btn" tabindex="0">
-          i<span class="info-tip"
-            >Az utolsó 7 nap átlagos napi TRIMP osztva az utolsó 28 nap átlagával. 0.8–1.5 között biztonságos. 1.5
-            felett megnő a sérülésveszély. 0.8 alatt alacsony a terhelés. Hirtelen ugrás (pl. 0.9-ről 1.6-ra)
-            figyelmeztető jel.</span
-          >
-        </button>
-      </div>
       <div class="chart-card">
-        <div class="chart-sub">7 napos átlag TRIMP / 28 napos átlag TRIMP · optimális zóna: 0.8–1.5</div>
-        <canvas id="acwrChart" height="160"></canvas>
-      </div>
-      <div class="slabel">
-        Kadencia trend<button class="info-btn" tabindex="0">
-          i<span class="info-tip"
-            >Havi átlagos lépésszám percenként futás közben. Magasabb kadencia általában hatékonyabb futóformát jelent
-            és csökkenti az ízületekre ható erőt. Elit futók: 170–180 lépés/perc. Ha az évek során emelkedik, a
-            futóformád fejlődik.</span
+        <div id="trimp-nav" style="display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px; align-items: center">
+          <span
+            style="
+              font-size: 10px;
+              color: var(--text3);
+              font-weight: 500;
+              letter-spacing: 0.5px;
+              text-transform: uppercase;
+            "
+            >Elmúlt</span
           >
-        </button>
-      </div>
-      <div class="chart-card">
-        <div class="chart-sub">Havi átlag lépésszám/perc — magasabb általában hatékonyabb futóformát jelent</div>
-        <canvas id="cadenceChart" height="160"></canvas>
+        </div>
+        <canvas id="weeklyTRIMPChart" height="160"></canvas>
       </div>
       <div class="slabel">
         Futás intenzitás megoszlás<button class="info-btn" tabindex="0">
@@ -1604,11 +2098,46 @@
         <div class="int-nav" id="int-nav"></div>
         <canvas id="intensityDonut" height="200"></canvas>
       </div>
+      <div class="slabel">
+        Aerob hatékonyság fejlődése (AEI)<button class="info-btn" tabindex="0">
+          i<span class="info-tip"
+            >Aerob Hatékonysági Index: sebesség ÷ pulzus × 100. Ha ugyanolyan pulzuson gyorsabban futsz, az AEI nő — ez
+            a legjobb jele a hosszú távú aerob fejlődésnek. Havi átlag.</span
+          >
+        </button>
+      </div>
+      <div class="chart-card">
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:6px; margin-bottom:8px">
+          <div class="chart-sub" style="margin:0">Havi átlagos AEI — magasabb = hatékonyabb aerob rendszer</div>
+          <div id="aei-nav" style="display:flex; gap:5px; flex-wrap:wrap"></div>
+        </div>
+        <canvas id="aeiTrendChart" height="160"></canvas>
+      </div>
+      <div class="slabel">
+        Tempó eloszlás<button class="info-btn" tabindex="0">
+          i<span class="info-tip"
+            >Hány futást teljesítettél az egyes tempósávokban? Megmutatja, hogy valójában milyen sebességen edzel a
+            legtöbbet — eltér a HR-zóna képtől.</span
+          >
+        </button>
+      </div>
+      <div class="chart-card">
+        <div id="pace-hist-nav" style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px"></div>
+        <canvas id="paceHistChart" height="160"></canvas>
+      </div>
+      <div class="slabel">PR fejlődés</div>
+      <div class="chart-card">
+        <div id="pr-prog-nav" style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px"></div>
+        <canvas id="prProgChart" height="160"></canvas>
+      </div>
     </div>
 
     <!-- ═══ EGÉSZSÉG ═══ -->
     <div class="page" id="page-health">
-      <div class="slabel" style="border-top: none; padding-top: 0; margin-top: 0">Regeneráció — utolsó 90 nap</div>
+      <div class="slabel" style="border-top: none; padding-top: 0; margin-top: 0; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px">
+        <span>Regeneráció</span>
+        <div id="hrv-hr-nav" style="display:flex; gap:5px; flex-wrap:wrap"></div>
+      </div>
       <div class="g2">
         <div class="chart-card">
           <div class="chart-title">
@@ -1638,19 +2167,48 @@
         </div>
       </div>
       <div class="slabel">
-        Napi Forma Index<button class="info-btn" tabindex="0">
+        Edzéskészség — trend<button class="info-btn" tabindex="0">
           i<span class="info-tip"
-            >HRV (60% súly) és nyugalmi HR (40% súly) kombinációja, személyes átlagtól való eltérés alapján. 50 =
-            teljesen átlagos nap. 70 felett az átlagnál jobb regeneráció, kemény edzés mehet. 30 alatt pihenjél vagy
-            csak könnyű edzés.</span
+            >HRV (kétszeres súly) és nyugalmi HR gördülő 30 napos saját alapvonalhoz viszonyított eltérése (z-score)
+            alapján — nem a teljes historikus átlaghoz, hanem az adott nap előtti 30 naphoz képest. 50 = az akkori
+            saját átlagnak megfelelő nap. 70 felett az átlagnál jobb regeneráció, kemény edzés mehet. 30 alatt
+            pihenjél vagy csak könnyű edzés.</span
           >
         </button>
       </div>
       <div class="chart-card">
         <div class="chart-sub">
-          HRV + nyugalmi HR kombinációja a személyes átlaghoz képest · 50 = átlagos · &gt;70 = jó forma
+          HRV + nyugalmi HR gördülő 30 napos saját alapvonalhoz képest · 50 = átlagos · &gt;70 = edzéskész
         </div>
-        <canvas id="formaChart" height="150"></canvas>
+        <canvas id="readinessChart" height="150"></canvas>
+      </div>
+      <div class="slabel">
+        Fitnesz &amp; Forma (CTL / ATL / TSB)<button class="info-btn" tabindex="0">
+          i<span class="info-tip"
+            >CTL (Chronic Training Load) = 42 napos exponenciális TRIMP átlag — fitnesz. ATL (Acute Training Load) = 7
+            napos — aktuális fáradtság. TSB = CTL − ATL — forma/frissesség. Pozitív TSB: kipihent, versenyképes.
+            Negatív: fáradt, de fejlődsz.</span
+          >
+        </button>
+      </div>
+      <div style="display:flex; gap:14px; flex-wrap:wrap; align-items:center; padding: 0 4px 4px">
+        <span style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-secondary)"
+          ><span style="display:inline-block;width:28px;height:3px;background:var(--lime);border-radius:2px"></span>CTL
+          — fitnesz</span
+        >
+        <span style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-secondary)"
+          ><span style="display:inline-block;width:28px;height:3px;background:#f87171;border-radius:2px"></span>ATL —
+          fáradtság</span
+        >
+        <span style="display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-secondary)"
+          ><span style="display:inline-block;width:28px;height:3px;background:#60a5fa;border-radius:2px"></span>TSB —
+          frissesség</span
+        >
+      </div>
+      <div id="ctl-nav" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px"></div>
+      <div class="chart-card">
+        <div class="chart-sub">Napi CTL / ATL / TSB értékek · TRIMP alapú terhelésszámítás</div>
+        <canvas id="ctlChart" height="160"></canvas>
       </div>
       <div class="slabel">
         VO₂ Max trend<button class="info-btn" tabindex="0">
@@ -1677,26 +2235,20 @@
         </div>
         <canvas id="vo2Chart" height="150"></canvas>
       </div>
-      <div class="slabel">
-        Lépések — utolsó 60 nap<button class="info-btn" tabindex="0">
+      <div class="slabel" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px">
+        <span>Lépések<button class="info-btn" tabindex="0">
           i<span class="info-tip"
             >Napi összes lépésszám. A zöld sávok 10 000 lépés felett vannak, ami az általánosan ajánlott napi minimum
             aktív életmódhoz. Edzős napokon természetesen magasabb.</span
           >
-        </button>
+        </button></span>
+        <div id="steps-nav" style="display:flex; gap:5px; flex-wrap:wrap"></div>
       </div>
       <div class="chart-card"><canvas id="stepsChart" height="150"></canvas></div>
-      <div class="slabel">
-        Aktív kalória — utolsó 60 nap<button class="info-btn" tabindex="0">
-          i<span class="info-tip"
-            >Mozgásból eredő aktív kalóriaégetés (nem tartalmazza az alapanyagcserét). Edzős napokon magasabb. Az 500
-            kcal feletti napok lime színnel jelennek meg.</span
-          >
-        </button>
-      </div>
-      <div class="chart-card"><canvas id="activeCalChart" height="150"></canvas></div>
     </div>
 
+    <!-- ═══ AI ÖSSZEFOGLALÓK ═══ -->
+    <!-- ═══ TERV ═══ -->
     <div class="page" id="page-plan">
       <div class="slabel" style="border-top: none; padding-top: 0; margin-top: 0">
         Edzésterv — Wizzair Félmaraton 2026.09.06.
@@ -1711,13 +2263,7 @@
       const BASE_RUNS = [];
       const BASE_MONTHLY = [];
       const BASE_YEARLY = [];
-      const BASE_PRS = {
-        short_5k: { pace: 4.3, dist: 5.81, date: "2021-06-25", hr: 182 },
-        mid_10k: { pace: 4.478, dist: 8.69, date: "2021-06-06", hr: 153 },
-        half: { pace: 4.62, dist: 21.14, date: "2025-04-13", hr: 179 },
-        longest: { dist: 24.0, date: "2025-03-09", pace: 5.545, hr: 139 },
-        highest_trimp: { val: 335.1, date: "2024-09-08", dist: 21.1 },
-      };
+      const BASE_PRS = {};
       const BASE_WEEKLY = [];
 
       // ─── LIVE SHEET INTEGRATION ──────────────────────────────────────────────────────
@@ -1725,13 +2271,18 @@
         "https://docs.google.com/spreadsheets/d/1JsMpsy1cirnbGR5dn4Y9Hx-pRfR-M_pkuZui914t_jU/export?format=csv&gid=1";
       const HEALTH_CSV =
         "https://docs.google.com/spreadsheets/d/1z917DqNqU8_gdFIVM3uDELfwE1Xd_saEus_XOTfZyWk/export?format=csv&gid=0";
+      const WEIGHT_CUT_START = "2026-06-22";
+      const WEIGHT_GOAL = 65;
       let RUNS = [],
         MONTHLY = [],
         YEARLY = [],
         WEEKLY = [],
         PRS = {},
         PR_DATES = {},
-        HEALTH = [];
+        HEALTH = [],
+        GYM_DATES = [],
+        SUMMARIES = [],
+        WEIGHT = [];
 
       function _tMin(s) {
         if (!s) return null;
@@ -1811,7 +2362,7 @@
           vo,
           sl,
           gct,
-          cadence: steps && dur ? +(steps / dur).toFixed(1) : null,
+          cadence: steps && dur && (steps / dur) >= 100 && (steps / dur) <= 220 ? +(steps / dur).toFixed(1) : null,
         };
       }
 
@@ -1952,18 +2503,20 @@
           .sort()
           .map((ws) => {
             const rs = wM[ws];
+            const calV = rs.filter((r) => r.calories).map((r) => r.calories);
             return {
               w: ws + "/" + _wEnd(ws),
               km: +rs.reduce((s, r) => s + r.dist, 0).toFixed(1),
               trimp: +rs.reduce((s, r) => s + r.trimp, 0).toFixed(1),
+              calories: calV.length ? +calV.reduce((s, v) => s + v, 0).toFixed(0) : null,
               runs: rs.length,
               date: rs[0].date,
             };
           });
         const bp = (arr) => (arr.length ? arr.reduce((a, r) => (r.pace < a.pace ? r : a)) : null);
         const p5 = bp(runs.filter((r) => r.dist >= 4.5 && r.dist <= 7));
-        const p10 = bp(runs.filter((r) => r.dist > 7 && r.dist <= 12));
-        const pH = bp(runs.filter((r) => r.dist >= 21 && r.dist <= 21.5));
+        const p10 = bp(runs.filter((r) => r.dist >= 9.5 && r.dist <= 12));
+        const pH = bp(runs.filter((r) => r.dist >= 18));
         const lng = runs.reduce((a, r) => (r.dist > a.dist ? r : a));
         const ht = runs.reduce((a, r) => (r.trimp > a.trimp ? r : a));
         const PRS = {
@@ -1983,8 +2536,19 @@
         return { MONTHLY, YEARLY, WEEKLY, PRS, PR_DATES };
       }
 
+      async function _fetchUrl(url, timeoutMs = 15000) {
+        const ct = new AbortController();
+        const timer = setTimeout(() => ct.abort(), timeoutMs);
+        const sep = url.includes("?") ? "&" : "?";
+        try {
+          return await fetch(url + sep + `_t=${Date.now()}`, { cache: "no-store", signal: ct.signal });
+        } finally {
+          clearTimeout(timer);
+        }
+      }
+
       async function _fetchSheet() {
-        const r = await fetch(SHEET_CSV);
+        const r = await _fetchUrl(SHEET_CSV);
         if (!r.ok) throw new Error("HTTP " + r.status);
         return _parseCSV(await r.text());
       }
@@ -2005,11 +2569,8 @@
             } else cur += ch;
           }
           cols.push(cur);
-          const _mdy = cols[0] && cols[0].trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
           const date =
-            _shDate(cols[0]) ||
-            (_mdy ? _mdy[3] + "-" + _mdy[1].padStart(2, "0") + "-" + _mdy[2].padStart(2, "0") : null) ||
-            (cols[0] && cols[0].trim().match(/^\d{4}-\d{2}-\d{2}$/) ? cols[0].trim() : null);
+            _shDate(cols[0]) || (cols[0] && cols[0].trim().match(/^\d{4}-\d{2}-\d{2}$/) ? cols[0].trim() : null);
           if (!date) continue;
           records.push({
             date,
@@ -2027,9 +2588,98 @@
         return records.sort((a, b) => a.date.localeCompare(b.date));
       }
       async function _fetchHealth() {
-        const r = await fetch(HEALTH_CSV);
+        const r = await _fetchUrl(HEALTH_CSV);
         if (!r.ok) throw new Error("HTTP " + r.status);
         return _parseHealth(await r.text());
+      }
+      function _parseWeight(text) {
+        const records = [],
+          lines = text.trim().replace(/\r/g, "").split("\n");
+        for (let i = 1; i < lines.length; i++) {
+          const cols = [];
+          let cur = "",
+            inQ = false;
+          for (const ch of lines[i]) {
+            if (ch === '"') {
+              inQ = !inQ;
+            } else if (ch === "," && !inQ) {
+              cols.push(cur);
+              cur = "";
+            } else cur += ch;
+          }
+          cols.push(cur);
+          const date = _shDate(cols[0]);
+          const kg = _unit(cols[1], "kg");
+          if (!date || !kg) continue;
+          records.push({ date, kg });
+        }
+        // a sheet lehet duplikált napokat tartalmaz (több mérés/nap) — napi átlag
+        const byDate = {};
+        records.forEach((r) => {
+          (byDate[r.date] = byDate[r.date] || []).push(r.kg);
+        });
+        return Object.keys(byDate)
+          .map((date) => ({ date, kg: +(byDate[date].reduce((s, v) => s + v, 0) / byDate[date].length).toFixed(2) }))
+          .sort((a, b) => a.date.localeCompare(b.date));
+      }
+      async function _fetchWeight() {
+        const r = await _fetchUrl(WEIGHT_CSV);
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return _parseWeight(await r.text());
+      }
+      async function _fetchHrvLive() {
+        const r = await _fetchUrl(HRV_LIVE_CSV);
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        const map = {};
+        for (const line of (await r.text()).trim().split("\n")) {
+          const cols = line.split(",");
+          const date = (cols[0] || "").replace(/"/g, "").trim();
+          const hrv = parseFloat((cols[1] || "").replace(/"/g, "").trim());
+          if (date && date.match(/^\d{4}-\d{2}-\d{2}$/) && !isNaN(hrv)) map[date] = +hrv.toFixed(1);
+        }
+        return map;
+      }
+
+      function _parseSummaries(text) {
+        // Full CSV parser supporting quoted fields with embedded newlines/commas
+        const records = [];
+        const s = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+        let i = 0;
+        function field() {
+          if (s[i] === '"') {
+            i++;
+            let v = "";
+            while (i < s.length) {
+              if (s[i] === '"' && s[i + 1] === '"') { v += '"'; i += 2; }
+              else if (s[i] === '"') { i++; break; }
+              else v += s[i++];
+            }
+            return v;
+          }
+          let v = "";
+          while (i < s.length && s[i] !== "," && s[i] !== "\n") v += s[i++];
+          return v;
+        }
+        // skip header row
+        while (i < s.length && s[i] !== "\n") i++;
+        i++;
+        while (i < s.length) {
+          const row = [];
+          while (i < s.length) {
+            row.push(field());
+            if (i < s.length && s[i] === ",") i++;
+            else break;
+          }
+          if (i < s.length && s[i] === "\n") i++;
+          if (row.length >= 4 && row[1] && row[1].match(/^\d{4}-\d{2}-\d{2}$/))
+            records.push({ generated_at: row[0], week_start: row[1], week_end: row[2], summary: row[3] });
+        }
+        return records;
+      }
+      async function _fetchSummaries() {
+        const r = await _fetchUrl(SUMMARIES_CSV);
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return _parseSummaries(await r.text());
       }
 
       function _clearDOM() {
@@ -2058,11 +2708,60 @@
         initRunsTab();
         initCalendarTab();
         initMonthlyTab();
-        initYearlyTab();
-        initCompareTab();
+      }
+
+      function _parseWorkoutCSV(text) {
+        const dates = [];
+        const lines = text.trim().replace(/\r/g, "").split("\n");
+        if (lines.length < 2) return dates;
+        // detect column indices from header
+        const hdrCols = [];
+        let cur = "",
+          inQ = false;
+        for (const ch of lines[0]) {
+          if (ch === '"') {
+            inQ = !inQ;
+          } else if (ch === "," && !inQ) {
+            hdrCols.push(cur.trim().toLowerCase());
+            cur = "";
+          } else cur += ch;
+        }
+        hdrCols.push(cur.trim().toLowerCase());
+        const dateIdx = hdrCols.findIndex((h) => h === "date" || h === "dátum");
+        const typeIdx = hdrCols.findIndex((h) => h === "activity type" || h === "type" || h === "típus");
+        for (let i = 1; i < lines.length; i++) {
+          const cols = [];
+          cur = "";
+          inQ = false;
+          for (const ch of lines[i]) {
+            if (ch === '"') {
+              inQ = !inQ;
+            } else if (ch === "," && !inQ) {
+              cols.push(cur);
+              cur = "";
+            } else cur += ch;
+          }
+          cols.push(cur);
+          const typeVal = (typeIdx >= 0 ? cols[typeIdx] : cols[2]) || "";
+          if (!typeVal.toLowerCase().includes("strength")) continue;
+          const rawDate = dateIdx >= 0 ? cols[dateIdx] : cols[0];
+          const date =
+            _shDate(rawDate) || (rawDate && rawDate.trim().match(/^\d{4}-\d{2}-\d{2}$/) ? rawDate.trim() : null);
+          if (date) dates.push(date);
+        }
+        console.log("RunDB: gym sessions detected:", dates.length);
+        return dates;
+      }
+      async function _fetchWorkouts() {
+        const r = await _fetchUrl(WORKOUT_CSV);
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return _parseWorkoutCSV(await r.text());
       }
 
       async function _bootstrap() {
+        // Villő's sheets don't have Workout/HRV-Live/Summaries/Weight tabs, so those
+        // fetches (and GYM_DATES/SUMMARIES/WEIGHT) are intentionally left out — the
+        // dependent widgets already no-op gracefully on empty data.
         const [runsResult, healthResult] = await Promise.allSettled([_fetchSheet(), _fetchHealth()]);
         HEALTH = healthResult.status === "fulfilled" ? healthResult.value : [];
         if (healthResult.status !== "fulfilled")
@@ -2071,16 +2770,36 @@
         if (runsResult.status !== "fulfilled")
           console.warn("RunDB: sheet fetch sikertelen:", runsResult.reason?.message);
         _render(runs);
-        _loadPlanChecks();
       }
       // ─────────────────────────────────────────────────────────────────────────────
       const MONTHS_HU = ["jan", "feb", "már", "ápr", "máj", "jún", "júl", "aug", "szep", "okt", "nov", "dec"];
-      const LIME = "#C8F135";
+      const MONTHS_HU_FULL = ["január","február","március","április","május","június","július","augusztus","szeptember","október","november","december"];
+      function fmtYm(ym, showYear) {
+        const [y, m] = ym.split("-");
+        const mon = MONTHS_HU[+m - 1];
+        if (showYear === "full") return `${y} ${MONTHS_HU_FULL[+m - 1]}`;
+        if (showYear) return `${mon} '${y.slice(2)}`;
+        return mon;
+      }
+      const LIME = "#00F19F";
       function getLime() {
-        return document.documentElement.classList.contains("light") ? "#7a9a00" : "#C8F135";
+        return document.documentElement.classList.contains("light") ? "#3D6FE0" : "#00F19F";
       }
       function getLimeDim() {
-        return document.documentElement.classList.contains("light") ? "rgba(120,154,0,.15)" : "rgba(200,241,53,.08)";
+        return document.documentElement.classList.contains("light") ? "rgba(61,111,224,.15)" : "rgba(0,241,159,.08)";
+      }
+      function getStrain() {
+        return "#0093E7";
+      }
+      function getStrainDim(a) {
+        return `rgba(0,147,231,${a || 0.35})`;
+      }
+      function _hmCellColor(cell, alpha) {
+        const isLight = document.documentElement.classList.contains("light");
+        cell.style.background = isLight ? `rgba(61,111,224,${alpha})` : `rgba(0,241,159,${alpha})`;
+      }
+      function _refreshHeatmap() {
+        document.querySelectorAll(".hm-cell[data-alpha]").forEach((c) => _hmCellColor(c, c.dataset.alpha));
       }
       function gv(v) {
         return getComputedStyle(document.documentElement).getPropertyValue(v).trim();
@@ -2097,6 +2816,23 @@
       function tipBorder() {
         return gv("--tip-border");
       }
+      // Positions a position:fixed tooltip near (clientX, clientY), then nudges it back
+      // inside the viewport if it would otherwise run off the edge (mainly a mobile issue,
+      // where a tap near the screen edge would push the tooltip out of view).
+      function _positionTip(el, clientX, clientY, dx = 14, dy = -8) {
+        const margin = 8;
+        el.style.left = clientX + dx + "px";
+        el.style.top = clientY + dy + "px";
+        const rect = el.getBoundingClientRect();
+        let left = rect.left,
+          top = rect.top;
+        if (rect.right > window.innerWidth - margin) left = window.innerWidth - rect.width - margin;
+        if (left < margin) left = margin;
+        if (rect.bottom > window.innerHeight - margin) top = window.innerHeight - rect.height - margin;
+        if (top < margin) top = margin;
+        el.style.left = left + "px";
+        el.style.top = top + "px";
+      }
       function toggleTheme() {
         const isLight = document.documentElement.classList.toggle("light");
         document.getElementById("theme-icon").textContent = isLight ? "🌙" : "☀️";
@@ -2106,13 +2842,15 @@
         const activeTab = document.querySelector(".page.active")?.id?.replace("page-", "");
         if (activeTab) redrawTab(activeTab);
       }
-      // Init theme from localStorage
+      // Init theme from localStorage — light is the default (already applied via the
+      // <html class="light"> in the markup, to avoid a dark-mode flash on load);
+      // only remove it if the user explicitly chose dark before.
       (function () {
         const saved = localStorage.getItem("rundb-theme");
-        if (saved === "light") {
-          document.documentElement.classList.add("light");
-          document.getElementById("theme-icon").textContent = "🌙";
-          document.getElementById("theme-label").textContent = "Dark";
+        if (saved === "dark") {
+          document.documentElement.classList.remove("light");
+          document.getElementById("theme-icon").textContent = "☀️";
+          document.getElementById("theme-label").textContent = "Light";
         }
       })();
 
@@ -2180,11 +2918,11 @@
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillStyle = gv("--text");
-        ctx.font = `bold ${Math.round(R * 0.44)}px Inter,sans-serif`;
-        ctx.fillText(total, cx, cy - R * 0.12);
+        ctx.font = `bold ${Math.round(R * 0.44)}px DINPro,sans-serif`;
+        ctx.fillText(total, cx, cy - R * 0.1);
         ctx.fillStyle = gv("--text3");
-        ctx.font = `${Math.round(R * 0.28)}px DM Mono,monospace`;
-        ctx.fillText("futás", cx, cy + R * 0.26);
+        ctx.font = `${Math.round(R * 0.18)}px DINPro,sans-serif`;
+        ctx.fillText("futás", cx, cy + R * 0.22);
         // legend
         let ly = cy - segments.length * 22;
         const lx = cx + R + 24;
@@ -2194,12 +2932,12 @@
           ctx.arc(lx + 7, ly + 7, 7, 0, Math.PI * 2);
           ctx.fill();
           ctx.fillStyle = gv("--text");
-          ctx.font = "bold 13px Inter,sans-serif";
+          ctx.font = "bold 13px DINPro,sans-serif";
           ctx.textAlign = "left";
           ctx.textBaseline = "top";
           ctx.fillText(sg.label, lx + 20, ly);
           ctx.fillStyle = gv("--text3");
-          ctx.font = "10px DM Mono,monospace";
+          ctx.font = "10px DINPro,sans-serif";
           ctx.fillText(`${Math.round((sg.value / total) * 100)}%  ·  ${sg.value} futás`, lx + 20, ly + 17);
           ly += 44;
         });
@@ -2223,6 +2961,11 @@
         const cW = W - pad.left - pad.right,
           cH = H - pad.top - pad.bottom;
         const allV = datasets.flatMap((ds) => ds.data.filter((v) => v != null && !isNaN(v)));
+        if (opts.lineOverlay && opts.lineOverlay.data) {
+          opts.lineOverlay.data.forEach((v) => {
+            if (v != null && !isNaN(v)) allV.push(v);
+          });
+        }
         if (!allV.length) return;
         const maxV = opts.maxVal || Math.max(...allV),
           minV = opts.minVal || 0,
@@ -2232,7 +2975,7 @@
           nDs = datasets.length;
         const bW = Math.max(2, (gW * 0.72) / nDs);
         // grid
-        ctx.strokeStyle = "#1e1e1e";
+        ctx.strokeStyle = gridColor();
         ctx.lineWidth = 1;
         for (let i = 0; i <= 4; i++) {
           const y = pad.top + cH * (1 - i / 4);
@@ -2241,8 +2984,8 @@
           ctx.lineTo(pad.left + cW, y);
           ctx.stroke();
           const val = minV + (range * i) / 4;
-          ctx.fillStyle = "#444";
-          ctx.font = "9px DM Mono,monospace";
+          ctx.fillStyle = axisColor();
+          ctx.font = "9px DINPro,sans-serif";
           ctx.textAlign = "right";
           ctx.fillText(opts.yFmt ? opts.yFmt(val) : Math.round(val), pad.left - 4, y + 3);
         }
@@ -2253,16 +2996,53 @@
             const x = pad.left + i * gW + (gW * (1 - 0.72)) / 2 + di * (bW + 1);
             const bH = Math.max(1, ((val - minV) / range) * cH);
             const y = pad.top + cH - bH;
-            ctx.fillStyle = Array.isArray(ds.color) ? ds.color[i] : ds.color || LIME;
+            ctx.fillStyle = Array.isArray(ds.color) ? ds.color[i] : ds.color || getLime();
             ctx.beginPath();
             if (ctx.roundRect) ctx.roundRect(x, y, bW, bH, 2);
             else ctx.rect(x, y, bW, bH);
             ctx.fill();
           });
         });
+        // line overlay (e.g. plan target)
+        if (opts.lineOverlay && opts.lineOverlay.data) {
+          const lo = opts.lineOverlay;
+          ctx.save();
+          ctx.strokeStyle = lo.color || "#d50d8d";
+          ctx.lineWidth = 2;
+          ctx.setLineDash([4, 3]);
+          ctx.beginPath();
+          let started = false;
+          lo.data.forEach((val, i) => {
+            if (val == null || isNaN(val)) {
+              started = false;
+              return;
+            }
+            const x = pad.left + i * gW + gW / 2;
+            const y = pad.top + cH - ((val - minV) / range) * cH;
+            if (!started) {
+              ctx.moveTo(x, y);
+              started = true;
+            } else {
+              ctx.lineTo(x, y);
+            }
+          });
+          ctx.stroke();
+          ctx.setLineDash([]);
+          // dots at each plan point
+          lo.data.forEach((val, i) => {
+            if (val == null || isNaN(val)) return;
+            const x = pad.left + i * gW + gW / 2;
+            const y = pad.top + cH - ((val - minV) / range) * cH;
+            ctx.beginPath();
+            ctx.arc(x, y, 2.5, 0, Math.PI * 2);
+            ctx.fillStyle = lo.color || "#d50d8d";
+            ctx.fill();
+          });
+          ctx.restore();
+        }
         // x labels
         ctx.fillStyle = axisColor();
-        ctx.font = "8px DM Mono,monospace";
+        ctx.font = "8px DINPro,sans-serif";
         ctx.textAlign = "center";
         const step = Math.ceil(n / 36);
         labels.forEach((lbl, i) => {
@@ -2283,7 +3063,7 @@
           _bTip = document.createElement("div");
           _bTip.id = "bar-tip";
           _bTip.style.cssText =
-            "position:fixed;font-family:DM Mono,monospace;font-size:10px;padding:6px 10px;border-radius:6px;pointer-events:none;display:none;z-index:300;line-height:1.6;white-space:nowrap";
+            'position:fixed;font-family:DINPro,"Proxima Nova",sans-serif;font-size:10px;padding:6px 10px;border-radius:6px;pointer-events:none;display:none;z-index:300;line-height:1.6;white-space:nowrap';
           document.body.appendChild(_bTip);
         }
         canvas.onmousemove = function (e) {
@@ -2306,8 +3086,7 @@
                   .join("<br>") +
                 (opts.extraTip ? "<br>" + opts.extraTip(i) : "");
               _bTip.style.display = "block";
-              _bTip.style.left = e.clientX + 14 + "px";
-              _bTip.style.top = e.clientY - 8 + "px";
+              _positionTip(_bTip, e.clientX, e.clientY);
               canvas.style.cursor = opts.onClick ? "pointer" : "default";
               return;
             }
@@ -2350,27 +3129,28 @@
           range = maxV - minV || 1;
         const n = labels.length;
         // grid
-        ctx.strokeStyle = "#1e1e1e";
+        ctx.strokeStyle = gridColor();
         ctx.lineWidth = 1;
+        const inv = opts.yInvert;
         for (let i = 0; i <= 4; i++) {
           const y = pad.top + cH * (1 - i / 4);
           ctx.beginPath();
           ctx.moveTo(pad.left, y);
           ctx.lineTo(pad.left + cW, y);
           ctx.stroke();
-          ctx.fillStyle = "#444";
-          ctx.font = "9px DM Mono,monospace";
+          ctx.fillStyle = axisColor();
+          ctx.font = "9px DINPro,sans-serif";
           ctx.textAlign = "right";
-          ctx.fillText(
-            opts.yFmt ? opts.yFmt(minV + (range * i) / 4) : (minV + (range * i) / 4).toFixed(1),
-            pad.left - 4,
-            y + 3,
-          );
+          const lv = inv ? maxV - (range * i) / 4 : minV + (range * i) / 4;
+          ctx.fillText(opts.yFmt ? opts.yFmt(lv) : lv.toFixed(1), pad.left - 4, y + 3);
         }
         datasets.forEach((ds) => {
           const pts = ds.data.map((v, i) =>
             v != null && !isNaN(v)
-              ? { x: pad.left + (i / (n - 1 || 1)) * cW, y: pad.top + cH - ((v - minV) / range) * cH }
+              ? {
+                  x: pad.left + (i / (n - 1 || 1)) * cW,
+                  y: inv ? pad.top + ((v - minV) / range) * cH : pad.top + cH - ((v - minV) / range) * cH,
+                }
               : null,
           );
           if (ds.fill) {
@@ -2381,25 +3161,37 @@
               vp.forEach((p) => ctx.lineTo(p.x, p.y));
               ctx.lineTo(vp[vp.length - 1].x, pad.top + cH);
               ctx.closePath();
-              ctx.fillStyle = ds.fillColor || "rgba(200,241,53,.08)";
+              ctx.fillStyle = ds.fillColor || "rgba(0,241,159,.08)";
               ctx.fill();
             }
           }
-          ctx.strokeStyle = ds.color || LIME;
+          ctx.strokeStyle = ds.color || getLime();
           ctx.lineWidth = 2;
           ctx.lineJoin = "round";
+          if (ds.dashed) ctx.setLineDash([5, 4]);
           ctx.beginPath();
-          let first = true;
+          let first = true,
+            prevP = null;
           pts.forEach((p) => {
             if (!p) return;
-            first ? (ctx.moveTo(p.x, p.y), (first = false)) : ctx.lineTo(p.x, p.y);
+            if (first) {
+              ctx.moveTo(p.x, p.y);
+              first = false;
+            } else if (opts.stepped && prevP) {
+              ctx.lineTo(p.x, prevP.y);
+              ctx.lineTo(p.x, p.y);
+            } else {
+              ctx.lineTo(p.x, p.y);
+            }
+            prevP = p;
           });
           ctx.stroke();
+          ctx.setLineDash([]);
           pts.forEach((p) => {
             if (!p) return;
             ctx.beginPath();
             ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
-            ctx.fillStyle = ds.color || LIME;
+            ctx.fillStyle = ds.color || getLime();
             ctx.fill();
           });
         });
@@ -2418,14 +3210,14 @@
             ctx.stroke();
             ctx.setLineDash([]);
             ctx.fillStyle = rl.color || "#888";
-            ctx.font = "8px DM Mono,monospace";
+            ctx.font = "8px DINPro,sans-serif";
             ctx.textAlign = "left";
             ctx.fillText(rl.label || rl.value, pad.left + 4, ry - 3);
             ctx.restore();
           });
         }
         ctx.fillStyle = axisColor();
-        ctx.font = "8px DM Mono,monospace";
+        ctx.font = "8px DINPro,sans-serif";
         ctx.textAlign = "center";
         const step = Math.ceil(n / 30);
         labels.forEach((lbl, i) => {
@@ -2446,7 +3238,7 @@
           _lTip = document.createElement("div");
           _lTip.id = "line-tip";
           _lTip.style.cssText =
-            "position:fixed;font-family:DM Mono,monospace;font-size:10px;padding:6px 10px;border-radius:6px;pointer-events:none;display:none;z-index:300;line-height:1.6;white-space:nowrap";
+            'position:fixed;font-family:DINPro,"Proxima Nova",sans-serif;font-size:10px;padding:6px 10px;border-radius:6px;pointer-events:none;display:none;z-index:300;line-height:1.6;white-space:nowrap';
           document.body.appendChild(_lTip);
         }
         // Store data for hover
@@ -2480,8 +3272,7 @@
                 )
                 .join("<br>");
             _lTip.style.display = "block";
-            _lTip.style.left = e.clientX + 14 + "px";
-            _lTip.style.top = e.clientY - 8 + "px";
+            _positionTip(_lTip, e.clientX, e.clientY);
           } else {
             _lTip.style.display = "none";
           }
@@ -2525,7 +3316,7 @@
             ctx.lineTo(pad.left + cW, y);
             ctx.stroke();
             ctx.fillStyle = axisColor();
-            ctx.font = "9px DM Mono,monospace";
+            ctx.font = "9px DINPro,sans-serif";
             ctx.textAlign = "right";
             ctx.fillText(fmtPace(maxY - (rY * i) / 4), pad.left - 4, y + 3);
           }
@@ -2536,12 +3327,12 @@
             ctx.lineTo(x, pad.top + cH);
             ctx.stroke();
             ctx.fillStyle = axisColor();
-            ctx.font = "9px DM Mono,monospace";
+            ctx.font = "9px DINPro,sans-serif";
             ctx.textAlign = "center";
             ctx.fillText(Math.round(minX + (rX * i) / 5), x, pad.top + cH + 14);
           }
           ctx.fillStyle = axisColor();
-          ctx.font = "8px DM Mono,monospace";
+          ctx.font = "8px DINPro,sans-serif";
           ctx.textAlign = "center";
           ctx.fillText("Átl. HR (bpm)", pad.left + cW / 2, H - 4);
           ctx.save();
@@ -2574,7 +3365,7 @@
             ctx.fillStyle = c;
             ctx.fill();
             ctx.fillStyle = "#555";
-            ctx.font = "9px DM Mono,monospace";
+            ctx.font = "9px DINPro,sans-serif";
             ctx.textAlign = "left";
             ctx.fillText(l, lx + 12, H - 3);
             lx += ctx.measureText(l).width + 26;
@@ -2595,7 +3386,7 @@
           tip = document.createElement("div");
           tip.id = "scatter-tip";
           tip.style.cssText =
-            "position:fixed;font-family:DM Mono,monospace;font-size:10px;padding:7px 11px;border-radius:7px;pointer-events:none;display:none;z-index:300;line-height:1.7;white-space:nowrap";
+            'position:fixed;font-family:DINPro,"Proxima Nova",sans-serif;font-size:10px;padding:7px 11px;border-radius:7px;pointer-events:none;display:none;z-index:300;line-height:1.7;white-space:nowrap';
           document.body.appendChild(tip);
         }
         function findHit(mx, my) {
@@ -2615,11 +3406,10 @@
             tip.style.color = gv("--tip-text");
             tip.style.border = "1px solid " + tipBorder();
             tip.innerHTML =
-              (prName ? `<span style="color:${getLime()};font-weight:700">${prName}</span><br>` : "") +
+              (prName ? `<span style="color:${getLime()};font-weight:600">${prName}</span><br>` : "") +
               `<b>${r.date}</b> &nbsp;${r.dist.toFixed(1)}km<br>${fmtPace(r.pace)}/km &nbsp;·&nbsp; ${r.avg_hr} bpm &nbsp;·&nbsp; Z1:${r.z1.toFixed(0)}%`;
             tip.style.display = "block";
-            tip.style.left = e.clientX + 16 + "px";
-            tip.style.top = e.clientY - 8 + "px";
+            _positionTip(tip, e.clientX, e.clientY, 16);
           } else {
             canvas.style.cursor = "default";
             tip.style.display = "none";
@@ -2639,6 +3429,26 @@
       }
 
       // ── TAB ──
+      let _statsSub = "monthly";
+      function showStatsSub(sub) {
+        _statsSub = sub;
+        ["monthly", "yearly", "compare"].forEach((s) => {
+          document.getElementById("stats-" + s).style.display = s === sub ? "block" : "none";
+        });
+        document.querySelectorAll(".stats-sub-btn").forEach((b) => {
+          const active = b.dataset.sub === sub;
+          b.classList.toggle("active", active);
+        });
+        if (sub === "monthly") {
+          renderMonthlyTable();
+        }
+        if (sub === "yearly") {
+          initYearlyTab();
+        }
+        if (sub === "compare") {
+          initCompareTab();
+        }
+      }
       function showTab(id, btn) {
         document.querySelectorAll(".page").forEach((p) => p.classList.remove("active"));
         document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
@@ -2650,33 +3460,17 @@
         if (id === "overview") {
           drawOverviewCharts();
         }
-        if (id === "monthly") {
-          drawBar(
-            "monthlyTRIMPChart",
-            MONTHLY.map((m) => m.ym.slice(2)),
-            [
-              {
-                data: MONTHLY.map((m) => m.total_trimp),
-                color: MONTHLY.map((m) =>
-                  m.total_trimp > 1000
-                    ? getLime()
-                    : document.documentElement.classList.contains("light")
-                      ? "rgba(120,154,0,.3)"
-                      : "rgba(200,241,53,.3)",
-                ),
-              },
-            ],
-            { rotateLabels: true, yFmt: (v) => Math.round(v) },
-          );
-        }
-        if (id === "yearly") {
-          drawYearlyCharts();
+        if (id === "stats") {
+          showStatsSub(_statsSub);
         }
         if (id === "trends") {
           drawTrendCharts();
         }
         if (id === "health") {
           drawHealthCharts();
+        }
+        if (id === "calendar") {
+          renderCalendar();
         }
         if (id === "plan") {
           renderPlan();
@@ -2698,6 +3492,15 @@
         // default to most recent year
         if (s.options.length > 1) s.value = s.options[1].value;
         renderCalendar();
+      }
+
+      function _planForDate(dateStr) {
+        const diffDays = Math.floor((new Date(dateStr) - new Date(PLAN_START)) / 86400000);
+        if (diffDays < 0) return null;
+        const wIdx = Math.floor(diffDays / 7),
+          dIdx = diffDays % 7;
+        if (wIdx >= PLAN_DATA.length) return null;
+        return { weekIdx: wIdx, dayIdx: dIdx, day: PLAN_DATA[wIdx].days[dIdx], week: PLAN_DATA[wIdx] };
       }
 
       function renderCalendar() {
@@ -2732,9 +3535,16 @@
         const weekSet = new Set(dates.map(monOf));
         const sortedRunWeeks = [...weekSet].sort();
 
-        // generate every consecutive week from first to last run-week
+        // generate every consecutive week from first to last run-week + future plan weeks
         const firstWeek = sortedRunWeeks[0];
-        const lastWeek = sortedRunWeeks[sortedRunWeeks.length - 1];
+        let lastWeek = sortedRunWeeks[sortedRunWeeks.length - 1];
+        // extend to show current + 3 ahead plan weeks (only when not filtering a past year)
+        const _cwI = _planCurrentWeekIdx();
+        if (_cwI >= 0) {
+          const futureMon = _planWeekStart(Math.min(_cwI + 3, PLAN_DATA.length - 1));
+          const futureYr = futureMon.slice(0, 4);
+          if (futureMon > lastWeek && (!yr || yr == futureYr)) lastWeek = futureMon;
+        }
         const weeks = [];
         for (let d = new Date(lastWeek); d >= new Date(firstWeek); d.setDate(d.getDate() - 7))
           weeks.push(d.toISOString().slice(0, 10));
@@ -2782,6 +3592,7 @@
               : "");
           row.appendChild(info);
 
+          const _calToday = new Date().toISOString().slice(0, 10);
           // day cells
           days.forEach((dateStr) => {
             const cell = document.createElement("div");
@@ -2803,13 +3614,13 @@
                 // color by zone
                 let bg, textCol;
                 if (r.z1 >= 50) {
-                  bg = isLight ? "#8ab000" : "#C8F135";
-                  textCol = isLight ? "#fff" : "#0a0a0a";
+                  bg = isLight ? "#3D6FE0" : "#00F19F";
+                  textCol = "#111111";
                 } else if (r.z3 + r.z4 >= 50) {
                   bg = "#ff6622";
                   textCol = "#fff";
                 } else {
-                  bg = "#6dbf6d";
+                  bg = isLight ? "#22a85a" : "#6dbf6d";
                   textCol = "#fff";
                 }
 
@@ -2840,6 +3651,23 @@
                 cell.appendChild(lbl);
               });
             }
+
+            // Plan overlay pill (only on days without a run)
+            if (dayRuns.length === 0) {
+              const pe = _planForDate(dateStr);
+              if (pe && pe.day.type !== "rest") {
+                let col = _planTypeColor(pe.day.type);
+                if (col.startsWith("var(")) col = isLight ? "#3D6FE0" : "#00F19F";
+                const isPast = dateStr < _calToday;
+                const pill = document.createElement("div");
+                pill.className = "cal-plan-pill";
+                pill.style.cssText = `background:${col}${isPast ? "18" : "28"};color:${col};border:1px solid ${col}${isPast ? "30" : "50"};opacity:${isPast ? ".5" : "1"}`;
+                pill.title = pe.day.det || pe.day.lbl;
+                pill.textContent = pe.day.lbl;
+                cell.appendChild(pill);
+              }
+            }
+
             row.appendChild(cell);
           });
 
@@ -2848,74 +3676,8 @@
       }
 
       // ── OVERVIEW ──
-      let _overviewKmYear = "";
-      let _vo2Year = "";
+      let _vo2Year = new Date().getFullYear().toString();
       const _MONTHS_SHORT = ["Jan", "Feb", "Már", "Ápr", "Máj", "Jún", "Júl", "Aug", "Sze", "Okt", "Nov", "Dec"];
-
-      function _buildOverviewKmNav() {
-        const nav = document.getElementById("overview-km-nav");
-        if (!nav || nav.dataset.built) return;
-        nav.dataset.built = "1";
-        const years = [...new Set(MONTHLY.map((m) => m.ym.slice(0, 4)))].sort();
-        const pills = ["Teljes", ...years];
-        const isLight = () => document.documentElement.classList.contains("light");
-        pills.forEach((p) => {
-          const btn = document.createElement("button");
-          btn.dataset.yr = p === "Teljes" ? "" : p;
-          btn.textContent = p;
-          btn.style.cssText =
-            'font-size:10px;font-weight:700;letter-spacing:.5px;font-family:"Inter",sans-serif;border-radius:20px;padding:4px 12px;cursor:pointer;border:1px solid var(--border);transition:all .15s;background:var(--surface);color:var(--text3)';
-          btn.onclick = () => {
-            _overviewKmYear = btn.dataset.yr;
-            nav.querySelectorAll("button").forEach((b) => {
-              const active = b.dataset.yr === _overviewKmYear;
-              b.style.background = active ? "var(--lime)" : "var(--surface)";
-              b.style.color = active ? "var(--bg)" : "var(--text3)";
-              b.style.borderColor = active ? "var(--lime)" : "var(--border)";
-            });
-            drawOverviewKmChart();
-          };
-          if (p === "Teljes") {
-            btn.style.background = "var(--lime)";
-            btn.style.color = "var(--bg)";
-            btn.style.borderColor = "var(--lime)";
-          }
-          nav.appendChild(btn);
-        });
-      }
-
-      function drawOverviewKmChart() {
-        const isLight = document.documentElement.classList.contains("light");
-        const data = _overviewKmYear ? MONTHLY.filter((m) => m.ym.startsWith(_overviewKmYear)) : MONTHLY;
-        const labels = _overviewKmYear
-          ? data.map((m) => _MONTHS_SHORT[parseInt(m.ym.slice(5)) - 1])
-          : data.map((m) => m.ym.slice(2));
-        drawBar(
-          "overviewKmChart",
-          labels,
-          [
-            {
-              data: data.map((m) => m.km),
-              color: data.map((m) =>
-                m.km >= 150
-                  ? getLime()
-                  : m.ym.startsWith("2026")
-                    ? "rgba(96,165,250,.6)"
-                    : isLight
-                      ? "rgba(120,154,0,.18)"
-                      : "rgba(200,241,53,.22)",
-              ),
-              label: "km",
-            },
-          ],
-          {
-            rotateLabels: !_overviewKmYear,
-            yFmt: (v) => Math.round(v) + "km",
-            extraTip: (i) => data[i].runs + " futás",
-            onClick: (_, i) => filterAndShowRuns(data[i].ym),
-          },
-        );
-      }
 
       function _buildVo2Nav() {
         const nav = document.getElementById("vo2-nav");
@@ -2936,15 +3698,15 @@
           const btn = document.createElement("button");
           btn.dataset.yr = yr;
           btn.style.cssText =
-            'font-family:"Inter",sans-serif;border-radius:12px;padding:5px 11px;cursor:pointer;border:1px solid var(--border);transition:all .15s;background:var(--surface);color:var(--text3);display:flex;flex-direction:column;align-items:center;gap:1px;line-height:1.2';
+            'font-family:"Proxima Nova",sans-serif;border-radius:12px;padding:5px 11px;cursor:pointer;border:1px solid var(--border);transition:all .15s;background:var(--surface);color:var(--text3);display:flex;flex-direction:column;align-items:center;gap:1px;line-height:1.2';
           const top = document.createElement("span");
           top.textContent = p;
-          top.style.cssText = "font-size:10px;font-weight:700;letter-spacing:.5px";
+          top.style.cssText = "font-size:10px;font-weight:600;letter-spacing:.5px";
           btn.appendChild(top);
           if (r) {
             const sub = document.createElement("span");
             sub.textContent = r.min.toFixed(1) + "–" + r.max.toFixed(1);
-            sub.style.cssText = "font-size:8.5px;font-weight:500;opacity:.75;letter-spacing:0";
+            sub.style.cssText = "font-size:8.5px;font-weight:400;opacity:.75;letter-spacing:0";
             btn.appendChild(sub);
           }
           btn.onclick = () => {
@@ -2952,14 +3714,14 @@
             nav.querySelectorAll("button").forEach((b) => {
               const active = b.dataset.yr === _vo2Year;
               b.style.background = active ? "var(--lime)" : "var(--surface)";
-              b.style.color = active ? "var(--bg)" : "var(--text3)";
+              b.style.color = active ? "var(--on-lime)" : "var(--text3)";
               b.style.borderColor = active ? "var(--lime)" : "var(--border)";
             });
             drawVo2Chart();
           };
-          if (p === "Teljes") {
+          if (yr === _vo2Year) {
             btn.style.background = "var(--lime)";
-            btn.style.color = "var(--bg)";
+            btn.style.color = "var(--on-lime)";
             btn.style.borderColor = "var(--lime)";
           }
           nav.appendChild(btn);
@@ -2987,40 +3749,188 @@
         );
       }
 
+      // Group weight entries into Mon-Sun weekly averages
+      function _weeklyAvgSeries(cutData) {
+        const wM = {};
+        cutData.forEach((r) => {
+          const ws = _wStart(r.date);
+          (wM[ws] = wM[ws] || []).push(r.kg);
+        });
+        const weeksSorted = Object.keys(wM).sort();
+        const weeklyAvg = weeksSorted.map((ws) => +(wM[ws].reduce((s, v) => s + v, 0) / wM[ws].length).toFixed(1));
+        return { weeksSorted, weeklyAvg };
+      }
+
+      // Weekly average weight rows, one week per line, each with delta vs previous week
+      function _weeklyWeightRowsHtml(weeksSorted, weeklyAvg) {
+        const curWs = _wStart(new Date().toISOString().slice(0, 10));
+        return weeksSorted
+          .map((ws, i) => {
+            const avg = weeklyAvg[i];
+            const delta = i > 0 ? +(avg - weeklyAvg[i - 1]).toFixed(1) : null;
+            const isCur = ws === curWs;
+            const isLast = i === weeksSorted.length - 1;
+            const dCol = delta === null || delta === 0 ? "var(--text3)" : delta < 0 ? "var(--lime)" : "var(--orange)";
+            const dStr = delta === null ? "—" : (delta > 0 ? "+" : "") + delta.toFixed(1) + " kg";
+            return `<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 8px;margin:0 -8px;border-radius:8px;${isCur ? "background:var(--lime)18;" : ""}${!isLast && !isCur ? "border-bottom:1px solid var(--border);" : ""}">
+              <span style="font-size:12px;color:var(--text2);">${_fmtPlanDate(ws)}–${_fmtPlanDate(_wEnd(ws))}</span>
+              <span style="display:flex;align-items:center;gap:14px;">
+                <span style="font-family:DINPro,sans-serif;font-size:15px;font-weight:600;color:var(--text);">${avg.toFixed(1)} kg</span>
+                <span style="font-size:12px;font-weight:600;color:${dCol};min-width:56px;text-align:right;">${dStr}</span>
+              </span>
+            </div>`;
+          })
+          .join("");
+      }
+
       function drawOverviewCharts() {
-        _buildOverviewKmNav();
-        drawOverviewKmChart();
-        // weekly km (last 52 weeks)
-        const wk52 = WEEKLY.slice(-52);
+        _refreshHeatmap();
+
+        // ── RACE BANNER ──
+        const rbEl = document.getElementById("race-banner");
+        if (rbEl && typeof PLAN_RACE !== "undefined") {
+          const raceDate = new Date(PLAN_RACE + "T00:00:00");
+          const startDate = new Date(PLAN_START + "T00:00:00");
+          const todayD = new Date();
+          todayD.setHours(0, 0, 0, 0);
+          const daysLeft = Math.round((raceDate - todayD) / 86400000);
+          const totalDays = Math.round((raceDate - startDate) / 86400000);
+          const doneDays = totalDays - daysLeft;
+          const donePct = Math.round((doneDays / totalDays) * 100);
+          const cwI = _planCurrentWeekIdx(),
+            planW = cwI >= 0 && cwI < PLAN_DATA.length ? PLAN_DATA[cwI] : null;
+          rbEl.innerHTML = `<div style="position:relative;overflow:hidden;border-radius:16px;background:#0a0a0a">
+      <video autoplay muted loop playsinline
+        style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+        <source src="banner.mp4" type="video/mp4">
+      </video>
+      <div style="position:absolute;inset:0;background:rgba(0,0,0,.6)"></div>
+      <div style="position:relative;z-index:1;padding:14px 18px">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px">
+          <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap">
+            <div>
+              <div style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:3px"><span style="color:#d50d8d">Wizzair</span> HM · 2026.09.06.</div>
+              <div style="display:flex;align-items:baseline;gap:6px">
+                <span style="font-family:DINPro,sans-serif;font-size:32px;font-weight:600;color:#d50d8d;line-height:1;letter-spacing:-.5px">${daysLeft}</span>
+                <span style="font-size:13px;color:rgba(255,255,255,.55)">nap</span>
+                ${planW ? `<span style="font-size:11px;color:rgba(255,255,255,.45);margin-left:6px">· ${cwI + 1}. hét · ${planW.phase}</span>` : ""}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:10px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+            <span style="font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.55)">${donePct}% felkészülés</span>
+            <span style="font-size:10px;color:rgba(255,255,255,.45)">${doneDays} / ${totalDays} nap</span>
+          </div>
+          <div style="width:100%;height:6px;background:rgba(255,255,255,.15);border-radius:3px">
+            <div style="height:100%;border-radius:3px;background:#d50d8d;width:${donePct}%"></div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+        }
+
+        const wkRecent = WEEKLY.slice(-13);
         const isLight = document.documentElement.classList.contains("light");
+        // Plan overlay: a tervezett heti km a futási tervből, ha a hét beleesik a tervbe
+        const planStartMs = new Date(PLAN_START + "T00:00:00").getTime();
+        const planLine = wkRecent.map((w) => {
+          const wsMs = new Date(w.w.split("/")[0] + "T00:00:00").getTime();
+          const weekIdx = Math.round((wsMs - planStartMs) / (7 * 86400000));
+          if (weekIdx >= 0 && weekIdx < PLAN_DATA.length) return PLAN_DATA[weekIdx].km;
+          return null;
+        });
         drawBar(
           "weeklyKmChart",
-          wk52.map((w) => w.date.slice(5)),
+          wkRecent.map((w) => { const [y,mo,d] = w.date.split("-"); return `${MONTHS_HU[+mo-1]} '${y.slice(2)}`; }),
           [
             {
-              data: wk52.map((w) => w.km),
-              color: wk52.map((w) =>
-                w.km >= 50
-                  ? getLime()
-                  : w.km >= 25
-                    ? isLight
-                      ? "rgba(120,154,0,.45)"
-                      : "rgba(200,241,53,.45)"
-                    : isLight
-                      ? "rgba(120,154,0,.2)"
-                      : "rgba(200,241,53,.2)",
-              ),
+              data: wkRecent.map((w) => w.km),
+              color: wkRecent.map((w) => (w.km >= 50 ? getStrain() : w.km >= 25 ? getStrainDim(0.6) : getStrainDim(0.3))),
               label: "km",
             },
           ],
-          { rotateLabels: true, yFmt: (v) => Math.round(v) + "km", extraTip: (i) => (wk52[i].runs || "?") + " futás" },
+          {
+            rotateLabels: true,
+            yFmt: (v) => Math.round(v) + "km",
+            extraTip: (i) => (wkRecent[i].runs || "?") + " futás" + (planLine[i] != null ? ` · terv: ${planLine[i]}km` : ""),
+            lineOverlay: { data: planLine, color: "#d50d8d", label: "terv" },
+          },
         );
-        const aD = MONTHLY.filter((m) => m.avg_aei);
+        _drawRacePredictions();
+        _drawFormaChart();
+      }
+
+      // ── FORMA TREND (CTL/ATL/TSB) ──
+      function _drawFormaChart() {
+        if (!RUNS.length) return;
+        // Build daily TRIMP timeline from first run to today
+        const firstDate = RUNS[0].date;
+        const today = new Date().toISOString().slice(0, 10);
+        const dayTrimp = {};
+        RUNS.forEach((r) => {
+          dayTrimp[r.date] = (dayTrimp[r.date] || 0) + (r.trimp || 0);
+        });
+        const days = [];
+        const d = new Date(firstDate);
+        const end = new Date(today);
+        while (d <= end) {
+          const ds = d.toISOString().slice(0, 10);
+          days.push({ date: ds, trimp: dayTrimp[ds] || 0 });
+          d.setDate(d.getDate() + 1);
+        }
+        // EMA: today = yesterday + (today_load - yesterday) / N
+        let ctl = 0,
+          atl = 0;
+        days.forEach((day) => {
+          ctl = ctl + (day.trimp - ctl) / 42;
+          atl = atl + (day.trimp - atl) / 7;
+          day.ctl = +ctl.toFixed(2);
+          day.atl = +atl.toFixed(2);
+          day.tsb = +(ctl - atl).toFixed(2);
+        });
+        // Csak az utolsó 180 napot mutatjuk (olvashatóbb)
+        const recent = days.slice(-180);
+        const labels = recent.map((x) => x.date.slice(5));
+        const isLight = document.documentElement.classList.contains("light");
         drawLine(
-          "aeiChart",
-          aD.map((m) => m.ym.slice(2)),
-          [{ data: aD.map((m) => m.avg_aei), color: getLime(), fill: true, fillColor: getLimeDim(), label: "AEI" }],
-          { rotateLabels: true, yFmt: (v) => v.toFixed(2) },
+          "formaChart",
+          labels,
+          [
+            { data: recent.map((x) => x.ctl), color: isLight ? "#3D6FE0" : "#00F19F", label: "Fitnesz (CTL)" },
+            { data: recent.map((x) => x.atl), color: "#ff6622", label: "Fáradtság (ATL)" },
+            { data: recent.map((x) => x.tsb), color: isLight ? "#0078D4" : "#4DB8FF", label: "Forma (TSB)" },
+          ],
+          {
+            rotateLabels: true,
+            yFmt: (v) => Math.round(v),
+            refLines: [{ value: 0, color: "rgba(128,128,128,.5)", label: "0" }],
+          },
+        );
+      }
+
+      // ── KÖNNYŰ TEMPÓ TREND ──
+      let _easyPacePeriod = 12;
+      function _drawEasyPaceChart() {
+        if (!MONTHLY.length) return;
+        const cutYm = _easyPacePeriod
+          ? (() => { const d = new Date(); d.setMonth(d.getMonth() - _easyPacePeriod); return d.toISOString().slice(0, 7); })()
+          : null;
+        const months = MONTHLY.filter((m) => !cutYm || m.ym >= cutYm);
+        const showYear = _easyPacePeriod === 0 || _easyPacePeriod > 12;
+        const data = months.map((m) => {
+          const easy = RUNS.filter((r) => r.ym === m.ym && r.z1 >= 50 && r.pace > 0);
+          if (!easy.length) return null;
+          return +(easy.reduce((s, r) => s + r.pace, 0) / easy.length).toFixed(3);
+        });
+        const labels = months.map((m) => fmtYm(m.ym, showYear));
+        if (!data.some((v) => v)) return;
+        drawLine(
+          "easyPaceChart",
+          labels,
+          [{ data, color: getLime(), fill: true, fillColor: getLimeDim(), label: "tempó" }],
+          { rotateLabels: true, yInvert: true, yFmt: (v) => fmtPace(v) + "/km" },
         );
       }
 
@@ -3042,6 +3952,11 @@
         const today = new Date().toISOString().slice(0, 10);
         let wk = _wStart(today),
           current = 0;
+        if (!weekSet.has(wk)) {
+          const d = new Date(wk);
+          d.setDate(d.getDate() - 7);
+          wk = d.toISOString().slice(0, 10);
+        }
         while (weekSet.has(wk)) {
           current++;
           const d = new Date(wk);
@@ -3051,34 +3966,13 @@
         return { current, longest };
       }
 
-      function _computeACWR() {
-        const td = {};
-        RUNS.forEach((r) => {
-          td[r.date] = (td[r.date] || 0) + r.trimp;
-        });
-        const dates = Object.keys(td).sort();
-        if (!dates.length) return [];
-        const all = [];
-        for (let d = new Date(dates[0]), end = new Date(); d <= end; d.setDate(d.getDate() + 1)) {
-          all.push({ date: d.toISOString().slice(0, 10), t: td[d.toISOString().slice(0, 10)] || 0 });
-        }
-        // weekly points only (every 7th day), need ≥28 days of history
-        const result = [];
-        for (let i = 27; i < all.length; i += 7) {
-          const atl = all.slice(i - 6, i + 1).reduce((s, x) => s + x.t, 0) / 7;
-          const ctl = all.slice(i - 27, i + 1).reduce((s, x) => s + x.t, 0) / 28;
-          if (ctl > 0) result.push({ date: all[i].date, value: +(atl / ctl).toFixed(2) });
-        }
-        return result;
-      }
-
       let _intPeriod = 90;
       function _drawIntensity(days) {
         _intPeriod = days;
         document.querySelectorAll(".int-pill").forEach((b) => {
           const active = +b.dataset.d === days;
           b.style.background = active ? "var(--lime)" : "var(--surface)";
-          b.style.color = active ? "var(--bg)" : "var(--text3)";
+          b.style.color = active ? "var(--on-lime)" : "var(--text3)";
           b.style.borderColor = active ? "var(--lime)" : "var(--border)";
         });
         const cutoff =
@@ -3089,7 +3983,7 @@
         const mixed = runs.length - easy - hard;
         const isLight = document.documentElement.classList.contains("light");
         drawDonut("intensityDonut", [
-          { label: "Könnyű (Z1)", value: easy, color: isLight ? "#8ab000" : "#C8F135" },
+          { label: "Könnyű (Z1)", value: easy, color: isLight ? "#3D6FE0" : "#00F19F" },
           { label: "Vegyes", value: mixed, color: "#6dbf6d" },
           { label: "Kemény (Z3–4)", value: hard, color: "#ff6622" },
         ]);
@@ -3100,16 +3994,139 @@
         const avgPace = RUNS.reduce((s, r) => s + r.pace, 0) / RUNS.length;
         const totTrimp = RUNS.reduce((s, r) => s + r.trimp, 0);
         const totCal = RUNS.reduce((s, r) => s + (r.calories || 0), 0);
-        document.getElementById("overview-stats").innerHTML = `
-    <div class="stat-box"><div class="stat-lbl">Összes km</div><div class="stat-num lime">${Math.round(totKm).toLocaleString()}</div><div class="stat-unit">km · 2020–2026</div></div>
-    <div class="stat-box"><div class="stat-lbl">Futások</div><div class="stat-num">${RUNS.length}</div><div class="stat-unit">edzés</div></div>
-    <div class="stat-box"><div class="stat-lbl">Átl. tempó</div><div class="stat-num">${fmtPace(avgPace)}</div><div class="stat-unit">min/km</div></div>
-    <div class="stat-box"><div class="stat-lbl">Összes TRIMP</div><div class="stat-num">${Math.round(totTrimp).toLocaleString()}</div><div class="stat-unit">terhelési pont</div></div>
-    <div class="stat-box"><div class="stat-lbl">Kalória</div><div class="stat-num">${Math.round(totCal / 1000)}k</div><div class="stat-unit">aktív kcal</div></div>`;
-        const { current, longest } = _computeStreaks();
-        document.getElementById("streak-stats").innerHTML = `
-    <div class="stat-box"><div class="stat-lbl">Jelenlegi sorozat</div><div class="stat-num lime">${current}</div><div class="stat-unit">egymást követő hét</div></div>
-    <div class="stat-box"><div class="stat-lbl">Leghosszabb sorozat</div><div class="stat-num">${longest}</div><div class="stat-unit">egymást követő hét</div></div>`;
+        const totElev = RUNS.reduce((s, r) => s + (r.elevation || 0), 0);
+        const curYear = new Date().getFullYear();
+
+        // Mai edzés a tervből
+        const todayPlanEl = document.getElementById("today-plan");
+        if (todayPlanEl) {
+          const cwIdx = _planCurrentWeekIdx();
+          if (cwIdx >= 0 && cwIdx < PLAN_DATA.length) {
+            const dow = new Date().getDay(),
+              pdi = dow === 0 ? 6 : dow - 1;
+            const week = PLAN_DATA[cwIdx],
+              pd = week.days[pdi];
+            const done = _sessionDone(cwIdx, pdi, pd.type);
+            const col = _planTypeColor(pd.type);
+            // tomorrow lookup — always shown
+            const tmrPdi = pdi === 6 ? 0 : pdi + 1;
+            const tmrCwIdx = pdi === 6 ? cwIdx + 1 : cwIdx;
+            let tmrHtml = "";
+            if (tmrCwIdx < PLAN_DATA.length) {
+              const tmrWeek = PLAN_DATA[tmrCwIdx],
+                tmrPd = tmrWeek.days[tmrPdi];
+              if (tmrPd) {
+                const tmrCol = tmrPd.type === "rest" ? "var(--text3)" : _planTypeColor(tmrPd.type);
+                tmrHtml = `<div style="margin-top:6px;border-top:1px solid var(--border);padding-top:6px">
+            <div style="font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text3);margin-bottom:3px">Holnap</div>
+            <div style="font-size:13px;font-weight:600;color:${tmrCol}">${tmrPd.lbl}</div>
+            ${tmrPd.type !== "rest" && tmrPd.det ? `<div class="stat-unit" style="margin-top:2px;line-height:1.5">${tmrPd.det}</div>` : ""}
+          </div>`;
+              }
+            }
+            if (pd.type === "rest") {
+              todayPlanEl.innerHTML = `<div class="stat-box" style="opacity:.65">
+          <div class="stat-lbl">Mai edzés</div>
+          <div style="font-size:18px;font-weight:600;font-family:DINPro,sans-serif;color:var(--text3);margin:4px 0">Pihenő</div>
+          ${tmrHtml}
+        </div>`;
+            } else {
+              todayPlanEl.innerHTML = `<div class="stat-box" style="${done ? "opacity:.6" : ""}">
+          <div class="stat-lbl" style="display:flex;justify-content:space-between;align-items:center">
+            <span>Mai edzés</span>
+            ${done ? `<span style="font-size:10px;font-weight:600;background:${col};color:#111;padding:2px 9px;border-radius:20px;letter-spacing:.5px">✓ KÉSZ</span>` : ""}
+          </div>
+          <div style="font-size:18px;font-weight:600;font-family:DINPro,sans-serif;color:${col};margin:4px 0">${pd.lbl}</div>
+          ${pd.det ? `<div class="stat-unit" style="margin-top:4px">${pd.det}</div>` : ""}
+          ${tmrHtml}
+        </div>`;
+            }
+          }
+        }
+
+        // Ezen a héten
+        const today = new Date().toISOString().slice(0, 10);
+        const thisW = WEEKLY.find((w) => {
+          const [s, e] = w.w.split("/");
+          return today >= s && today <= e;
+        });
+
+        // Current week plan overview
+        const _planEl = document.getElementById("thisweek-plan");
+        if (_planEl && typeof PLAN_DATA !== "undefined") {
+          const _pwIdx = _planCurrentWeekIdx();
+          if (_pwIdx >= 0 && _pwIdx < PLAN_DATA.length) {
+            const _pw = PLAN_DATA[_pwIdx];
+            const _todayDow = new Date().getDay();
+            const _todayPdi = _todayDow === 0 ? 6 : _todayDow - 1;
+            const _days = _pw.days.map((d, di) => {
+              const dateStr = _planDayDate(_pwIdx, di);
+              const done = _sessionDone(_pwIdx, di, d.type);
+              const isToday = di === _todayPdi;
+              const typeClass = d.type === "gym" ? "is-gym" : d.type === "rest" ? "is-rest" : "is-run";
+              const col = _planTypeColor(d.type);
+              const colLight = _planTypeColorLight(d.type);
+              return `<div class="plan-mini-day ${typeClass} ${done ? "is-done" : ""} ${isToday ? "is-today" : ""}" style="--type-color:${colLight};">
+                <div class="pmd-dow" style="${isToday ? "color:var(--lime);" : ""}">${_PLAN_DAYS_HU[di]} ${_fmtPlanDate(dateStr)}</div>
+                <div class="pmd-type" style="color:${col};">${done ? "✓ " : ""}${d.lbl}</div>
+                ${d.det && d.type !== "rest" ? `<div class="pmd-detail">${d.det}</div>` : ""}
+              </div>`;
+            }).join("");
+            _planEl.innerHTML = `<div style="background:var(--surface);border:1px solid var(--card-border);border-radius:12px;padding:12px 14px;">
+              <div style="font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">${_pwIdx + 1}. hét · ${_pw.phase} · ${_pw.km} km</div>
+              <div class="plan-week-grid">${_days}</div>
+            </div>`;
+          } else {
+            _planEl.innerHTML = "";
+          }
+        }
+
+        // Weight-loss widget — progress toward WEIGHT_GOAL since WEIGHT_CUT_START
+        const _wtEl = document.getElementById("thisweek-weight");
+        if (_wtEl) {
+          const cutData = WEIGHT.filter((r) => r.date >= WEIGHT_CUT_START);
+          if (cutData.length >= 2) {
+            const startW = cutData[0].kg;
+            const curW = cutData[cutData.length - 1].kg;
+            const lost = +(startW - curW).toFixed(1);
+            const remain = +(curW - WEIGHT_GOAL).toFixed(1);
+            const span = startW - WEIGHT_GOAL;
+            const pct = span > 0 ? Math.max(0, Math.min(100, Math.round(((startW - curW) / span) * 100))) : 100;
+            const lostCol = lost > 0 ? "var(--lime)" : lost < 0 ? "var(--orange)" : "var(--text3)";
+            const lostStr = (lost > 0 ? "-" : lost < 0 ? "+" : "") + Math.abs(lost).toFixed(1);
+            const remainStr = remain > 0 ? remain.toFixed(1) : "Cél elérve";
+            const { weeksSorted, weeklyAvg } = _weeklyAvgSeries(cutData);
+            const avgLoss =
+              weeksSorted.length > 1
+                ? +((weeklyAvg[0] - weeklyAvg[weeklyAvg.length - 1]) / (weeksSorted.length - 1)).toFixed(2)
+                : null;
+            const avgLossCol = avgLoss === null || avgLoss === 0 ? "var(--text3)" : avgLoss > 0 ? "var(--lime)" : "var(--orange)";
+            const avgLossStr =
+              avgLoss === null ? "—" : (avgLoss > 0 ? "-" : avgLoss < 0 ? "+" : "") + Math.abs(avgLoss).toFixed(2);
+            _wtEl.innerHTML = `<div style="background:var(--surface);border:1px solid var(--card-border);border-radius:12px;padding:14px 16px;">
+              <div style="font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text3);margin-bottom:12px;">Szálkásítás · ${_fmtPlanDate(WEIGHT_CUT_START)} óta</div>
+              <div style="display:flex;gap:22px;flex-wrap:wrap;margin-bottom:14px;">
+                <div><div style="font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text3);margin-bottom:3px;">Jelenlegi</div><div style="font-family:DINPro,sans-serif;font-size:22px;font-weight:800;color:var(--text);">${curW.toFixed(1)}<span style="font-size:12px;font-weight:300;color:var(--text3);margin-left:2px;">kg</span></div></div>
+                <div><div style="font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text3);margin-bottom:3px;">Eddig</div><div style="font-family:DINPro,sans-serif;font-size:22px;font-weight:800;color:${lostCol};">${lostStr}<span style="font-size:12px;font-weight:300;color:var(--text3);margin-left:2px;">kg</span></div></div>
+                <div><div style="font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text3);margin-bottom:3px;">Hátra a célig</div><div style="font-family:DINPro,sans-serif;font-size:22px;font-weight:800;color:var(--text);">${remainStr}${remain > 0 ? `<span style="font-size:12px;font-weight:300;color:var(--text3);margin-left:2px;">kg</span>` : ""}</div></div>
+                <div><div style="font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text3);margin-bottom:3px;">Átlag heti fogyás</div><div style="font-family:DINPro,sans-serif;font-size:22px;font-weight:800;color:${avgLossCol};">${avgLossStr}<span style="font-size:12px;font-weight:300;color:var(--text3);margin-left:2px;">kg/hét</span></div></div>
+              </div>
+              <div style="margin-bottom:14px;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+                  <span style="font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text3);">${pct}% a célig</span>
+                  <span style="font-size:10px;color:var(--text3);">${startW.toFixed(1)} → ${WEIGHT_GOAL.toFixed(1)} kg</span>
+                </div>
+                <div style="width:100%;height:6px;background:var(--border);border-radius:3px;">
+                  <div style="height:100%;border-radius:3px;background:var(--lime);width:${pct}%"></div>
+                </div>
+              </div>
+              <div>${_weeklyWeightRowsHtml(weeksSorted, weeklyAvg)}</div>
+            </div>`;
+          } else {
+            _wtEl.innerHTML = "";
+          }
+        }
+
 
         const p = PRS;
         function prCard(label, numHtml, meta, run) {
@@ -3117,15 +4134,16 @@
       <div class="pr-lbl">${label}</div>
       <div class="pr-num">${numHtml}</div>
       <div class="pr-meta">${meta}</div>
-      <div class="pr-link">Futáshoz ugrás</div>
+      ${run ? `<div class="pr-link">Futáshoz ugrás</div>` : ""}
     </div>`;
         }
-        const halfRun = RUNS.find((r) => r.date === p.half?.date);
-        const shortRun = RUNS.find((r) => r.date === p.short_5k?.date);
-        const midRun = RUNS.find((r) => r.date === p.mid_10k?.date);
+        const prRun = (pr) => pr && (RUNS.find((r) => r.date === pr.date && Math.abs(r.dist - pr.dist) < 0.5) || RUNS.find((r) => r.date === pr.date));
+        const halfRun = prRun(p.half);
+        const shortRun = prRun(p.short_5k);
+        const midRun = prRun(p.mid_10k);
         const longRun = RUNS.find((r) => r.date === p.longest?.date);
         const trimpRun = RUNS.find((r) => r.date === p.highest_trimp?.date);
-        const vo2vals = HEALTH.filter((h) => h.vo2max > 0);
+        const vo2vals = HEALTH.filter((h) => h.vo2max > 0).sort((a, b) => (a.date < b.date ? -1 : 1));
         const bestVo2 = vo2vals.length ? Math.max(...vo2vals.map((h) => h.vo2max)) : null;
         const curVo2 = vo2vals.length ? vo2vals[vo2vals.length - 1].vo2max : null;
         document.getElementById("pr-grid").innerHTML =
@@ -3168,46 +4186,6 @@
             null,
           );
 
-        // heatmap
-        const mn = document.getElementById("month-names");
-        MONTHS_HU.forEach((m) => {
-          const d = document.createElement("div");
-          d.className = "month-name";
-          d.textContent = m;
-          mn.appendChild(d);
-        });
-        const years = [...new Set(MONTHLY.map((m) => m.year))].sort();
-        const maxKm = Math.max(...MONTHLY.map((m) => m.km));
-        const hm = document.getElementById("heatmap");
-        years.forEach((yr) => {
-          const row = document.createElement("div");
-          row.className = "heatmap-row";
-          const lbl = document.createElement("div");
-          lbl.className = "heatmap-year";
-          lbl.textContent = yr;
-          const cells = document.createElement("div");
-          cells.className = "heatmap-cells";
-          for (let mo = 1; mo <= 12; mo++) {
-            const found = MONTHLY.find((m) => m.year === yr && m.month === mo);
-            const cell = document.createElement("div");
-            cell.className = "hm-cell";
-            if (found) {
-              const alpha = 0.1 + (found.km / maxKm) * 0.9;
-              cell.style.background = document.documentElement.classList.contains("light")
-                ? `rgba(100,140,0,${alpha.toFixed(2)})`
-                : `rgba(200,241,53,${alpha.toFixed(2)})`;
-              cell.title = `${found.ym}: ${found.km}km · ${found.runs} futás`;
-              cell.onclick = () => filterAndShowRuns(found.ym);
-            } else {
-              cell.style.background = "var(--border)";
-              cell.style.opacity = ".4";
-            }
-            cells.appendChild(cell);
-          }
-          row.appendChild(lbl);
-          row.appendChild(cells);
-          hm.appendChild(row);
-        });
         drawOverviewCharts();
       }
 
@@ -3356,6 +4334,37 @@
         if (e.key === "Escape") closeModalBtn();
       });
 
+      function showVo2Modal() {
+        const yr = new Date().getFullYear().toString();
+        const all = HEALTH.filter((h) => h.vo2max > 0);
+        const data = all.filter((h) => h.date.startsWith(yr));
+        if (!data.length) return;
+        const vals = data.map((h) => h.vo2max);
+        const min = Math.min(...vals),
+          max = Math.max(...vals);
+        const trend = +(vals[vals.length - 1] - vals[0]).toFixed(1);
+        const trendCol = trend > 0 ? "var(--lime)" : trend < 0 ? "var(--red)" : "var(--text2)";
+        const trendStr = (trend > 0 ? "+" : "") + trend;
+        document.getElementById("modal-content").innerHTML = `
+    <div style="margin-bottom:20px">
+      <div style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:6px">VO₂ Max — ${yr}</div>
+      <div style="font-size:32px;font-weight:800;color:var(--text);letter-spacing:-1.5px;line-height:1">${vals[vals.length - 1].toFixed(1)}<span style="font-size:14px;font-weight:300;color:var(--text3);margin-left:5px">ml/kg/min</span></div>
+      <div style="font-size:12px;color:var(--text2);margin-top:6px">${yr}-ben: ${min.toFixed(1)}–${max.toFixed(1)} · Változás: <span style="color:${trendCol};font-weight:600">${trendStr}</span></div>
+    </div>
+    <canvas id="vo2-modal-chart" height="180"></canvas>`;
+        document.getElementById("modal").classList.add("open");
+        setTimeout(
+          () =>
+            drawLine(
+              "vo2-modal-chart",
+              data.map((h) => h.date.slice(5)),
+              [{ data: vals, color: "#f87171", fill: true, fillColor: "rgba(248,113,113,.08)", label: "ml/kg/min" }],
+              { rotateLabels: true, yFmt: (v) => v.toFixed(1) },
+            ),
+          0,
+        );
+      }
+
       // ── MONTHLY ──
       function initMonthlyTab() {
         const s = document.getElementById("monthly-year-filter");
@@ -3386,7 +4395,7 @@
           .map(
             (m) => `
     <tr onclick="filterAndShowRuns('${m.ym}')" style="cursor:pointer">
-      <td class="primary">${m.ym}</td>
+      <td class="primary">${fmtYm(m.ym, "full")}</td>
       <td>${m.runs}</td>
       <td class="${m.km === bKm ? "best" : ""}">${m.km.toFixed(1)}km</td>
       <td>${fmtPace(m.avg_pace)}</td>
@@ -3396,6 +4405,7 @@
       <td class="${m.total_trimp === bTrimp ? "best" : ""}">${m.total_trimp.toFixed(0)}</td>
       <td>${m.avg_z1.toFixed(0)}%</td>
       <td>${m.avg_aei != null ? m.avg_aei.toFixed(2) : "—"}</td>
+      <td>${m.total_elev ? Math.round(m.total_elev) + " m" : "—"}</td>
       <td>${m.total_cal != null ? Math.round(m.total_cal).toLocaleString() + " kcal" : "—"}</td>
     </tr>`,
           )
@@ -3420,11 +4430,7 @@
             {
               data: YEARLY.map((y) => y.km),
               color: YEARLY.map((y) =>
-                y.km === Math.max(...YEARLY.map((y) => y.km))
-                  ? getLime()
-                  : document.documentElement.classList.contains("light")
-                    ? "rgba(120,154,0,.3)"
-                    : "rgba(200,241,53,.3)",
+                y.km === Math.max(...YEARLY.map((y) => y.km)) ? getStrain() : getStrainDim(0.4),
               ),
             },
           ],
@@ -3437,6 +4443,60 @@
           [{ data: a.map((y) => y.avg_aei), color: getLime(), fill: true, fillColor: getLimeDim() }],
           { yFmt: (v) => v.toFixed(2) },
         );
+
+        // heatmap
+        const mn = document.getElementById("month-names");
+        mn.innerHTML = "";
+        MONTHS_HU.forEach((m) => {
+          const d = document.createElement("div");
+          d.className = "month-name";
+          d.textContent = m;
+          mn.appendChild(d);
+        });
+        const years = [...new Set(MONTHLY.map((m) => m.year))].sort();
+        const maxKm = Math.max(...MONTHLY.map((m) => m.km));
+        const hm = document.getElementById("heatmap");
+        hm.innerHTML = "";
+        years.forEach((yr) => {
+          const row = document.createElement("div");
+          row.className = "heatmap-row";
+          const lbl = document.createElement("div");
+          lbl.className = "heatmap-year";
+          lbl.textContent = yr;
+          const cells = document.createElement("div");
+          cells.className = "heatmap-cells";
+          for (let mo = 1; mo <= 12; mo++) {
+            const found = MONTHLY.find((m) => m.year === yr && m.month === mo);
+            const cell = document.createElement("div");
+            cell.className = "hm-cell";
+            if (found) {
+              const alpha = 0.1 + (found.km / maxKm) * 0.9;
+              cell.dataset.alpha = alpha.toFixed(2);
+              _hmCellColor(cell, alpha.toFixed(2));
+              const tt = document.getElementById("hm-tooltip");
+              cell.addEventListener("mouseenter", () => {
+                const apc = found.avg_pace ? fmtPace(found.avg_pace) + "/km" : "—";
+                const lng = found.max_dist ? found.max_dist.toFixed(1) + "km" : "—";
+                tt.innerHTML = `<b>${found.ym}</b> · ${found.km} km · ${found.runs} futás<br>Átl. tempó: ${apc} · Leghosszabb: ${lng}`;
+                tt.style.display = "block";
+              });
+              cell.addEventListener("mousemove", (e) => {
+                _positionTip(tt, e.clientX, e.clientY, 14, -36);
+              });
+              cell.addEventListener("mouseleave", () => {
+                tt.style.display = "none";
+              });
+              cell.onclick = () => filterAndShowRuns(found.ym);
+            } else {
+              cell.style.background = "var(--border)";
+              cell.style.opacity = ".4";
+            }
+            cells.appendChild(cell);
+          }
+          row.appendChild(lbl);
+          row.appendChild(cells);
+          hm.appendChild(row);
+        });
       }
       function initYearlyTab() {
         const bKm = Math.max(...YEARLY.map((y) => y.km)),
@@ -3473,7 +4533,7 @@
             [mA, mB].forEach((s) => {
               const o = document.createElement("option");
               o.value = m.ym;
-              o.textContent = `${m.ym} · ${m.km.toFixed(0)}km`;
+              o.textContent = `${fmtYm(m.ym, "full")} · ${m.km.toFixed(0)}km`;
               s.appendChild(o);
             });
           });
@@ -3530,7 +4590,7 @@
           ["avg_aei", "AEI", (v) => (v != null ? v.toFixed(2) : "—"), false],
         ];
         document.getElementById("month-compare-table").innerHTML =
-          `<thead><tr><th>Mutató</th><th style="color:#60a5fa">${a.ym}</th><th style="color:${getLime()}">${b.ym}</th><th>Jobb</th></tr></thead><tbody>${cmpRows(m, a, b, a.ym, b.ym)}</tbody>`;
+          `<thead><tr><th>Mutató</th><th style="color:#60a5fa">${fmtYm(a.ym,"full")}</th><th style="color:${getLime()}">${fmtYm(b.ym,"full")}</th><th>Jobb</th></tr></thead><tbody>${cmpRows(m, a, b, fmtYm(a.ym,"full"), fmtYm(b.ym,"full"))}</tbody>`;
       }
       function renderYearCompare() {
         const a = YEARLY.find((y) => y.year == document.getElementById("year-a").value);
@@ -3552,90 +4612,147 @@
           `<thead><tr><th>Mutató</th><th style="color:#60a5fa">${a.year}</th><th style="color:${getLime()}">${b.year}</th><th>Jobb</th></tr></thead><tbody>${cmpRows(m, a, b, a.year, b.year)}</tbody>`;
       }
 
-      // ── TRENDS ──
-      function drawTrendCharts() {
-        const isLight = document.documentElement.classList.contains("light");
-        const pts = RUNS.map((r) => {
-          if (!r.avg_hr || !r.pace || r.avg_hr < 80 || r.pace > 9.5) return null;
-          const isZ1 = r.z1 >= 50;
-          return {
-            x: r.avg_hr,
-            y: r.pace,
-            r: Math.max(3, Math.min(8, r.dist * 0.35)),
-            color:
-              r.year >= 2026
-                ? "rgba(96,165,250,.85)"
-                : isZ1
-                  ? isLight
-                    ? "rgba(100,130,0,.8)"
-                    : "rgba(200,241,53,.75)"
-                  : "rgba(255,140,0,.5)",
-            run: r,
+      // ── ZONE CHART NAV ──
+      let _zoneYear = String(new Date().getFullYear());
+      function _buildYearNav(navId, getCurrent, setCurrent, onDraw, source) {
+        const nav = document.getElementById(navId);
+        if (!nav || nav.dataset.built) return;
+        nav.dataset.built = "1";
+        const years = [...new Set(source().map((m) => m.year))].sort();
+        const curYr = String(new Date().getFullYear());
+        if (!years.map(String).includes(getCurrent())) setCurrent(years.map(String).includes(curYr) ? curYr : "");
+        const pills = ["Teljes", ...years];
+        pills.forEach((p) => {
+          const yr = p === "Teljes" ? "" : String(p);
+          const btn = document.createElement("button");
+          btn.dataset.yr = yr;
+          btn.textContent = p;
+          btn.style.cssText =
+            'font-size:10px;font-weight:600;letter-spacing:.5px;font-family:"Proxima Nova",sans-serif;border-radius:20px;padding:4px 12px;cursor:pointer;border:1px solid var(--border);transition:all .15s;background:var(--surface);color:var(--text3)';
+          btn.onclick = () => {
+            setCurrent(btn.dataset.yr);
+            nav.querySelectorAll("button").forEach((b) => {
+              const a = b.dataset.yr === getCurrent();
+              b.style.background = a ? "var(--lime)" : "var(--surface)";
+              b.style.color = a ? "var(--on-lime)" : "var(--text3)";
+              b.style.borderColor = a ? "var(--lime)" : "var(--border)";
+            });
+            onDraw();
           };
-        }).filter(Boolean);
-        drawScatterChart("scatterChart", pts, { minX: 110, maxX: 190, minY: 4, maxY: 9 });
+          const active = yr === getCurrent();
+          if (active) {
+            btn.style.background = "var(--lime)";
+            btn.style.color = "var(--on-lime)";
+            btn.style.borderColor = "var(--lime)";
+          }
+          nav.appendChild(btn);
+        });
+      }
+      function _buildZoneNav() {
+        _buildYearNav(
+          "zone-nav",
+          () => _zoneYear,
+          (v) => {
+            _zoneYear = v;
+          },
+          _drawZoneChart,
+          () => MONTHLY,
+        );
+      }
+      function _drawZoneChart() {
+        const data = _zoneYear ? MONTHLY.filter((m) => m.year == _zoneYear) : MONTHLY;
         drawBar(
           "zoneTimeChart",
-          MONTHLY.map((m) => m.ym.slice(2)),
+          data.map((m) => fmtYm(m.ym, !_zoneYear)),
           [
-            { data: MONTHLY.map((m) => m.avg_z1), color: LIME, label: "Z1%" },
-            { data: MONTHLY.map((m) => m.avg_z4), color: "rgba(255,140,0,.7)", label: "Z4%" },
+            { data: data.map((m) => m.avg_z1), color: getLime(), label: "Z1%" },
+            { data: data.map((m) => m.avg_z4), color: "rgba(255,140,0,.7)", label: "Z4%" },
           ],
           { rotateLabels: true, yFmt: (v) => Math.round(v) + "%", maxVal: 100 },
         );
-        const wk = WEEKLY.slice(-60);
+      }
+      let _trimpWeeks = 26;
+      function _buildTrimpNav() {
+        const nav = document.getElementById("trimp-nav");
+        if (!nav || nav.dataset.built) return;
+        nav.dataset.built = "1";
+        [12, 26, 52, 0].forEach((n) => {
+          const btn = document.createElement("button");
+          btn.dataset.n = n;
+          btn.textContent = n === 0 ? "Összes" : n + " hét";
+          btn.style.cssText =
+            'font-size:10px;font-weight:600;letter-spacing:.5px;font-family:"Proxima Nova",sans-serif;border-radius:20px;padding:4px 12px;cursor:pointer;border:1px solid var(--border);transition:all .15s;background:var(--surface);color:var(--text3)';
+          btn.onclick = () => {
+            _trimpWeeks = +btn.dataset.n;
+            nav.querySelectorAll("button").forEach((b) => {
+              const a = +b.dataset.n === _trimpWeeks;
+              b.style.background = a ? "var(--lime)" : "var(--surface)";
+              b.style.color = a ? "var(--on-lime)" : "var(--text3)";
+              b.style.borderColor = a ? "var(--lime)" : "var(--border)";
+            });
+            _drawTrimpChart();
+          };
+          if (n === _trimpWeeks) {
+            btn.style.background = "var(--lime)";
+            btn.style.color = "var(--on-lime)";
+            btn.style.borderColor = "var(--lime)";
+          }
+          nav.appendChild(btn);
+        });
+      }
+      function _drawTrimpChart() {
+        const isLight = document.documentElement.classList.contains("light");
+        const wk = _trimpWeeks === 0 ? WEEKLY : WEEKLY.slice(-_trimpWeeks);
         drawBar(
           "weeklyTRIMPChart",
-          wk.map((w) => w.date.slice(5)),
+          wk.map((w) => { const [y,mo,d] = w.date.split("-"); return `${MONTHS_HU[+mo-1]} '${y.slice(2)}`; }),
           [
             {
               data: wk.map((w) => w.trimp),
               color: wk.map((w) =>
-                w.trimp > 300
-                  ? getLime()
-                  : w.trimp > 150
-                    ? isLight
-                      ? "rgba(100,140,0,.45)"
-                      : "rgba(200,241,53,.5)"
-                    : isLight
-                      ? "rgba(100,140,0,.2)"
-                      : "rgba(200,241,53,.2)",
+                w.trimp > 300 ? getStrain() : w.trimp > 150 ? getStrainDim(0.6) : getStrainDim(0.3),
               ),
             },
           ],
           { rotateLabels: true, yFmt: (v) => Math.round(v) },
         );
-        // ACWR
-        const acwr = _computeACWR();
-        if (acwr.length) {
-          drawLine(
-            "acwrChart",
-            acwr.map((a) => a.date.slice(5)),
-            [{ data: acwr.map((a) => a.value), color: "#60a5fa", fill: false, label: "ACWR" }],
-            {
-              rotateLabels: true,
-              yFmt: (v) => v.toFixed(2),
-              minVal: 0,
-              maxVal: Math.max(2, Math.max(...acwr.map((a) => a.value)) * 1.1),
-              refLines: [
-                { value: 1.5, color: "#ff4444", label: "1.5 — túlterhelés kockázata" },
-                { value: 0.8, color: "#ff8c00", label: "0.8 — alulterhelés" },
-              ],
-            },
-          );
-        }
-        // Cadence trend
-        const cadM = MONTHLY.map((m) => {
-          const rs = RUNS.filter((r) => r.ym === m.ym && r.cadence > 0);
-          return rs.length ? +(rs.reduce((s, r) => s + r.cadence, 0) / rs.length).toFixed(1) : null;
-        });
-        const cadLabels = MONTHLY.map((m) => m.ym.slice(2));
-        if (cadM.some((v) => v)) {
-          drawLine(
-            "cadenceChart",
-            cadLabels,
-            [{ data: cadM, color: getLime(), fill: true, fillColor: getLimeDim(), label: "lépés/perc" }],
-            { rotateLabels: true, yFmt: (v) => Math.round(v) },
+      }
+
+      // ── TRENDS ──
+      function drawTrendCharts() {
+        const isLight = document.documentElement.classList.contains("light");
+        _buildNavPills(
+          "easypace-nav",
+          [[12, "1 év"], [24, "2 év"], [0, "Összes"]],
+          () => _easyPacePeriod,
+          (v) => { _easyPacePeriod = +v; _drawEasyPaceChart(); },
+        );
+        _drawEasyPaceChart();
+        _buildZoneNav();
+        _drawZoneChart();
+        _buildTrimpNav();
+        _drawTrimpChart();
+        // Weekly calories
+        const wkCal = WEEKLY.filter((w) => w.calories != null).slice(-52);
+        if (wkCal.length) {
+          const maxCal = Math.max(...wkCal.map((w) => w.calories));
+          const isLight2 = document.documentElement.classList.contains("light");
+          drawBar(
+            "weeklyCalChart",
+            wkCal.map((w) => w.date.slice(2)),
+            [
+              {
+                data: wkCal.map((w) => w.calories),
+                color: wkCal.map((w) =>
+                  w.calories === maxCal
+                    ? getLime()
+                    : w.calories > 1500
+                      ? isLight2 ? "rgba(100,140,0,.45)" : "rgba(200,241,53,.5)"
+                      : isLight2 ? "rgba(100,140,0,.2)" : "rgba(200,241,53,.2)",
+                ),
+              },
+            ],
+            { rotateLabels: true, yFmt: (v) => Math.round(v) + "kcal" },
           );
         }
         // Intensity donut — build period pills once
@@ -3657,9 +4774,174 @@
           });
         }
         _drawIntensity(_intPeriod);
+
+        // Pace histogram
+        const phn = document.getElementById("pace-hist-nav");
+        if (!phn.dataset.built) {
+          phn.dataset.built = "1";
+          [
+            [90, "90 nap"],
+            [365, "1 év"],
+            [0, "Összes"],
+          ].forEach(([d, lbl]) => {
+            const btn = document.createElement("button");
+            btn.dataset.d = d;
+            btn.textContent = lbl;
+            btn.style.cssText =
+              'font-size:10px;font-weight:600;letter-spacing:.3px;font-family:"Proxima Nova",sans-serif;border-radius:20px;padding:4px 12px;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text3);transition:all .15s';
+            btn.onclick = () => _drawPaceHist(d);
+            phn.appendChild(btn);
+          });
+        }
+        _drawPaceHist(_paceHistPeriod);
+        _drawPRProgression();
+
+        // AEI trend with time nav
+        _buildNavPills(
+          "aei-nav",
+          [[12, "1 év"], [24, "2 év"], [0, "Összes"]],
+          () => _aeiPeriod,
+          (v) => { _aeiPeriod = +v; _drawAeiChart(); },
+        );
+        _drawAeiChart();
       }
 
       // ── EGÉSZSÉG ──
+      let _hrHrvPeriod = 30;
+      let _stepsPeriod = 60;
+
+      function _buildNavPills(containerId, options, getCurrent, onSelect) {
+        const nav = document.getElementById(containerId);
+        if (!nav || nav.dataset.built) return;
+        nav.dataset.built = "1";
+        const styleBase =
+          'font-size:10px;font-weight:600;letter-spacing:.3px;font-family:"Proxima Nova",sans-serif;border-radius:20px;padding:4px 12px;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text3);transition:all .15s';
+        options.forEach(([val, lbl]) => {
+          const btn = document.createElement("button");
+          btn.dataset.v = val;
+          btn.textContent = lbl;
+          btn.style.cssText = styleBase;
+          btn.onclick = () => {
+            nav.querySelectorAll("button").forEach((b) => {
+              const active = b.dataset.v == val;
+              b.style.background = active ? "var(--lime)" : "var(--surface)";
+              b.style.color = active ? "var(--on-lime)" : "var(--text3)";
+              b.style.borderColor = active ? "var(--lime)" : "var(--border)";
+            });
+            onSelect(val);
+          };
+          if (val == getCurrent()) {
+            btn.style.background = "var(--lime)";
+            btn.style.color = "var(--on-lime)";
+            btn.style.borderColor = "var(--lime)";
+          }
+          nav.appendChild(btn);
+        });
+      }
+
+      function _cutDate(days) {
+        if (!days) return null;
+        const d = new Date();
+        d.setDate(d.getDate() - days);
+        return d.toISOString().slice(0, 10);
+      }
+
+      // Gördülő személyes alapvonalhoz (windowDays, csak megelőző napok) viszonyított z-score a series[idx] pontra
+      function _rollingZFor(series, idx, windowDays) {
+        const cur = series[idx];
+        const cutoff = new Date(new Date(cur.date + "T00:00:00").getTime() - windowDays * 86400000)
+          .toISOString()
+          .slice(0, 10);
+        const win = [];
+        for (let j = idx - 1; j >= 0 && series[j].date >= cutoff; j--) win.push(series[j].v);
+        if (win.length < 5) return null;
+        const mean = win.reduce((s, v) => s + v, 0) / win.length;
+        const std = Math.sqrt(win.reduce((s, v) => s + (v - mean) ** 2, 0) / win.length) || 1;
+        return (cur.v - mean) / std;
+      }
+
+      function _drawHrHrvCharts(days) {
+        _hrHrvPeriod = days;
+        const cut = _cutDate(days);
+
+        const hrD = HEALTH.filter((h) => (!cut || h.date >= cut) && h.resting_hr > 0);
+        const lbl = (h) => {
+          const [y, mo, d] = h.date.split("-");
+          const mon = MONTHS_HU[+mo - 1];
+          return (days && days <= 90) ? `${mon} ${+d}` : `${mon} '${y.slice(2)}`;
+        };
+        if (hrD.length)
+          drawLine(
+            "restingHRChart",
+            hrD.map(lbl),
+            [{ data: hrD.map((h) => h.resting_hr), color: "#ff6622", fill: true, fillColor: "rgba(255,102,34,.1)", label: "bpm" }],
+            { rotateLabels: true, yFmt: (v) => Math.round(v) + " bpm" },
+          );
+
+        const hrvD = HEALTH.filter((h) => (!cut || h.date >= cut) && h.hrv > 0);
+        if (hrvD.length)
+          drawLine(
+            "hrvChart",
+            hrvD.map(lbl),
+            [{ data: hrvD.map((h) => h.hrv), color: getLime(), fill: true, fillColor: getLimeDim(), label: "ms" }],
+            { rotateLabels: true, yFmt: (v) => Math.round(v) + " ms" },
+          );
+
+        const hrvAll = HEALTH.filter((h) => h.hrv > 0).map((h) => ({ date: h.date, v: h.hrv }));
+        const rhrAll = HEALTH.filter((h) => h.resting_hr > 0).map((h) => ({ date: h.date, v: h.resting_hr }));
+        if (hrvAll.length && rhrAll.length) {
+          const hrvIdxByDate = {},
+            rhrIdxByDate = {};
+          hrvAll.forEach((r, i) => (hrvIdxByDate[r.date] = i));
+          rhrAll.forEach((r, i) => (rhrIdxByDate[r.date] = i));
+          const formaDates = [],
+            formaVals = [];
+          HEALTH.filter((h) => (!cut || h.date >= cut) && h.hrv > 0 && h.resting_hr > 0).forEach((h) => {
+            const hrvZ = _rollingZFor(hrvAll, hrvIdxByDate[h.date], 30);
+            const rhrZ = _rollingZFor(rhrAll, rhrIdxByDate[h.date], 30);
+            const comps = [];
+            if (hrvZ !== null) comps.push({ v: 50 + hrvZ * 20, w: 2 });
+            if (rhrZ !== null) comps.push({ v: 50 - rhrZ * 20, w: 1 });
+            if (!comps.length) return; // nincs elég előzmény a gördülő alapvonalhoz még
+            const forma = Math.min(
+              100,
+              Math.max(0, Math.round(comps.reduce((s, c) => s + c.v * c.w, 0) / comps.reduce((s, c) => s + c.w, 0))),
+            );
+            formaDates.push(h.date);
+            formaVals.push(forma);
+          });
+          if (formaVals.length)
+            drawLine(
+              "readinessChart",
+              formaDates.map((d) => lbl({ date: d })),
+              [{ data: formaVals, color: "#60a5fa", fill: true, fillColor: "rgba(96,165,250,.08)", label: "Forma" }],
+              {
+                rotateLabels: true,
+                yFmt: (v) => Math.round(v),
+                minVal: 0,
+                maxVal: 100,
+                refLines: [
+                  { value: 70, color: getLime(), label: "70 — jó forma" },
+                  { value: 30, color: "#ff4444", label: "30 — fáradt" },
+                ],
+              },
+            );
+        }
+      }
+
+      function _drawStepsChart(days) {
+        _stepsPeriod = days;
+        const cut = _cutDate(days);
+        const stepsD = HEALTH.filter((h) => (!cut || h.date >= cut) && h.steps > 0);
+        if (stepsD.length)
+          drawBar(
+            "stepsChart",
+            stepsD.map((h) => (days && days <= 90 ? h.date.slice(5) : h.date.slice(2))),
+            [{ data: stepsD.map((h) => h.steps), color: stepsD.map((h) => (h.steps >= 10000 ? getStrain() : getStrainDim(0.35))), label: "lépés" }],
+            { rotateLabels: true, yFmt: (v) => Math.round(v / 1000) + "k" },
+          );
+      }
+
       function drawHealthCharts() {
         if (!HEALTH.length) {
           document
@@ -3669,7 +4951,7 @@
               const ctx = c.getContext("2d");
               ctx.clearRect(0, 0, c.width, c.height);
               ctx.fillStyle = gv("--text3");
-              ctx.font = "13px Inter,sans-serif";
+              ctx.font = "13px DINPro,sans-serif";
               ctx.textAlign = "center";
               ctx.textBaseline = "middle";
               ctx.fillText(
@@ -3680,122 +4962,302 @@
             });
           return;
         }
-        const isLight = document.documentElement.classList.contains("light");
-        const today = new Date().toISOString().slice(0, 10);
-        const cut90 = new Date();
-        cut90.setDate(cut90.getDate() - 90);
-        const c90 = cut90.toISOString().slice(0, 10);
-        const cut60 = new Date();
-        cut60.setDate(cut60.getDate() - 60);
-        const c60 = cut60.toISOString().slice(0, 10);
 
-        // Resting HR (last 90 days)
-        const hrD = HEALTH.filter((h) => h.date >= c90 && h.resting_hr > 0);
-        if (hrD.length)
-          drawLine(
-            "restingHRChart",
-            hrD.map((h) => h.date.slice(5)),
-            [
-              {
-                data: hrD.map((h) => h.resting_hr),
-                color: "#ff6622",
-                fill: true,
-                fillColor: "rgba(255,102,34,.1)",
-                label: "bpm",
-              },
-            ],
-            { rotateLabels: true, yFmt: (v) => Math.round(v) + " bpm" },
-          );
+        _buildNavPills(
+          "hrv-hr-nav",
+          [[30, "30 nap"], [90, "90 nap"], [180, "180 nap"], [0, "Összes"]],
+          () => _hrHrvPeriod,
+          (v) => _drawHrHrvCharts(+v),
+        );
+        _drawHrHrvCharts(_hrHrvPeriod);
 
-        // HRV (last 90 days)
-        const hrvD = HEALTH.filter((h) => h.date >= c90 && h.hrv > 0);
-        if (hrvD.length)
-          drawLine(
-            "hrvChart",
-            hrvD.map((h) => h.date.slice(5)),
-            [{ data: hrvD.map((h) => h.hrv), color: getLime(), fill: true, fillColor: getLimeDim(), label: "ms" }],
-            { rotateLabels: true, yFmt: (v) => Math.round(v) + " ms" },
-          );
+        _buildNavPills(
+          "ctl-nav",
+          [[180, "6 hó"], [365, "1 év"], [730, "2 év"], [0, "Összes"]],
+          () => _ctlPeriod,
+          (v) => { _ctlPeriod = +v; _drawCtlChart(); },
+        );
+        _drawCtlChart();
 
-        // Forma Index (last 90 days, baseline from all history)
-        const allHRV = HEALTH.filter((h) => h.hrv > 0).map((h) => h.hrv);
-        const allHR = HEALTH.filter((h) => h.resting_hr > 0).map((h) => h.resting_hr);
-        if (allHRV.length && allHR.length) {
-          const avgHRV = allHRV.reduce((s, v) => s + v, 0) / allHRV.length;
-          const avgHR = allHR.reduce((s, v) => s + v, 0) / allHR.length;
-          const formaD = HEALTH.filter((h) => h.date >= c90 && h.hrv > 0 && h.resting_hr > 0);
-          const formaVals = formaD.map((h) => {
-            const hrvScore = ((h.hrv - avgHRV) / avgHRV) * 40; // ±40 based on deviation from avg
-            const hrScore = (-(h.resting_hr - avgHR) / avgHR) * 20; // ±20 (lower HR = higher score)
-            return Math.min(100, Math.max(0, Math.round(50 + hrvScore + hrScore)));
-          });
-          drawLine(
-            "formaChart",
-            formaD.map((h) => h.date.slice(5)),
-            [{ data: formaVals, color: "#60a5fa", fill: true, fillColor: "rgba(96,165,250,.08)", label: "Forma" }],
-            {
-              rotateLabels: true,
-              yFmt: (v) => Math.round(v),
-              minVal: 0,
-              maxVal: 100,
-              refLines: [
-                { value: 70, color: getLime(), label: "70 — jó forma" },
-                { value: 30, color: "#ff4444", label: "30 — fáradt" },
-              ],
-            },
-          );
-        }
-
-        // VO2 Max
         _buildVo2Nav();
         drawVo2Chart();
 
-        // Steps (last 60 days)
-        const stepsD = HEALTH.filter((h) => h.date >= c60 && h.steps > 0);
-        if (stepsD.length)
-          drawBar(
-            "stepsChart",
-            stepsD.map((h) => h.date.slice(5)),
-            [
-              {
-                data: stepsD.map((h) => h.steps),
-                color: stepsD.map((h) =>
-                  h.steps >= 10000 ? getLime() : isLight ? "rgba(120,154,0,.3)" : "rgba(200,241,53,.3)",
-                ),
-                label: "lépés",
-              },
-            ],
-            { rotateLabels: true, yFmt: (v) => Math.round(v / 1000) + "k" },
-          );
+        _buildNavPills(
+          "steps-nav",
+          [[30, "30 nap"], [60, "60 nap"], [90, "90 nap"], [0, "Összes"]],
+          () => _stepsPeriod,
+          (v) => _drawStepsChart(+v),
+        );
+        _drawStepsChart(_stepsPeriod);
+      }
 
-        // Active calories (last 60 days)
-        const calD = HEALTH.filter((h) => h.date >= c60 && h.active_cal > 0);
-        if (calD.length)
-          drawBar(
-            "activeCalChart",
-            calD.map((h) => h.date.slice(5)),
-            [
-              {
-                data: calD.map((h) => h.active_cal),
-                color: calD.map((h) =>
-                  h.active_cal >= 500 ? getLime() : isLight ? "rgba(120,154,0,.3)" : "rgba(200,241,53,.3)",
-                ),
-                label: "kcal",
-              },
-            ],
-            { rotateLabels: true, yFmt: (v) => Math.round(v) + "kcal" },
+      // ── PR PROGRESSION ──
+      let _prProgKey = "half";
+      const _PR_PROG_KEYS = [
+        {
+          k: "half",
+          lbl: "Félmaraton tempó",
+          metric: (r) => r.pace,
+          lower: true,
+          fmt: (v) => fmtPace(v) + "/km",
+          minDist: 16,
+        },
+        {
+          k: "10k",
+          lbl: "10k tempó",
+          metric: (r) => r.pace,
+          lower: true,
+          fmt: (v) => fmtPace(v) + "/km",
+          minDist: 9,
+          maxDist: 12,
+        },
+        {
+          k: "5k",
+          lbl: "5k tempó",
+          metric: (r) => r.pace,
+          lower: true,
+          fmt: (v) => fmtPace(v) + "/km",
+          minDist: 4.5,
+          maxDist: 6,
+        },
+        {
+          k: "longest",
+          lbl: "Leghosszabb futás",
+          metric: (r) => r.dist,
+          lower: false,
+          fmt: (v) => v.toFixed(1) + "km",
+          minDist: 0,
+        },
+      ];
+      let _ctlPeriod = 365;
+      function _drawCtlChart() {
+        const allCtl = _computeCTL();
+        const cut = _ctlPeriod ? (() => { const d = new Date(); d.setDate(d.getDate() - _ctlPeriod); return d.toISOString().slice(0, 10); })() : null;
+        const ctl = cut ? allCtl.filter((x) => x.date >= cut) : allCtl;
+        if (ctl.length <= 4) return;
+        const showYear = _ctlPeriod === 0 || _ctlPeriod > 365;
+        const lbl = (x) => {
+          const [y, mo, d] = x.date.split("-");
+          const mon = MONTHS_HU[+mo - 1];
+          return showYear ? `${mon} '${y.slice(2)}` : `${mon} ${+d}`;
+        };
+        const minTSB = Math.min(...ctl.map((x) => x.tsb)),
+          maxAll = Math.max(...ctl.map((x) => Math.max(x.ctl, x.atl)));
+        drawLine(
+          "ctlChart",
+          ctl.map(lbl),
+          [
+            { data: ctl.map((x) => x.ctl), color: getLime(), fill: false, label: "CTL (fitnesz)" },
+            { data: ctl.map((x) => x.atl), color: "#f87171", fill: false, label: "ATL (fáradtság)" },
+            { data: ctl.map((x) => x.tsb), color: "#60a5fa", fill: true, fillColor: "rgba(96,165,250,.07)", label: "TSB (forma)" },
+          ],
+          {
+            rotateLabels: true,
+            yFmt: (v) => Math.round(v),
+            minVal: Math.min(minTSB * 1.1, -5),
+            maxVal: maxAll * 1.05,
+            refLines: [{ value: 0, color: "#555", label: "TSB = 0" }],
+          },
+        );
+      }
+
+      let _aeiPeriod = 12;
+      function _drawAeiChart() {
+        const cutYm = _aeiPeriod
+          ? (() => { const d = new Date(); d.setMonth(d.getMonth() - _aeiPeriod); return d.toISOString().slice(0, 7); })()
+          : null;
+        const aeiD = MONTHLY.filter((m) => m.avg_aei && (!cutYm || m.ym >= cutYm));
+        if (aeiD.length)
+          drawLine(
+            "aeiTrendChart",
+            aeiD.map((m) => fmtYm(m.ym, _aeiPeriod === 0 || _aeiPeriod > 12)),
+            [{ data: aeiD.map((m) => m.avg_aei), color: getLime(), fill: true, fillColor: getLimeDim(), label: "AEI" }],
+            { rotateLabels: true, yFmt: (v) => v.toFixed(2) },
           );
       }
 
-      // ── PLAN ──
-      const GYM_DATES = [];
-      const SUMMARIES = [];
-      // Paste the deployed Apps Script URL here to sync checks across devices:
-      const PLAN_CHECKS_URL = "";
-      let _planChecksCache = null;
-      const PLAN_START = "2026-05-26";
+      function _drawPRProgression() {
+        const nav = document.getElementById("pr-prog-nav");
+        if (!nav.dataset.built) {
+          nav.dataset.built = "1";
+          _PR_PROG_KEYS.forEach(({ k, lbl }) => {
+            const btn = document.createElement("button");
+            btn.dataset.k = k;
+            btn.textContent = lbl;
+            btn.style.cssText =
+              'font-size:10px;font-weight:600;letter-spacing:.3px;font-family:"Proxima Nova",sans-serif;border-radius:20px;padding:4px 12px;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text3);transition:all .15s';
+            btn.onclick = () => {
+              _prProgKey = k;
+              _renderPRProg();
+              nav.querySelectorAll("button").forEach((b) => {
+                const a = b.dataset.k === k;
+                b.style.background = a ? "var(--lime)" : "var(--surface)";
+                b.style.color = a ? "var(--on-lime)" : "var(--text3)";
+                b.style.borderColor = a ? "var(--lime)" : "var(--border)";
+              });
+            };
+            if (k === _prProgKey) {
+              btn.style.background = "var(--lime)";
+              btn.style.color = "var(--on-lime)";
+              btn.style.borderColor = "var(--lime)";
+            }
+            nav.appendChild(btn);
+          });
+        }
+        _renderPRProg();
+      }
+      function _renderPRProg() {
+        const cfg = _PR_PROG_KEYS.find((x) => x.k === _prProgKey);
+        const pool = RUNS.filter(
+          (r) =>
+            r.dist >= (cfg.minDist || 0) &&
+            (cfg.maxDist === undefined || r.dist <= cfg.maxDist) &&
+            r.pace > 0 &&
+            r.pace < 9.5,
+        );
+        if (!pool.length) return;
+        const sorted = pool.slice().sort((a, b) => a.date.localeCompare(b.date));
+        let best = cfg.lower ? Infinity : -Infinity;
+        const points = [],
+          labels = [];
+        sorted.forEach((r) => {
+          const v = cfg.metric(r);
+          if (cfg.lower ? v < best : v > best) {
+            best = v;
+            points.push(v);
+            labels.push(r.date.slice(2));
+          }
+        });
+        if (points.length < 2) return;
+        drawLine("prProgChart", labels, [{ data: points, color: getLime(), fill: false, label: cfg.lbl }], {
+          rotateLabels: labels.length > 12,
+          yFmt: cfg.fmt,
+          stepped: true,
+          yInvert: cfg.lower,
+        });
+      }
+
+      // ── VO₂ MAX CARD ──
+      function _drawRacePredictions() {
+        const vo2vals = HEALTH.filter((h) => h.vo2max > 0).sort((a, b) => (a.date < b.date ? -1 : 1));
+        const vo2 = vo2vals.length ? vo2vals[vo2vals.length - 1].vo2max : null;
+        const bestVo2 = vo2vals.length ? Math.max(...vo2vals.map((h) => h.vo2max)) : null;
+        const vsel = document.getElementById("today-vo2");
+        if (vsel) {
+          if (vo2) {
+            const vsStr = vo2 === bestVo2 ? "Személyes csúcs" : `Csúcs: ${bestVo2} ml/kg/min`;
+            const cat = vo2 >= 60 ? "Elit" : vo2 >= 50 ? "Sportoló szint" : vo2 >= 45 ? "Aktív felnőtt" : "Átlag alatti";
+            vsel.innerHTML = `<div class="stat-box stat-box-link" onclick="showVo2Modal()"><div class="stat-lbl">VO₂ Max</div><div class="stat-num lime">${vo2.toFixed(1)}<span style="font-size:13px;font-weight:400;color:var(--text3);margin-left:3px">ml/kg/min</span></div><div class="stat-unit">${cat} · ${vsStr}</div></div>`;
+          } else {
+            vsel.innerHTML = `<div class="stat-box" style="opacity:.5"><div class="stat-lbl">VO₂ Max</div><div style="font-size:13px;color:var(--text3);margin-top:6px">Nincs adat</div></div>`;
+          }
+        }
+      }
+
+      // ── VS LAST YEAR ──
+      function _drawVsLastYear() {
+        const now = new Date();
+        const ym = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+        const ymPrev = `${now.getFullYear() - 1}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+        const cur = MONTHLY.find((m) => m.ym === ym);
+        const prev = MONTHLY.find((m) => m.ym === ymPrev);
+        if (!document.getElementById("vsly-stats")) return;
+        if (!cur && !prev) {
+          document.getElementById("vsly-stats").innerHTML =
+            '<div class="stat-box"><div class="stat-lbl" style="color:var(--text3)">Nincs adat</div></div>';
+          return;
+        }
+        const fmt = (v, unit, inv) => {
+          if (v === null) return "—";
+          const s = v >= 0 ? "+" : "";
+          const col = v === 0 ? "var(--text2)" : v > 0 !== inv ? "var(--lime)" : "var(--orange)";
+          return `<span style="color:${col}">${s}${v}${unit}</span>`;
+        };
+        const kmC = cur ? +cur.km.toFixed(1) : 0,
+          kmP = prev ? +prev.km.toFixed(1) : 0;
+        const runsC = cur ? cur.runs : 0,
+          runsP = prev ? prev.runs : 0;
+        const trimpC = cur ? Math.round(cur.total_trimp) : 0,
+          trimpP = prev ? Math.round(prev.total_trimp) : 0;
+        document.getElementById("vsly-stats").innerHTML = `
+    <div class="stat-box"><div class="stat-lbl">${fmtYm(ym, "full")} km</div><div class="stat-num lime">${kmC}</div><div class="stat-unit">${fmt(+(kmC - kmP).toFixed(1), "km", false)} vs. ${fmtYm(ymPrev, "full")}</div></div>
+    <div class="stat-box"><div class="stat-lbl">Futások</div><div class="stat-num">${runsC}</div><div class="stat-unit">${fmt(runsC - runsP, "", false)} vs. tavaly</div></div>
+    <div class="stat-box"><div class="stat-lbl">TRIMP</div><div class="stat-num">${trimpC}</div><div class="stat-unit">${fmt(trimpC - trimpP, "", false)} vs. tavaly</div></div>`;
+      }
+
+      // ── CTL / ATL / TSB ──
+      function _computeCTL() {
+        const td = {};
+        RUNS.forEach((r) => {
+          td[r.date] = (td[r.date] || 0) + r.trimp;
+        });
+        const first = RUNS.reduce((a, r) => (r.date < a ? r.date : a), RUNS[0].date);
+        const result = [];
+        let ctl = 0,
+          atl = 0;
+        for (let d = new Date(first), end = new Date(); d <= end; d.setDate(d.getDate() + 1)) {
+          const ds = d.toISOString().slice(0, 10),
+            t = td[ds] || 0;
+          ctl = ctl * (1 - 1 / 42) + t * (1 / 42);
+          atl = atl * (1 - 1 / 7) + t * (1 / 7);
+          result.push({ date: ds, ctl: +ctl.toFixed(1), atl: +atl.toFixed(1), tsb: +(ctl - atl).toFixed(1) });
+        }
+        // weekly samples
+        return result.filter((_, i) => i % 7 === 6 || i === result.length - 1);
+      }
+
+      // ── PACE HISTOGRAM ──
+      let _paceHistPeriod = 0;
+      const _PACE_BANDS = [
+        { lo: 0, hi: 4.5, lbl: "<4:30" },
+        { lo: 4.5, hi: 5, lbl: "4:30–5:00" },
+        { lo: 5, hi: 5.5, lbl: "5:00–5:30" },
+        { lo: 5.5, hi: 6, lbl: "5:30–6:00" },
+        { lo: 6, hi: 6.5, lbl: "6:00–6:30" },
+        { lo: 6.5, hi: 7, lbl: "6:30–7:00" },
+        { lo: 7, hi: 99, lbl: ">7:00" },
+      ];
+      function _drawPaceHist(days) {
+        _paceHistPeriod = days;
+        document.querySelectorAll("#pace-hist-nav button").forEach((b) => {
+          const a = +b.dataset.d === days;
+          b.style.background = a ? "var(--lime)" : "var(--surface)";
+          b.style.color = a ? "var(--on-lime)" : "var(--text3)";
+          b.style.borderColor = a ? "var(--lime)" : "var(--border)";
+        });
+        const cut =
+          days === 0 ? null : new Date(new Date().setDate(new Date().getDate() - days)).toISOString().slice(0, 10);
+        const pool = RUNS.filter((r) => r.pace > 0 && r.pace < 9.5 && (!cut || r.date >= cut));
+        const counts = _PACE_BANDS.map((b) => pool.filter((r) => r.pace >= b.lo && r.pace < b.hi).length);
+        const isLight = document.documentElement.classList.contains("light");
+        drawBar(
+          "paceHistChart",
+          _PACE_BANDS.map((b) => b.lbl),
+          [
+            {
+              data: counts,
+              color: counts.map((c, i) =>
+                i <= 1
+                  ? getLime()
+                  : i <= 3
+                    ? isLight
+                      ? "rgba(0,184,150,.5)"
+                      : "rgba(0,241,159,.5)"
+                    : "rgba(255,140,0,.6)",
+              ),
+            },
+          ],
+          { rotateLabels: false, yFmt: (v) => Math.round(v) + " futás" },
+        );
+      }
+
+      // ── PLAN TAB ──
+      // Villő 15-hetes félmaraton terve (Wizzair Félmaraton, 2026.09.06.)
+      const PLAN_START = "2026-05-26"; // Monday of week 1
       const PLAN_RACE = "2026-09-06";
 
+      // Each week: {phase, km, days:[{type,label,detail}]} — Mon–Sun (7 slots, 0=H…6=V)
+      // type: 'easy'|'tempo'|'long'|'interval'|'gym'|'rest'|'race'
       const PLAN_DATA = [
         // PHASE 1 — Bázis, weeks 1–4
         {
@@ -3848,7 +5310,7 @@
             { type: "rest", lbl: "Pihenő", det: "Pihenő" },
             { type: "easy", lbl: "Könnyű futás", det: "5 km, Z1 — könnyű visszafogott hét" },
             { type: "gym", lbl: "Felső test", det: "Könnyű — fenntartás" },
-            { type: "gym", lbl: "Alsó test", det: "Könnyű — guggolás, deadlift mérsékelt súllyal" },
+            { type: "gym", lbl: "Alsó test", det: "Könnyű — guggolás, deadlift mérsékelt súlyal" },
             { type: "rest", lbl: "Pihenő", det: "Pihenő" },
             { type: "rest", lbl: "Pihenő", det: "Pihenő" },
             { type: "long", lbl: "Hosszú futás", det: "13 km, Z1 — regeneráló hosszú" },
@@ -3905,7 +5367,7 @@
             { type: "rest", lbl: "Pihenő", det: "Pihenő" },
             { type: "tempo", lbl: "Tempó futás", det: "8 km: 2 km bemu + 4 km @ 6:25/km + 2 km lev — könnyű hét" },
             { type: "gym", lbl: "Felső test", det: "Könnyű — fenntartás" },
-            { type: "gym", lbl: "Alsó test", det: "Könnyű — guggolás mérsékelt súllyal" },
+            { type: "gym", lbl: "Alsó test", det: "Könnyű — guggolás mérsékelt súlyal" },
             { type: "rest", lbl: "Pihenő", det: "Pihenő" },
             { type: "rest", lbl: "Pihenő", det: "Pihenő" },
             { type: "long", lbl: "Hosszú futás", det: "14 km, Z1 — regeneráló" },
@@ -3997,7 +5459,7 @@
             { type: "long", lbl: "Élesítő futás", det: "8 km: 6 km Z1 + 2 km @ 6:18/km — utolsó versenyiram érzet" },
           ],
         },
-        // WEEK 15 — Race week (Sep 1 – Sep 6)
+        // WEEK 15 — Race week
         {
           phase: "Verseny",
           phaseColor: "#00F19F",
@@ -4014,7 +5476,8 @@
         },
       ];
 
-      const _PLAN_DAYS_HU = ["H", "K", "Sze", "Cs", "P", "Szo", "V"];
+      const _PLAN_DAYS_HU = ["Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat", "Vasárnap"];
+      const _PLAN_FULL_DAYS_HU = ["Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat", "Vasárnap"];
 
       function _planTypeColor(t) {
         if (t === "easy") return "var(--lime)";
@@ -4022,62 +5485,59 @@
         if (t === "tempo") return "#f59e0b";
         if (t === "interval") return "#ef4444";
         if (t === "gym") return "#a78bfa";
+        if (t === "swim") return "#06b6d4";
         if (t === "race") return "var(--lime)";
         return "var(--border)";
       }
+      // Light-mode-only categorical palette for the weekly plan cards, feeding the
+      // --type-color custom property (see .plan-mini-day CSS). Kept separate from
+      // _planTypeColor() above because --lime is now the light-mode brand blue, which
+      // would otherwise collide with "long" run's blue.
+      function _planTypeColorLight(t) {
+        if (t === "easy") return "#16A34A";
+        if (t === "long") return "#2563EB";
+        if (t === "tempo") return "#D97706";
+        if (t === "interval") return "#DC2626";
+        if (t === "gym") return "#7C3AED";
+        if (t === "swim") return "#0891B2";
+        if (t === "race") return "#3D6FE0";
+        return "var(--text3)";
+      }
 
       function _planWeekStart(weekIdx) {
+        // Returns Monday date string for the given 0-based week index
         const d = new Date(PLAN_START);
         d.setDate(d.getDate() + weekIdx * 7);
         return d.toISOString().slice(0, 10);
       }
 
       function _planDayDate(weekIdx, dayIdx) {
+        // dayIdx 0=Mon … 6=Sun
         const d = new Date(PLAN_START);
         d.setDate(d.getDate() + weekIdx * 7 + dayIdx);
         return d.toISOString().slice(0, 10);
       }
 
-      function _getPlanChecks() {
-        if (_planChecksCache !== null) return _planChecksCache;
-        try { return JSON.parse(localStorage.getItem("planChecked") || "{}"); }
-        catch { return {}; }
-      }
-
-      async function _loadPlanChecks() {
-        try { _planChecksCache = JSON.parse(localStorage.getItem("planChecked") || "{}"); }
-        catch { _planChecksCache = {}; }
-        if (!PLAN_CHECKS_URL) return;
-        try {
-          const r = await fetch(PLAN_CHECKS_URL + "?action=get");
-          if (r.ok) {
-            const text = await r.text();
-            _planChecksCache = JSON.parse(text);
-            localStorage.setItem("planChecked", text);
-            _renderPlanFull(_planCurrentWeekIdx(), new Date().toISOString().slice(0, 10));
-          }
-        } catch {}
+      function _gymDone(weekIdx) {
+        const wkStart = _planWeekStart(weekIdx);
+        const wkEnd = _planDayDate(weekIdx, 6);
+        return GYM_DATES.some((d) => d >= wkStart && d <= wkEnd);
       }
 
       function _sessionDone(weekIdx, dayIdx, type) {
+        if (type === "gym") return _gymDone(weekIdx);
         if (type === "rest") return false;
-        return !!_getPlanChecks()[weekIdx + "-" + dayIdx];
-      }
-
-      function togglePlanSession(wi, di, type, ev) {
-        if (ev) ev.stopPropagation();
-        if (type === "rest") return;
-        const checks = _getPlanChecks();
-        const key = wi + "-" + di;
-        if (checks[key]) delete checks[key];
-        else checks[key] = true;
-        _planChecksCache = checks;
-        const json = JSON.stringify(checks);
-        localStorage.setItem("planChecked", json);
-        _renderPlanFull(_planCurrentWeekIdx(), new Date().toISOString().slice(0, 10));
-        if (PLAN_CHECKS_URL) {
-          fetch(PLAN_CHECKS_URL + "?action=set&data=" + encodeURIComponent(json)).catch(() => {});
-        }
+        if (type === "race") return false;
+        // runs: week-flexible — the Nth planned run is done if N actual runs exist in the week
+        // (mirrors gym logic; handles day-swaps within a week)
+        const wkStart = _planWeekStart(weekIdx);
+        const wkEnd = _planDayDate(weekIdx, 6);
+        const week = PLAN_DATA[weekIdx];
+        const plannedRunsUpToDay = week.days
+          .slice(0, dayIdx + 1)
+          .filter((d) => d.type !== "rest" && d.type !== "gym" && d.type !== "race").length;
+        const actualRuns = RUNS.filter((r) => r.date >= wkStart && r.date <= wkEnd && r.dist > 0).length;
+        return actualRuns >= plannedRunsUpToDay;
       }
 
       function _planCurrentWeekIdx() {
@@ -4097,6 +5557,7 @@
         const today = new Date().toISOString().slice(0, 10);
         const cwIdx = _planCurrentWeekIdx();
 
+        // ── PROGRESS BAR ──
         const totalWeeks = PLAN_DATA.length;
         const doneWeeks = Math.max(0, cwIdx);
         const pct = Math.round((doneWeeks / totalWeeks) * 100);
@@ -4112,23 +5573,106 @@
       })
       .join("")}</div>`;
 
+        // ── GOAL BOXES ──
         document.getElementById("plan-goals").innerHTML = `
     <div class="plan-goal-grid">
-      <div class="plan-goal-box"><div class="pg-lbl">Célpace</div><div class="pg-val" style="color:var(--lime)">6:18<span style="font-size:13px">/km</span></div><div class="pg-sub">félmaraton</div></div>
-      <div class="plan-goal-box"><div class="pg-lbl">B-cél</div><div class="pg-val">2:13:00</div><div class="pg-sub">6:18/km</div></div>
-      <div class="plan-goal-box"><div class="pg-lbl">A-cél</div><div class="pg-val">2:10:00</div><div class="pg-sub">6:10/km</div></div>
+      <div class="plan-goal-box"><div class="pg-lbl">Célpace</div><div class="pg-val" style="color:var(--lime)">6:18<span style="font-size:13px">/km</span></div><div class="pg-sub">halfmaraton</div></div>
+      <div class="plan-goal-box"><div class="pg-lbl">Céleredmény</div><div class="pg-val">2:10:00</div><div class="pg-sub">A-cél</div></div>
       <div class="plan-goal-box"><div class="pg-lbl">Verseny</div><div class="pg-val">szept. 6.</div><div class="pg-sub">Wizzair HM</div></div>
+      <div class="plan-goal-box"><div class="pg-lbl">Heti km csúcs</div><div class="pg-val">29<span style="font-size:13px"> km</span></div><div class="pg-sub">11. hét</div></div>
     </div>`;
 
+
+        // ── FULL PLAN ──
         _renderPlanFull(cwIdx, today);
+
+      }
+
+      function _renderPlanInsights(today, cwIdx) {
+        const el = document.getElementById("plan-insights");
+        const insights = [];
+
+        // Z1 easy pace from recent runs
+        const cutoff90 = new Date(new Date().setDate(new Date().getDate() - 90)).toISOString().slice(0, 10);
+        const easyRuns = RUNS.filter(
+          (r) => r.date >= cutoff90 && r.dist > 4 && r.dist < 12 && r.pace > 5.5 && r.pace < 7.5,
+        );
+        if (easyRuns.length) {
+          const avgPace = easyRuns.reduce((s, r) => s + r.pace, 0) / easyRuns.length;
+          insights.push({
+            lbl: "Z1 könnyű iram (átlag)",
+            val: fmtPace(avgPace) + "/km",
+            sub: `${easyRuns.length} futás alapján (utolsó 90 nap)`,
+            bar: null,
+          });
+        }
+
+        // Zone compliance — how much was Z1/Z2 in recent runs
+        const recentRuns = RUNS.filter((r) => r.date >= cutoff90 && r.dist > 0);
+        if (recentRuns.length) {
+          const totalTime = recentRuns.reduce((s, r) => s + r.duration, 0);
+          const z1z2Time = recentRuns.reduce((s, r) => s + (r.duration * (r.z1 + r.z2)) / 100, 0);
+          const pct = Math.round((z1z2Time / totalTime) * 100);
+          insights.push({
+            lbl: "Z1+Z2 arány (90 nap)",
+            val: pct + "%",
+            sub: "Cél: ≥ 75% könnyű futás",
+            bar: { val: pct, max: 100, tgt: 75 },
+          });
+        }
+
+        // Riegel-based HM prediction from recent best
+        const cutoff180 = new Date(new Date().setDate(new Date().getDate() - 180)).toISOString().slice(0, 10);
+        const refRuns = RUNS.filter(
+          (r) => r.date >= cutoff180 && r.dist >= 10 && r.dist <= 18 && r.pace > 0 && r.pace < 9.5,
+        );
+        if (refRuns.length) {
+          const best = refRuns.reduce((a, r) => (r.pace < a.pace ? r : a));
+          const hmPace = best.pace * Math.pow(21.097 / best.dist, 0.06);
+          const hmMin = Math.floor(hmPace);
+          const hmSec = Math.round((hmPace - hmMin) * 60);
+          const totalHmMin = hmPace * 21.097;
+          const hh = Math.floor(totalHmMin / 60);
+          const mm = Math.round(totalHmMin % 60);
+          insights.push({
+            lbl: "Riegel HM-becslés",
+            val: `${hh}:${mm < 10 ? "0" + mm : mm}`,
+            sub: `${fmtPace(hmPace)}/km — alap: ${best.dist.toFixed(1)}km @ ${fmtPace(best.pace)}/km (${best.date})`,
+            bar: null,
+          });
+        }
+
+        // Weekly km this week vs plan
+        if (cwIdx >= 0 && cwIdx < PLAN_DATA.length) {
+          const wkStart = _planWeekStart(cwIdx);
+          const wkEnd = _planDayDate(cwIdx, 6);
+          const wkRuns = RUNS.filter((r) => r.date >= wkStart && r.date <= wkEnd);
+          const actualKm = wkRuns.reduce((s, r) => s + r.dist, 0);
+          const planKm = PLAN_DATA[cwIdx].km;
+          const pct = Math.min(Math.round((actualKm / planKm) * 100), 100);
+          insights.push({
+            lbl: "Heti km (terv vs. valóság)",
+            val: `${actualKm.toFixed(1)} / ${planKm} km`,
+            sub: `${cwIdx + 1}. hét`,
+            bar: { val: pct, max: 100, tgt: 100 },
+          });
+        }
+
+        el.innerHTML = `<div class="plan-insight-grid">${insights
+          .map(
+            (ins) => `
+    <div class="plan-insight">
+      <div class="pi-lbl">${ins.lbl}</div>
+      <div class="pi-val">${ins.val}</div>
+      <div class="pi-sub">${ins.sub}</div>
+      ${ins.bar ? `<div class="pi-bar"><div class="pi-bar-fill" style="width:${ins.bar.val}%"></div></div>` : ""}
+    </div>`,
+          )
+          .join("")}</div>`;
       }
 
       function _renderPlanFull(cwIdx, today) {
         const el = document.getElementById("plan-full");
-        const openWkIdxs = new Set();
-        el.querySelectorAll(".plan-week-acc").forEach((acc) => {
-          if (acc.querySelector(".plan-week-hdr.is-open")) openWkIdxs.add(acc.dataset.wi);
-        });
         el.innerHTML = PLAN_DATA.map((week, wi) => {
           const wkStart = _planWeekStart(wi);
           const wkEnd = _planDayDate(wi, 6);
@@ -4136,11 +5680,10 @@
           const isPast = wi < cwIdx;
           const completedSessions = week.days.filter((d, di) => _sessionDone(wi, di, d.type)).length;
           const totalSessions = week.days.filter((d) => d.type !== "rest").length;
-          const isOpen = isCurrent || openWkIdxs.has(String(wi));
-          const hdrClass = ["plan-week-hdr", isCurrent ? "is-current" : "", isOpen ? "is-open" : ""]
+          const hdrClass = ["plan-week-hdr", isCurrent ? "is-current" : "", isCurrent ? "is-open" : ""]
             .filter(Boolean)
             .join(" ");
-          const bodyClass = ["plan-week-body", isOpen ? "is-open" : ""].filter(Boolean).join(" ");
+          const bodyClass = ["plan-week-body", isCurrent ? "is-open" : ""].filter(Boolean).join(" ");
           const statusStr = isPast
             ? `<span style="color:var(--text3)">${completedSessions}/${totalSessions}</span>`
             : isCurrent
@@ -4149,13 +5692,13 @@
 
           const weekSum = (isPast || isCurrent) ? SUMMARIES.find((s) => s.week_start === wkStart) : null;
           const summaryBlock = weekSum
-            ? `<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
-                <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">✦ AI Összefoglaló</div>
-                <div style="font-size:12px;color:var(--text2);line-height:1.65">${weekSum.summary.replace(/\n/g, "<br>")}</div>
+            ? `<div class="plan-ai-summary">
+                <div class="pas-lbl">✦ AI Összefoglaló</div>
+                <div class="pas-text">${weekSum.summary.replace(/\n\n/g, "<br><br>").replace(/\n/g, "<br>")}</div>
               </div>`
             : "";
 
-          return `<div class="plan-week-acc" data-wi="${wi}">
+          return `<div class="plan-week-acc">
       <div class="${hdrClass}" onclick="this.classList.toggle('is-open');this.nextElementSibling.classList.toggle('is-open')">
         <span class="pwh-num">${wi + 1}. hét</span>
         <span class="pwh-phase" style="background:${week.phaseColor}22;border-color:${week.phaseColor};color:${week.phaseColor}">${week.phase}</span>
@@ -4171,16 +5714,42 @@
               const dateStr = _planDayDate(wi, di);
               const done = _sessionDone(wi, di, d.type);
               const typeClass = d.type === "gym" ? "is-gym" : d.type === "rest" ? "is-rest" : "is-run";
-              const clickable = d.type !== "rest";
-              return `<div class="plan-mini-day ${typeClass} ${done ? "is-done" : ""} ${clickable ? "is-clickable" : ""}" ${clickable ? `onclick="togglePlanSession(${wi},${di},'${d.type}',event)" title="${done ? "Jelölés törlése" : "Teljesítve jelölés"}"` : ""}>
+              return `<div class="plan-mini-day ${typeClass} ${done ? "is-done" : ""}" style="--type-color:${_planTypeColorLight(d.type)};">
               <div class="pmd-dow">${_PLAN_DAYS_HU[di]} ${_fmtPlanDate(dateStr)}</div>
-              <div class="pmd-type" style="color:${_planTypeColor(d.type)}">${done ? "✓ " : ""}${d.lbl}</div>
+              <div class="pmd-type" style="color:${_planTypeColor(d.type)}">${done ? "✓ " : ""} ${d.lbl}</div>
               ${d.det && d.type !== "rest" ? `<div class="pmd-detail">${d.det}</div>` : ""}
             </div>`;
             })
             .join("")}
         </div>
         ${summaryBlock}
+        ${(() => {
+          const cal = typeof CAL_PLAN !== "undefined" ? CAL_PLAN[wi] : null;
+          if (!cal) return "";
+          const dayNames = ["Hétfő","Kedd","Szerda","Csütörtök","Péntek","Szombat","Vasárnap"];
+          const rows = dayNames.map((day, i) => {
+            const pd = week.days[i];
+            const kcal = cal.days[i];
+            const border = i < 6 ? "border-bottom:1px solid var(--card-border);" : "";
+            const color = i === 4 ? "var(--lime)" : "var(--text)";
+            return `<tr style="${border}">
+              <td style="padding:6px 10px;color:var(--text);">${day}</td>
+              <td style="padding:6px 10px;color:var(--text2);">${pd ? pd.lbl : "–"}</td>
+              <td style="padding:6px 10px;text-align:right;font-weight:500;color:${color};">${kcal}${typeof kcal === "string" && kcal.includes("–") ? " kcal" : ""}</td>
+            </tr>`;
+          }).join("");
+          return `<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);">
+            <div style="font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text3);margin-bottom:8px;">Napi kalóriacél · átlag ~${cal.avg} kcal · ${cal.note}</div>
+            <table style="width:100%;border-collapse:collapse;font-size:13px;">
+              <thead><tr style="border-bottom:1px solid var(--card-border);">
+                <th style="text-align:left;padding:6px 10px;color:var(--text2);font-weight:500;">Nap</th>
+                <th style="text-align:left;padding:6px 10px;color:var(--text2);font-weight:500;">Edzés</th>
+                <th style="text-align:right;padding:6px 10px;color:var(--text2);font-weight:500;">Kalória</th>
+              </tr></thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>`;
+        })()}
       </div>
     </div>`;
         }).join("");
@@ -4188,6 +5757,8 @@
 
       // ── INIT ──
       _bootstrap();
+
+
     </script>
   </body>
 </html>
