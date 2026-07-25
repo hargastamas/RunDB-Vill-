@@ -2274,6 +2274,8 @@
       // ─── LIVE SHEET INTEGRATION ──────────────────────────────────────────────────────
       const SHEET_CSV =
         "https://docs.google.com/spreadsheets/d/1JsMpsy1cirnbGR5dn4Y9Hx-pRfR-M_pkuZui914t_jU/export?format=csv&gid=1";
+      const WORKOUT_CSV =
+        "https://docs.google.com/spreadsheets/d/1JsMpsy1cirnbGR5dn4Y9Hx-pRfR-M_pkuZui914t_jU/gviz/tq?tqx=out:csv&sheet=Workouts";
       const HEALTH_CSV =
         "https://docs.google.com/spreadsheets/d/1z917DqNqU8_gdFIVM3uDELfwE1Xd_saEus_XOTfZyWk/export?format=csv&gid=0";
       const WEIGHT_CUT_START = "2026-06-22";
@@ -2764,13 +2766,21 @@
       }
 
       async function _bootstrap() {
-        // Villő's sheets don't have Workout/HRV-Live/Summaries/Weight tabs, so those
-        // fetches (and GYM_DATES/SUMMARIES/WEIGHT) are intentionally left out — the
-        // dependent widgets already no-op gracefully on empty data.
-        const [runsResult, healthResult] = await Promise.allSettled([_fetchSheet(), _fetchHealth()]);
+        // Villő's sheets have a "Workouts" tab (gviz sheet=Workouts, not gid=6 like
+        // Tamas's) but no HRV-Live/Summaries/Weight tabs — those three fetches (and
+        // SUMMARIES/WEIGHT) are intentionally left out; the dependent widgets already
+        // no-op gracefully on empty data.
+        const [runsResult, healthResult, workoutsResult] = await Promise.allSettled([
+          _fetchSheet(),
+          _fetchHealth(),
+          _fetchWorkouts(),
+        ]);
         HEALTH = healthResult.status === "fulfilled" ? healthResult.value : [];
+        GYM_DATES = workoutsResult.status === "fulfilled" ? workoutsResult.value : [];
         if (healthResult.status !== "fulfilled")
           console.warn("RunDB: health fetch failed:", healthResult.reason?.message);
+        if (workoutsResult.status !== "fulfilled")
+          console.warn("RunDB: workouts fetch failed:", workoutsResult.reason?.message);
         const runs = runsResult.status === "fulfilled" ? _merge(BASE_RUNS, runsResult.value) : BASE_RUNS.slice();
         if (runsResult.status !== "fulfilled")
           console.warn("RunDB: sheet fetch sikertelen:", runsResult.reason?.message);
