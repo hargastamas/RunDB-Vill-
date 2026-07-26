@@ -2613,10 +2613,9 @@
       }
 
       function _parseWorkoutCSV(text) {
-        const gymDates = [];
-        const swimDates = [];
+        const dates = [];
         const lines = text.trim().replace(/\r/g, "").split("\n");
-        if (lines.length < 2) return { gym: gymDates, swim: swimDates };
+        if (lines.length < 2) return dates;
         // detect column indices from header
         const hdrCols = [];
         let cur = "",
@@ -2646,17 +2645,14 @@
           }
           cols.push(cur);
           const typeVal = (typeIdx >= 0 ? cols[typeIdx] : cols[2]) || "";
-          const typeLc = typeVal.toLowerCase();
-          if (!typeLc.includes("strength") && !typeLc.includes("swim")) continue;
+          if (!typeVal.toLowerCase().includes("strength")) continue;
           const rawDate = dateIdx >= 0 ? cols[dateIdx] : cols[0];
           const date =
             _shDate(rawDate) || (rawDate && rawDate.trim().match(/^\d{4}-\d{2}-\d{2}$/) ? rawDate.trim() : null);
-          if (!date) continue;
-          if (typeLc.includes("strength")) gymDates.push(date);
-          if (typeLc.includes("swim")) swimDates.push(date);
+          if (date) dates.push(date);
         }
-        console.log("RunDB: gym sessions detected:", gymDates.length, "· swim sessions detected:", swimDates.length);
-        return { gym: gymDates, swim: swimDates };
+        console.log("RunDB: gym sessions detected:", dates.length);
+        return dates;
       }
       async function _fetchWorkouts() {
         const r = await _fetchUrl(WORKOUT_CSV);
@@ -2666,18 +2662,18 @@
 
       async function _bootstrap() {
         // Villő's sheets have a "Workouts" tab (gviz sheet=Workouts, not gid=6 like
-        // Tamas's) but no HRV-Live/Weight tabs — those fetches (and WEIGHT) are
-        // intentionally left out; the dependent widgets already no-op gracefully on
-        // empty data. The AI weekly-summary feature (and its SUMMARIES pipeline) has
-        // been removed outright rather than left dormant — she never had that sheet.
+        // Tamas's) but no HRV-Live/Weight/Swimming tabs — those fetches (and WEIGHT,
+        // SWIM_DATES) are intentionally left out; the dependent widgets/plan-day
+        // types already no-op gracefully on empty data. The AI weekly-summary
+        // feature (and its SUMMARIES pipeline) has been removed outright rather
+        // than left dormant — she never had that sheet.
         const [runsResult, healthResult, workoutsResult] = await Promise.allSettled([
           _fetchSheet(),
           _fetchHealth(),
           _fetchWorkouts(),
         ]);
         HEALTH = healthResult.status === "fulfilled" ? healthResult.value : [];
-        GYM_DATES = workoutsResult.status === "fulfilled" ? workoutsResult.value.gym : [];
-        SWIM_DATES = workoutsResult.status === "fulfilled" ? workoutsResult.value.swim : [];
+        GYM_DATES = workoutsResult.status === "fulfilled" ? workoutsResult.value : [];
         if (healthResult.status !== "fulfilled")
           console.warn("RunDB: health fetch failed:", healthResult.reason?.message);
         if (workoutsResult.status !== "fulfilled")
